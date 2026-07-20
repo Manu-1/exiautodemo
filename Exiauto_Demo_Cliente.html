@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exiauto - Suite Preview Interactiva</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome para Iconos Premium -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #050505;
+            color: #ffffff;
+        }
+        h1, h2, h3, .font-heading {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .glass-nav {
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glass-card {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .hero-gradient {
+            background: linear-gradient(180deg, rgba(5,5,5,0) 0%, rgba(5,5,5,0.9) 85%, #050505 100%), 
+                        linear-gradient(90deg, #050505 25%, rgba(5,5,5,0.3) 60%, transparent 100%), 
+                        url('https://images.unsplash.com/photo-1552930294-6b595f4c2974?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        @media (min-width: 1024px) {
+            .clip-duplex-right {
+                clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+            }
+        }
+        /* Eliminar flechas de los input number */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E60000; }
+
+        /* Tema claro: conserva los heroes fotográficos y aclara las superficies de navegación y contenido */
+        html[data-theme="light"] body {
+            background: #f5f5f5;
+            color: #151515;
+        }
+        html[data-theme="light"] .glass-nav {
+            background: rgba(255, 255, 255, 0.94);
+            border-bottom-color: rgba(0, 0, 0, 0.09);
+            color: #151515;
+        }
+        html[data-theme="light"] #top-contact-bar {
+            background: #f3f3f3 !important;
+            border-color: rgba(0, 0, 0, 0.08) !important;
+        }
+        html[data-theme="light"] #main-nav .brand-name,
+        html[data-theme="light"] #main-nav .text-white,
+        html[data-theme="light"] #main-nav .text-gray-300,
+        html[data-theme="light"] #main-nav .text-gray-400 {
+            color: #151515 !important;
+        }
+        html[data-theme="light"] #main-nav .brand-logo {
+            filter: none !important;
+        }
+        html[data-theme="light"] #main-nav .brand-block {
+            border-color: rgba(0, 0, 0, 0.18) !important;
+        }
+        html[data-theme="light"] #desktop-menu [class~="bg-[#1a1a1a]"] {
+            background: #ffffff !important;
+            border-color: #E60000 !important;
+        }
+        html[data-theme="light"] #desktop-menu [class~="hover:bg-white/10"]:hover {
+            background: #f1f1f1 !important;
+        }
+        html[data-theme="light"] #service-nav-item,
+        html[data-theme="light"] #service-nav-item span {
+            color: #ffffff !important;
+        }
+        html[data-theme="light"] #mobile-menu {
+            background: #ffffff !important;
+            color: #151515;
+        }
+        html[data-theme="light"] #mobile-menu .text-white,
+        html[data-theme="light"] #mobile-menu .text-gray-300,
+        html[data-theme="light"] #mobile-menu .text-gray-400 {
+            color: #151515 !important;
+        }
+        html[data-theme="light"] #view-inventory,
+        html[data-theme="light"] #view-services,
+        html[data-theme="light"] #view-parts,
+        html[data-theme="light"] #view-parts-category,
+        html[data-theme="light"] #view-mobile {
+            background: #f5f5f5 !important;
+            color: #151515;
+        }
+        html[data-theme="light"] #view-inventory .glass-card,
+        html[data-theme="light"] #view-services .glass-card,
+        html[data-theme="light"] #view-parts .glass-card,
+        html[data-theme="light"] #view-parts-category .glass-card {
+            background: rgba(255, 255, 255, 0.94);
+            border-color: rgba(0, 0, 0, 0.09);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.06);
+        }
+        html[data-theme="light"] #view-inventory .glass-card button,
+        html[data-theme="light"] #view-parts-category .glass-card button {
+            color: #151515;
+            border-color: rgba(0, 0, 0, 0.14);
+            background: #f2f2f2;
+        }
+        html[data-theme="light"] #view-inventory .glass-card button:hover,
+        html[data-theme="light"] #view-parts-category .glass-card button:hover {
+            color: #ffffff;
+            background: #E60000;
+        }
+        html[data-theme="light"] #view-inventory > div:first-child,
+        html[data-theme="light"] #view-parts-category > div:first-child {
+            background: #ffffff !important;
+            border-color: rgba(0, 0, 0, 0.08) !important;
+        }
+        html[data-theme="light"] #theme-toggle {
+            background: #151515;
+            color: #ffffff;
+            border-color: #151515;
+        }
+        html[data-theme="light"] ::-webkit-scrollbar-track { background: #eeeeee; }
+        html[data-theme="light"] ::-webkit-scrollbar-thumb { background: #aaa; }
+    </style>
+    <script>
+        try {
+            document.documentElement.dataset.theme = localStorage.getItem('exiauto-theme') || 'dark';
+        } catch (error) {
+            document.documentElement.dataset.theme = 'dark';
+        }
+    </script>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+    <!-- CONTROLADOR FLOTANTE DE VISTAS TIPO APP (PERSISTENTE) -->
+    <div class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-[100] bg-black/90 border border-white/10 p-1.5 rounded-full flex gap-1 shadow-[0_10px_40px_rgba(0,0,0,0.8)] backdrop-blur-md">
+        <button onclick="switchView('desktop')" id="btn-desktop" class="px-5 py-2 rounded-full text-xs font-bold transition-all duration-300 bg-[#E60000] text-white shadow-[0_0_15px_rgba(230,0,0,0.4)]">
+            <i class="fas fa-desktop mr-1.5"></i> Web Preview
+        </button>
+        <button onclick="switchView('mobile')" id="btn-mobile" class="px-5 py-2 rounded-full text-xs font-bold transition-all duration-300 text-gray-400 hover:text-white">
+            <i class="fas fa-mobile-alt mr-1.5"></i> Mobile App
+        </button>
+    </div>
+
+    <!-- CONTACTO FLOTANTE: WHATSAPP + ASISTENTE IA -->
+    <div class="fixed right-4 md:right-6 bottom-6 z-[110] flex flex-col items-end gap-3">
+        <div id="exia-chat-panel" class="hidden w-[calc(100vw-2rem)] max-w-[360px] h-[510px] bg-[#0b0b0b] border border-white/10 rounded-3xl overflow-hidden shadow-[0_20px_70px_rgba(0,0,0,0.85)]">
+            <div class="bg-gradient-to-r from-[#E60000] to-[#980000] px-5 py-4 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-black/30 border border-white/20 flex items-center justify-center"><i class="fas fa-robot"></i></div>
+                    <div>
+                        <p class="font-bold text-sm">EXIA</p>
+                        <p class="text-[10px] text-white/75">Asistente IA de Exiauto · En línea</p>
+                    </div>
+                </div>
+                <button type="button" onclick="toggleExiaChat()" aria-label="Cerrar asistente" class="w-8 h-8 rounded-full hover:bg-black/20 transition-colors"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="exia-chat-messages" class="h-[365px] overflow-y-auto p-4 space-y-3 bg-[radial-gradient(circle_at_top,rgba(230,0,0,0.08),transparent_45%)]">
+                <div class="max-w-[88%] bg-[#181818] border border-white/5 rounded-2xl rounded-tl-sm px-4 py-3 text-xs leading-relaxed text-gray-200">
+                    ¡Hola! Soy <strong class="text-white">EXIA</strong>, tu asistente de Exiauto. Soy cercana, ágil y especialista en Toyota. Puedo ayudarte con vehículos, repuestos genuinos, citas de servicio o financiamiento. ¿Qué necesitas hoy?
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="askExia('Quiero conocer los vehículos disponibles')" class="text-[10px] border border-[#E60000]/40 text-gray-300 rounded-full px-3 py-2 hover:bg-[#E60000] hover:text-white transition-colors">Ver vehículos</button>
+                    <button onclick="askExia('Necesito un repuesto genuino')" class="text-[10px] border border-[#E60000]/40 text-gray-300 rounded-full px-3 py-2 hover:bg-[#E60000] hover:text-white transition-colors">Buscar repuesto</button>
+                    <button onclick="askExia('Quiero agendar un servicio')" class="text-[10px] border border-[#E60000]/40 text-gray-300 rounded-full px-3 py-2 hover:bg-[#E60000] hover:text-white transition-colors">Agendar servicio</button>
+                </div>
+            </div>
+            <form onsubmit="sendExiaMessage(event)" class="h-[81px] border-t border-white/10 p-3 flex items-center gap-2 bg-[#101010]">
+                <input id="exia-chat-input" type="text" autocomplete="off" placeholder="Escribe tu consulta..." class="flex-1 min-w-0 bg-black border border-white/10 rounded-full px-4 py-3 text-xs text-white focus:outline-none focus:border-[#E60000]">
+                <button type="submit" aria-label="Enviar mensaje" class="w-11 h-11 shrink-0 rounded-full bg-[#E60000] hover:bg-red-700 transition-colors"><i class="fas fa-paper-plane"></i></button>
+            </form>
+        </div>
+
+        <div class="flex gap-3">
+            <button type="button" onclick="openWhatsAppDemo()" aria-label="Contactar por WhatsApp" class="w-14 h-14 rounded-full bg-[#25D366] text-white text-2xl shadow-[0_8px_30px_rgba(37,211,102,0.35)] hover:scale-105 transition-transform">
+                <i class="fab fa-whatsapp"></i>
+            </button>
+            <button type="button" onclick="toggleExiaChat()" aria-label="Abrir asistente EXIA" class="w-14 h-14 rounded-full bg-[#E60000] text-white text-xl shadow-[0_8px_30px_rgba(230,0,0,0.4)] hover:scale-105 transition-transform relative">
+                <i class="fas fa-robot"></i>
+                <span class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-green-400 border-2 border-black"></span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- NAVBAR GLOBAL (PERSISTENTE EN ESCRITORIO)  -->
+    <!-- ========================================== -->
+    <nav class="fixed top-0 w-full z-50 glass-nav transition-all duration-300" id="main-nav">
+        <!-- Barra superior de contacto (Top Bar) -->
+        <div id="top-contact-bar" class="w-full bg-[#050505] border-b border-white/5 py-1.5 px-6 hidden lg:block">
+            <div class="max-w-[1400px] mx-auto flex justify-end items-center gap-6 text-[10px] font-bold text-gray-400 tracking-wider uppercase">
+                <span><i class="fas fa-phone mr-1 text-[#E60000]"></i> Caracas 0212-555-EXIA</span>
+                <a href="#" class="hover:text-white transition-colors"><i class="fas fa-search mr-1"></i> Buscar</a>
+                <a href="#" onclick="switchView('services')" class="hover:text-white transition-colors"><i class="far fa-calendar-alt mr-1"></i> Cita</a>
+                <a href="#" class="hover:text-white transition-colors"><i class="fas fa-envelope mr-1"></i> Contacto</a>
+                <a href="#" class="hover:text-[#E60000] transition-colors"><i class="fas fa-heart mr-1"></i> Guardados</a>
+            </div>
+        </div>
+
+        <!-- Menú Principal -->
+        <div class="max-w-[1400px] mx-auto px-6 h-16 md:h-[72px] flex justify-between items-center">
+            
+            <!-- Logo -->
+            <div class="flex items-center gap-3 cursor-pointer group" onclick="switchView('desktop')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Toyota_carlogo.svg" alt="Toyota Logo" class="brand-logo w-10 h-10 filter brightness-0 invert group-hover:text-[#E60000] transition-all">
+                <div class="brand-block border-l border-white/20 pl-3">
+                    <span class="brand-name text-xl font-bold font-heading tracking-tight block text-white italic">EXIAUTO</span>
+                    <span class="text-[8px] text-[#E60000] font-bold tracking-[0.2em] uppercase block -mt-1">Concesionario Autorizado</span>
+                </div>
+            </div>
+
+            <!-- MEGA MENÚ CENTRAL (Replicando la estructura solicitada) -->
+            <div id="desktop-menu" class="hidden xl:flex items-stretch h-full text-[12px] font-bold uppercase tracking-widest text-gray-300">
+                
+                <!-- HOME -->
+                <a href="#" onclick="switchView('desktop')" class="flex items-center px-4 hover:text-white transition-colors border-b-[3px] border-transparent hover:border-white">
+                    <i class="fas fa-home text-base"></i>
+                </a>
+                
+                <!-- NUEVOS -->
+                <div class="relative group flex items-center h-full px-4 border-b-[3px] border-transparent hover:border-white transition-colors cursor-pointer">
+                    <span class="text-white">NUEVOS</span>
+                    <div class="absolute top-full left-0 bg-[#1a1a1a] min-w-[280px] shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 py-2 border-t-2 border-[#E60000] normal-case text-sm font-medium">
+                        <a href="#" onclick="switchView('inventory')" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Buscar Inventario</a>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Reserva tu Nuevo Toyota</a>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Valora tu Vehículo</a>
+                        <div class="border-t border-white/10 my-1"></div>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">SUVs Toyota Nuevos</a>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Sedanes Toyota Nuevos</a>
+                        <div class="border-t border-white/10 my-1"></div>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Inventario Corolla</a>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Inventario RAV4</a>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Inventario Highlander</a>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Inventario 4Runner / Fortuner</a>
+                        <div class="border-t border-white/10 my-1"></div>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Toyota Safety Sense</a>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Exiauto Advantage</a>
+                    </div>
+                </div>
+
+                <!-- USADOS -->
+                <div class="relative group flex items-center h-full px-4 border-b-[3px] border-transparent hover:border-white transition-colors cursor-pointer">
+                    <span class="hover:text-white">USADOS</span>
+                    <div class="absolute top-full left-0 bg-[#1a1a1a] min-w-[280px] shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 py-2 border-t-2 border-[#E60000] normal-case text-sm font-medium">
+                        <a href="#" onclick="switchView('inventory')" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Ver todos los Pre-Propiedad</a>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Inventario Usado Certificado</a>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Toyotas Usados</a>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Autos Usados por Marca</a>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Autos Usados bajo $25k</a>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Lexus Usados</a>
+                        <div class="border-t border-white/10 my-1"></div>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Pre-Aprobación</a>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Véndenos tu Auto</a>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Valora tu Vehículo</a>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">¿Por qué comprar certificado?</a>
+                    </div>
+                </div>
+
+                <!-- SERVICIOS (Bloque destacado en rojo) -->
+                <div id="service-nav-item" class="relative group flex items-center h-full px-5 bg-[#E60000] text-white cursor-pointer hover:bg-red-700 transition-colors" onclick="switchView('services')">
+                    <span>SERVICIOS</span>
+                </div>
+
+                <!-- REPUESTOS -->
+                <div class="relative group flex items-center h-full px-4 border-b-[3px] border-transparent hover:border-white transition-colors cursor-pointer">
+                    <span class="hover:text-white" onclick="switchView('parts')">REPUESTOS</span>
+                    <div class="absolute top-full left-0 bg-[#1a1a1a] min-w-[300px] shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 py-2 border-t-2 border-[#E60000] normal-case text-sm font-medium">
+                        <a href="#" onclick="switchView('parts')" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Repuestos</a>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Ordenar Repuestos Genuinos Toyota</a>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Catálogo de Accesorios</a>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Llamados a Revisión (Recalls)</a>
+                        <div class="border-t border-white/10 my-1"></div>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Llantas / Cauchos</a>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Frenos</a>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Limpiaparabrisas</a>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Servicio y Reemplazo de Batería</a>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Filtro de Aire de Motor</a>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Filtro de Aire de Cabina</a>
+                        <a href="#" class="block px-6 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 transition-colors">Reemplazo de Fluidos</a>
+                    </div>
+                </div>
+
+                <!-- FINANCIAMIENTO Y NOSOTROS -->
+                <a href="#" class="flex items-center px-4 hover:text-white transition-colors border-b-[3px] border-transparent hover:border-white">FINANCIAMIENTO</a>
+                <a href="#" class="flex items-center px-4 hover:text-white transition-colors border-b-[3px] border-transparent hover:border-white">NOSOTROS</a>
+            </div>
+
+            <!-- Selector global de tema -->
+            <button id="theme-toggle" type="button" onclick="toggleTheme()" aria-label="Activar modo claro" title="Activar modo claro" class="ml-auto xl:ml-3 mr-3 w-10 h-10 shrink-0 rounded-full border border-white/15 bg-white/5 text-white hover:bg-[#E60000] hover:border-[#E60000] flex items-center justify-center transition-all">
+                <i id="theme-toggle-icon" class="fas fa-sun"></i>
+            </button>
+
+            <!-- Botón Mobile Menu (Hamburguesa) -->
+            <button onclick="toggleMobileMenu()" class="xl:hidden text-2xl text-white">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Menú Móvil Desplegable (Nuevo) -->
+        <div id="mobile-menu" class="fixed inset-0 bg-[#050505] z-[60] flex flex-col transform translate-x-full transition-transform duration-300 xl:hidden overflow-y-auto">
+            <div class="flex justify-between items-center p-6 border-b border-white/10">
+                <div class="flex items-center gap-3">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Toyota_carlogo.svg" alt="Toyota Logo" class="w-8 h-8 filter brightness-0 invert">
+                    <span class="text-lg font-bold font-heading tracking-tight block text-white italic">EXIAUTO</span>
+                </div>
+                <button onclick="toggleMobileMenu()" class="text-2xl text-white p-2">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="flex flex-col p-6 gap-2 text-sm font-bold uppercase tracking-widest text-gray-300">
+                
+                <a href="#" onclick="switchView('desktop'); toggleMobileMenu()" class="flex items-center gap-3 py-4 border-b border-white/10 hover:text-white transition-colors">
+                    <i class="fas fa-home text-lg w-6"></i> Inicio
+                </a>
+
+                <!-- Acordeón NUEVOS -->
+                <details class="group border-b border-white/10">
+                    <summary class="flex justify-between items-center py-4 hover:text-white transition-colors cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                        <div class="flex items-center gap-3"><i class="fas fa-car text-lg w-6"></i> Nuevos</div>
+                        <i class="fas fa-chevron-down text-xs transition-transform duration-300 group-open:rotate-180"></i>
+                    </summary>
+                    <div class="pb-4 pl-9 flex flex-col gap-4 text-xs font-medium normal-case text-gray-400">
+                        <a href="#" onclick="switchView('inventory'); toggleMobileMenu()" class="hover:text-white">Buscar Inventario</a>
+                        <a href="#" class="hover:text-white">Reserva tu Nuevo Toyota</a>
+                        <a href="#" class="hover:text-white">Valora tu Vehículo</a>
+                        <div class="w-8 border-t border-white/10 my-1"></div>
+                        <a href="#" class="hover:text-white">SUVs Toyota Nuevos</a>
+                        <a href="#" class="hover:text-white">Sedanes Toyota Nuevos</a>
+                        <div class="w-8 border-t border-white/10 my-1"></div>
+                        <a href="#" class="hover:text-white">Inventario Corolla</a>
+                        <a href="#" class="hover:text-white">Inventario RAV4</a>
+                        <a href="#" class="hover:text-white">Inventario Highlander</a>
+                        <a href="#" class="hover:text-white">Inventario 4Runner / Fortuner</a>
+                        <div class="w-8 border-t border-white/10 my-1"></div>
+                        <a href="#" class="hover:text-white">Toyota Safety Sense</a>
+                        <a href="#" class="hover:text-white">Exiauto Advantage</a>
+                    </div>
+                </details>
+
+                <!-- Acordeón USADOS -->
+                <details class="group border-b border-white/10">
+                    <summary class="flex justify-between items-center py-4 hover:text-white transition-colors cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                        <div class="flex items-center gap-3"><i class="fas fa-tags text-lg w-6"></i> Usados</div>
+                        <i class="fas fa-chevron-down text-xs transition-transform duration-300 group-open:rotate-180"></i>
+                    </summary>
+                    <div class="pb-4 pl-9 flex flex-col gap-4 text-xs font-medium normal-case text-gray-400">
+                        <a href="#" onclick="switchView('inventory'); toggleMobileMenu()" class="hover:text-white">Ver todos los Pre-Propiedad</a>
+                        <a href="#" class="hover:text-white">Inventario Usado Certificado</a>
+                        <a href="#" class="hover:text-white">Toyotas Usados</a>
+                        <a href="#" class="hover:text-white">Autos Usados por Marca</a>
+                        <a href="#" class="hover:text-white">Autos Usados bajo $25k</a>
+                        <a href="#" class="hover:text-white">Lexus Usados</a>
+                        <div class="w-8 border-t border-white/10 my-1"></div>
+                        <a href="#" class="hover:text-white">Pre-Aprobación</a>
+                        <a href="#" class="hover:text-white">Véndenos tu Auto</a>
+                        <a href="#" class="hover:text-white">Valora tu Vehículo</a>
+                        <a href="#" class="hover:text-white">¿Por qué comprar certificado?</a>
+                    </div>
+                </details>
+
+                <a href="#" onclick="switchView('services'); toggleMobileMenu()" class="flex items-center gap-3 py-4 border-b border-white/10 text-[#E60000] hover:text-red-500 transition-colors">
+                    <i class="fas fa-tools text-lg w-6"></i> Servicios
+                </a>
+
+                <!-- Acordeón REPUESTOS -->
+                <details class="group border-b border-white/10">
+                    <summary class="flex justify-between items-center py-4 hover:text-white transition-colors cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                        <div class="flex items-center gap-3"><i class="fas fa-cogs text-lg w-6"></i> Repuestos</div>
+                        <i class="fas fa-chevron-down text-xs transition-transform duration-300 group-open:rotate-180"></i>
+                    </summary>
+                    <div class="pb-4 pl-9 flex flex-col gap-4 text-xs font-medium normal-case text-gray-400">
+                        <a href="#" onclick="switchView('parts'); toggleMobileMenu()" class="hover:text-white">Repuestos</a>
+                        <a href="#" class="hover:text-white">Ordenar Repuestos Genuinos</a>
+                        <a href="#" class="hover:text-white">Catálogo de Accesorios</a>
+                        <a href="#" class="hover:text-white">Llamados a Revisión (Recalls)</a>
+                        <div class="w-8 border-t border-white/10 my-1"></div>
+                        <a href="#" class="hover:text-white">Llantas / Cauchos</a>
+                        <a href="#" class="hover:text-white">Frenos</a>
+                        <a href="#" class="hover:text-white">Limpiaparabrisas</a>
+                        <a href="#" class="hover:text-white">Servicio y Reemplazo de Batería</a>
+                        <a href="#" class="hover:text-white">Filtro de Aire de Motor</a>
+                        <a href="#" class="hover:text-white">Filtro de Aire de Cabina</a>
+                        <a href="#" class="hover:text-white">Reemplazo de Fluidos</a>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- ========================================== -->
+    <!-- VISTA 1: DESKTOP HOME (HERO DÚPLEX)        -->
+    <!-- ========================================== -->
+    <div id="view-desktop" class="view-section flex flex-col pt-16 md:pt-[104px]">
+        
+        <!-- Hero Duplex Interactivo -->
+        <section class="relative min-h-[85vh] w-full flex flex-col lg:flex-row bg-[#050505] overflow-hidden">
+            
+            <!-- PANEL IZQUIERDO: INVENTARIO -->
+            <div id="panel-inventory" class="relative w-full lg:w-[65%] min-h-[60vh] lg:min-h-screen flex items-center px-6 lg:px-20 pt-16 pb-24 z-10 transition-all duration-700 ease-[cubic-bezier(0.87,0,0.13,1)]">
+                <!-- Fondo Imagen Toyota SUV (Corregido gradiente) -->
+                <div class="absolute inset-0 bg-[url('https://global.toyota/pages/news/images/2020/08/31/0001/001.jpg')] bg-cover bg-[center_55%]"></div>
+                <!-- Gradiente aligerado para que la camioneta se vea imponente -->
+                <div class="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/80 to-black/20"></div>
+                
+                <div class="relative z-20 w-full max-w-2xl panel-content transition-opacity duration-300">
+                    <h1 class="text-4xl md:text-6xl font-bold font-heading text-white mb-2 tracking-tight">
+                        BÚSQUEDA DE <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">INVENTARIO</span>
+                    </h1>
+                    <p class="text-gray-400 text-sm mb-8">Encuentra el Toyota perfecto para el territorio venezolano.</p>
+                    
+                    <!-- Caja de Búsqueda Glassmorphism -->
+                    <div class="glass-card rounded-2xl border border-white/10 overflow-hidden backdrop-blur-xl shadow-2xl">
+                        <!-- Header Pestañas -->
+                        <div class="flex border-b border-white/10 bg-black/40">
+                            <button onclick="switchSearchTab('vehicle')" id="tab-vehicle" class="flex-1 py-4 px-2 text-[10px] md:text-xs font-bold tracking-widest text-[#E60000] border-b-2 border-[#E60000] transition-colors hover:bg-white/5">
+                                <i class="fas fa-car md:mr-2 block md:inline mb-1 md:mb-0 text-sm"></i>VEHÍCULO
+                            </button>
+                            <button onclick="switchSearchTab('keyword')" id="tab-keyword" class="flex-1 py-4 px-2 text-[10px] md:text-xs font-bold tracking-widest text-gray-500 border-b-2 border-transparent transition-colors hover:text-white hover:bg-white/5">
+                                <i class="fas fa-search md:mr-2 block md:inline mb-1 md:mb-0 text-sm"></i>PALABRA CLAVE
+                            </button>
+                            <button onclick="switchSearchTab('budget')" id="tab-budget" class="flex-1 py-4 px-2 text-[10px] md:text-xs font-bold tracking-widest text-gray-500 border-b-2 border-transparent transition-colors hover:text-white hover:bg-white/5">
+                                <i class="fas fa-wallet md:mr-2 block md:inline mb-1 md:mb-0 text-sm"></i>PRESUPUESTO
+                            </button>
+                        </div>
+
+                        <!-- Contenido Pestañas -->
+                        <div class="p-5 md:p-6 bg-black/20">
+                            
+                            <!-- Pestaña 1: Vehículo -->
+                            <div id="content-vehicle" class="search-tab-content block">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 mb-6">
+                                    <div class="bg-black/60 border border-white/10 rounded-xl px-4 py-2.5 hover:border-white/30 transition-colors">
+                                        <label class="block text-[9px] uppercase font-bold text-gray-500 mb-1">Tipo</label>
+                                        <select class="w-full bg-transparent text-white focus:outline-none text-sm font-medium appearance-none cursor-pointer">
+                                            <option class="bg-[#111]">Todos los tipos</option>
+                                            <option class="bg-[#111]">Rústico / SUV</option>
+                                            <option class="bg-[#111]">Pick-up</option>
+                                            <option class="bg-[#111]">Sedán</option>
+                                        </select>
+                                    </div>
+                                    <div class="bg-black/60 border border-white/10 rounded-xl px-4 py-2.5 hover:border-white/30 transition-colors">
+                                        <label class="block text-[9px] uppercase font-bold text-gray-500 mb-1">Marca</label>
+                                        <select class="w-full bg-transparent text-white focus:outline-none text-sm font-medium appearance-none cursor-pointer">
+                                            <option class="bg-[#111]">Toyota</option>
+                                        </select>
+                                    </div>
+                                    <div class="bg-black/60 border border-white/10 rounded-xl px-4 py-2.5 hover:border-white/30 transition-colors">
+                                        <label class="block text-[9px] uppercase font-bold text-gray-500 mb-1">Modelo</label>
+                                        <select class="w-full bg-transparent text-white focus:outline-none text-sm font-medium appearance-none cursor-pointer">
+                                            <option class="bg-[#111]">Cualquier Modelo</option>
+                                            <option class="bg-[#111]">Fortuner</option>
+                                            <option class="bg-[#111]">4Runner</option>
+                                            <option class="bg-[#111]">Hilux</option>
+                                            <option class="bg-[#111]">Corolla</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Pestaña 2: Palabra Clave -->
+                            <div id="content-keyword" class="search-tab-content hidden">
+                                <div class="mb-6">
+                                    <div class="bg-black/60 border border-white/10 rounded-xl px-4 py-3 hover:border-white/30 transition-colors flex items-center">
+                                        <i class="fas fa-search text-gray-500 mr-3"></i>
+                                        <input type="text" placeholder="Ej. Híbrido, TRD, Blindado, 4x4..." class="w-full bg-transparent text-white focus:outline-none text-sm font-medium placeholder-gray-600">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Pestaña 3: Presupuesto (Con inputs numéricos) -->
+                            <div id="content-budget" class="search-tab-content hidden">
+                                <div class="grid grid-cols-2 gap-4 mb-6">
+                                    <div class="bg-black/60 border border-white/10 rounded-xl px-4 py-2.5 hover:border-white/30 transition-colors">
+                                        <label class="block text-[9px] uppercase font-bold text-gray-500 mb-1">Precio Mínimo</label>
+                                        <div class="flex items-center gap-1">
+                                            <span class="text-white/50 text-sm font-medium">$</span>
+                                            <input type="number" placeholder="10000" class="w-full bg-transparent text-white focus:outline-none text-sm font-medium placeholder-gray-600 appearance-none">
+                                        </div>
+                                    </div>
+                                    <div class="bg-black/60 border border-white/10 rounded-xl px-4 py-2.5 hover:border-white/30 transition-colors">
+                                        <label class="block text-[9px] uppercase font-bold text-gray-500 mb-1">Precio Máximo</label>
+                                        <div class="flex items-center gap-1">
+                                            <span class="text-white/50 text-sm font-medium">$</span>
+                                            <input type="number" placeholder="80000" class="w-full bg-transparent text-white focus:outline-none text-sm font-medium placeholder-gray-600 appearance-none">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Botones de Acción -->
+                            <div class="flex justify-between items-center pt-2">
+                                <button class="text-xs font-bold text-gray-400 hover:text-white transition-colors">LIMPIAR</button>
+                                <!-- Al hacer clic en Buscar, nos lleva a la vista de Inventario -->
+                                <button onclick="switchView('inventory')" class="bg-[#E60000] hover:bg-red-700 text-white text-xs font-bold px-8 py-3 rounded-full transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(230,0,0,0.3)]">
+                                    BUSCAR <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PANEL DERECHO: SERVICIOS (Interactivo con expansión) -->
+            <div id="panel-service" onclick="toggleServicePanel(event)" class="w-full lg:w-[45%] min-h-[40vh] lg:h-full lg:absolute lg:right-0 lg:top-0 z-20 clip-duplex-right group overflow-hidden cursor-pointer relative border-t-2 lg:border-t-0 lg:border-l-[6px] border-[#E60000] transition-all duration-700 ease-[cubic-bezier(0.87,0,0.13,1)]">
+                <!-- Fondo Imagen Camioneta Toyota (Nueva imagen y opacidad corregida) -->
+                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1559416523-140ddc3d238c?q=80&w=2069&auto=format&fit=crop')] bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"></div>
+                
+                <!-- Overlays aligerados para que no se vea negro -->
+                <div class="absolute inset-0 bg-black/40 transition-colors duration-500 group-hover:bg-black/20"></div>
+                <div class="absolute inset-0 lg:bg-gradient-to-l from-transparent via-black/40 to-[#050505]"></div>
+                
+                <!-- Contenido Principal -->
+                <div class="relative z-10 h-full flex flex-col justify-center items-center text-center lg:pl-16 p-10">
+                    <h2 class="text-4xl md:text-5xl font-bold font-heading mb-4 text-white tracking-widest drop-shadow-lg transition-transform duration-500" id="service-title">SERVICIO</h2>
+                    
+                    <!-- Botón Icono Animado que cambia de + a x -->
+                    <div class="w-16 h-16 rounded-full border border-white/30 bg-black/50 backdrop-blur-md text-[#E60000] flex items-center justify-center text-2xl transition-all duration-300 hover:bg-[#E60000] hover:text-white hover:border-[#E60000] shadow-[0_0_20px_rgba(230,0,0,0.3)] mb-6">
+                        <i id="service-toggle-icon" class="fas fa-plus transition-transform duration-500"></i>
+                    </div>
+
+                    <!-- Información extra oculta que aparece al expandir -->
+                    <div id="service-extra-info" class="opacity-0 hidden max-w-lg transition-opacity duration-700 delay-200">
+                        <p class="text-gray-200 text-lg mb-6 font-light">Agenda tu mantenimiento preventivo o reparación con repuestos originales Toyota. Técnicos certificados y la mejor atención del país.</p>
+                        <div class="flex gap-4 justify-center">
+                            <button onclick="switchView('services')" class="bg-[#E60000] text-white px-6 py-3 rounded-full font-bold text-sm hover:bg-red-700 transition-colors shadow-lg">Agendar Cita</button>
+                            <button onclick="switchView('parts')" class="bg-white/10 border border-white/20 text-white px-6 py-3 rounded-full font-bold text-sm hover:bg-white/20 transition-colors backdrop-blur-sm">Ver Repuestos</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+
+        <!-- Barra de Links Rápidos -->
+        <div class="w-full bg-[#0a0a0a] border-b border-white/5 relative z-20">
+            <div class="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 divide-x divide-white/5">
+                <a href="#" onclick="switchView('inventory')" class="flex flex-col md:flex-row items-center justify-center gap-3 py-6 px-4 text-gray-400 hover:text-white hover:bg-white/5 transition-all group text-center md:text-left">
+                    <i class="fas fa-search text-[#E60000] text-xl group-hover:scale-110 transition-transform"></i>
+                    <span class="text-xs font-bold uppercase tracking-wider">Buscar Nuevos</span>
+                </a>
+                <a href="#" onclick="switchView('inventory')" class="flex flex-col md:flex-row items-center justify-center gap-3 py-6 px-4 text-gray-400 hover:text-white hover:bg-white/5 transition-all group text-center md:text-left">
+                    <i class="fas fa-search-dollar text-[#E60000] text-xl group-hover:scale-110 transition-transform"></i>
+                    <span class="text-xs font-bold uppercase tracking-wider">Buscar Usados</span>
+                </a>
+                <a href="#" class="flex flex-col md:flex-row items-center justify-center gap-3 py-6 px-4 text-gray-400 hover:text-white hover:bg-white/5 transition-all group text-center md:text-left">
+                    <i class="fas fa-tags text-[#E60000] text-xl group-hover:scale-110 transition-transform"></i>
+                    <span class="text-xs font-bold uppercase tracking-wider">Ofertas Mes</span>
+                </a>
+                <a href="#" class="flex flex-col md:flex-row items-center justify-center gap-3 py-6 px-4 text-gray-400 hover:text-white hover:bg-white/5 transition-all group text-center md:text-left">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Toyota_carlogo.svg" alt="Toyota Logo" class="w-6 h-6 filter brightness-0 invert opacity-60 group-hover:opacity-100 transition-opacity">
+                    <span class="text-xs font-bold uppercase tracking-wider">Exiauto Advantage</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Discover Our Lineup -->
+        <section class="bg-[#f4f4f4] text-[#111] py-16 md:py-20 px-6 relative z-20 overflow-hidden">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-10">
+                    <span class="text-[#E60000] text-xs font-bold tracking-[0.25em] uppercase">Toyota para cada estilo de vida</span>
+                    <h2 class="text-4xl md:text-5xl font-bold font-heading mt-3">Discover Our Lineup</h2>
+                </div>
+
+                <div class="flex items-center justify-start md:justify-center gap-2 md:gap-5 overflow-x-auto pb-4 mb-8 whitespace-nowrap" id="lineup-tabs">
+                    <button onclick="filterLineup('popular', this)" class="lineup-tab active-lineup-tab text-sm font-bold px-4 py-2 rounded-full bg-black text-white transition-colors">Popular</button>
+                    <span class="text-gray-300">|</span>
+                    <button onclick="filterLineup('cars', this)" class="lineup-tab text-sm font-bold px-4 py-2 rounded-full hover:bg-black hover:text-white transition-colors">Cars &amp; Minivan</button>
+                    <span class="text-gray-300">|</span>
+                    <button onclick="filterLineup('trucks', this)" class="lineup-tab text-sm font-bold px-4 py-2 rounded-full hover:bg-black hover:text-white transition-colors">Trucks</button>
+                    <span class="text-gray-300">|</span>
+                    <button onclick="filterLineup('suv', this)" class="lineup-tab text-sm font-bold px-4 py-2 rounded-full hover:bg-black hover:text-white transition-colors">Crossovers &amp; SUVs</button>
+                    <span class="text-gray-300">|</span>
+                    <button onclick="filterLineup('electrified', this)" class="lineup-tab text-sm font-bold px-4 py-2 rounded-full hover:bg-black hover:text-white transition-colors">Electrified</button>
+                </div>
+
+                <div id="lineup-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <article data-lineup="popular suv electrified" class="lineup-card bg-white rounded-3xl overflow-hidden shadow-sm border border-black/5 group">
+                        <div class="h-56 bg-[#e9e9e9] overflow-hidden">
+                            <img src="https://global.toyota/pages/news/images/2020/08/31/0001/001.jpg" alt="Toyota Yaris Cross HEV" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        </div>
+                        <div class="p-6 flex items-end justify-between gap-4">
+                            <div><span class="text-[10px] font-bold text-[#E60000] tracking-widest uppercase">Compact SUV · HEV</span><h3 class="text-2xl font-bold mt-1">Yaris Cross</h3></div>
+                            <button onclick="openVehicleDetail('yaris-cross')" aria-label="Ver Toyota Yaris Cross" class="w-11 h-11 shrink-0 rounded-full border border-black/15 hover:bg-[#E60000] hover:border-[#E60000] hover:text-white transition-colors"><i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </article>
+
+                    <article data-lineup="popular cars electrified" class="lineup-card bg-white rounded-3xl overflow-hidden shadow-sm border border-black/5 group">
+                        <div class="h-56 bg-[#e9e9e9] overflow-hidden">
+                            <img src="https://global.toyota/pages/news/images/2018/06/26/1600_corolla/001.jpg" alt="Toyota Corolla Sport" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        </div>
+                        <div class="p-6 flex items-end justify-between gap-4">
+                            <div><span class="text-[10px] font-bold text-[#E60000] tracking-widest uppercase">Car · Hybrid disponible</span><h3 class="text-2xl font-bold mt-1">Corolla Sport</h3></div>
+                            <button onclick="openVehicleDetail('corolla-sport')" aria-label="Ver Toyota Corolla Sport" class="w-11 h-11 shrink-0 rounded-full border border-black/15 hover:bg-[#E60000] hover:border-[#E60000] hover:text-white transition-colors"><i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </article>
+
+                    <article data-lineup="popular trucks" class="lineup-card bg-white rounded-3xl overflow-hidden shadow-sm border border-black/5 group">
+                        <div class="h-56 bg-[#e9e9e9] overflow-hidden">
+                            <img src="https://global.toyota/pages/news/images/2026/05/28/1330_hilux/001.jpg" alt="Toyota Hilux Adventure" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        </div>
+                        <div class="p-6 flex items-end justify-between gap-4">
+                            <div><span class="text-[10px] font-bold text-[#E60000] tracking-widest uppercase">Pickup · 4WD</span><h3 class="text-2xl font-bold mt-1">Hilux Adventure</h3></div>
+                            <button onclick="openVehicleDetail('hilux')" aria-label="Ver Toyota Hilux Adventure" class="w-11 h-11 shrink-0 rounded-full border border-black/15 hover:bg-[#E60000] hover:border-[#E60000] hover:text-white transition-colors"><i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </article>
+
+                    <article data-lineup="popular suv electrified" class="lineup-card bg-white rounded-3xl overflow-hidden shadow-sm border border-black/5 group">
+                        <div class="h-56 bg-[#e9e9e9] overflow-hidden">
+                            <img src="https://global.toyota/pages/news/images/2025/05/21/1000/001.jpg" alt="Toyota RAV4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        </div>
+                        <div class="p-6 flex items-end justify-between gap-4">
+                            <div><span class="text-[10px] font-bold text-[#E60000] tracking-widest uppercase">SUV · HEV / PHEV</span><h3 class="text-2xl font-bold mt-1">RAV4</h3></div>
+                            <button onclick="openVehicleDetail('rav4')" aria-label="Ver Toyota RAV4" class="w-11 h-11 shrink-0 rounded-full border border-black/15 hover:bg-[#E60000] hover:border-[#E60000] hover:text-white transition-colors"><i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </article>
+
+                    <article data-lineup="suv electrified" class="lineup-card bg-white rounded-3xl overflow-hidden shadow-sm border border-black/5 group">
+                        <div class="h-56 bg-[#e9e9e9] overflow-hidden">
+                            <img src="https://global.toyota/pages/news/images/2021/09/14/1330/001.jpg" alt="Toyota Corolla Cross Hybrid" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        </div>
+                        <div class="p-6 flex items-end justify-between gap-4">
+                            <div><span class="text-[10px] font-bold text-[#E60000] tracking-widest uppercase">Crossover · Hybrid</span><h3 class="text-2xl font-bold mt-1">Corolla Cross</h3></div>
+                            <button onclick="openVehicleDetail('corolla-cross')" aria-label="Ver Toyota Corolla Cross" class="w-11 h-11 shrink-0 rounded-full border border-black/15 hover:bg-[#E60000] hover:border-[#E60000] hover:text-white transition-colors"><i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </article>
+
+                    <article data-lineup="cars popular" class="lineup-card bg-white rounded-3xl overflow-hidden shadow-sm border border-black/5 group">
+                        <div class="h-56 bg-[#e9e9e9] overflow-hidden">
+                            <img src="https://global.toyota/pages/news/images/2022/04/01/1030/001.jpg" alt="Toyota GR Corolla" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        </div>
+                        <div class="p-6 flex items-end justify-between gap-4">
+                            <div><span class="text-[10px] font-bold text-[#E60000] tracking-widest uppercase">Performance Car · GR-FOUR</span><h3 class="text-2xl font-bold mt-1">GR Corolla</h3></div>
+                            <button onclick="openVehicleDetail('gr-corolla')" aria-label="Ver Toyota GR Corolla" class="w-11 h-11 shrink-0 rounded-full border border-black/15 hover:bg-[#E60000] hover:border-[#E60000] hover:text-white transition-colors"><i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Franja Roja Inferior: Valora tu Vehículo (Diseño basado en referencia) -->
+        <div class="bg-[#E60000] relative overflow-hidden z-20">
+            <!-- Patrón sutil para no hacerlo plano -->
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 mix-blend-overlay"></div>
+            <div class="max-w-5xl mx-auto py-12 px-6 text-center relative z-10">
+                <div class="inline-block bg-black/20 backdrop-blur-md px-6 py-2 rounded-lg border border-black/10 mb-4">
+                    <h3 class="text-2xl md:text-3xl font-heading font-light text-white tracking-wide">Valora Tu Vehículo</h3>
+                </div>
+                <p class="text-white/90 text-sm mb-6 font-medium max-w-2xl mx-auto">
+                    En pocos pasos rápidos puedes ver autos similares al tuyo a la venta en el mercado hoy mismo.<br>Comienza ingresando tu Año, Marca, Modelo y Versión abajo.
+                </p>
+                <div class="flex flex-col md:flex-row justify-center max-w-3xl mx-auto relative shadow-2xl">
+                    <input type="text" placeholder="Año, Marca, Modelo, Versión..." class="w-full px-6 py-4 rounded-xl text-black font-medium focus:outline-none focus:ring-4 focus:ring-black/20 text-lg">
+                    <button class="absolute right-2 top-2 bottom-2 bg-black text-white font-bold px-8 rounded-lg hover:bg-gray-900 transition-colors shadow-lg">INICIAR</button>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- Fin View Desktop -->
+
+
+    <!-- ========================================== -->
+    <!-- VISTA 2: INVENTARIO (BÚSQUEDA)             -->
+    <!-- ========================================== -->
+    <div id="view-inventory" class="view-section hidden flex-col pt-24 md:pt-[104px] min-h-screen bg-[#050505]">
+        <!-- Cabecera de Página -->
+        <div class="w-full border-b border-white/5 bg-black/40 py-8 px-6">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+                <div>
+                    <h1 class="text-3xl font-bold font-heading">Inventario Toyota</h1>
+                    <p class="text-gray-400 text-sm mt-1">4 vehículos encontrados que coinciden con tu búsqueda.</p>
+                </div>
+                <div class="flex gap-2">
+                    <button class="glass-card px-4 py-2 rounded-lg text-sm font-bold hover:bg-white/10 transition-colors"><i class="fas fa-filter mr-2"></i> Filtros</button>
+                    <button class="glass-card px-4 py-2 rounded-lg text-sm font-bold hover:bg-white/10 transition-colors">Relevancia <i class="fas fa-chevron-down ml-2"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grid de Vehículos -->
+        <div class="max-w-7xl mx-auto w-full px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Vehículo 1 -->
+                <div class="glass-card rounded-2xl overflow-hidden group cursor-pointer border border-white/5 hover:border-[#E60000]/50 transition-colors">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1626668893632-6f3a4466d22f?q=80&w=2072&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Fortuner">
+                        <span class="absolute top-4 left-4 bg-[#E60000] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-lg">Nuevo</span>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-[10px] uppercase font-bold text-gray-500 tracking-widest block mb-1">Toyota · 2026</span>
+                        <h3 class="text-2xl font-bold mb-2">Fortuner SRV 4x4</h3>
+                        <p class="text-[#E60000] font-bold text-xl mb-4">$62,500 <span class="text-xs text-gray-500 font-normal">MSRP</span></p>
+                        
+                        <div class="grid grid-cols-2 gap-2 mb-6 border-t border-white/5 pt-4">
+                            <div class="text-xs text-gray-400"><i class="fas fa-cogs mr-1"></i> Automática</div>
+                            <div class="text-xs text-gray-400"><i class="fas fa-gas-pump mr-1"></i> Gasolina</div>
+                            <div class="text-xs text-gray-400"><i class="fas fa-palette mr-1"></i> Blanco Perla</div>
+                            <div class="text-xs text-gray-400"><i class="fas fa-car-side mr-1"></i> SUV</div>
+                        </div>
+                        
+                        <button onclick="openVehicleDetail('fortuner')" class="w-full bg-white/5 hover:bg-[#E60000] border border-white/10 text-white font-bold py-3 rounded-xl transition-colors">Ver Detalles</button>
+                    </div>
+                </div>
+
+                <!-- Vehículo 2 -->
+                <div class="glass-card rounded-2xl overflow-hidden group cursor-pointer border border-white/5 hover:border-[#E60000]/50 transition-colors">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Yaris Cross">
+                        <span class="absolute top-4 left-4 bg-blue-600 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-lg">Híbrido</span>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-[10px] uppercase font-bold text-gray-500 tracking-widest block mb-1">Toyota · 2026</span>
+                        <h3 class="text-2xl font-bold mb-2">Yaris Cross HEV</h3>
+                        <p class="text-[#E60000] font-bold text-xl mb-4">$31,900 <span class="text-xs text-gray-500 font-normal">MSRP</span></p>
+                        
+                        <div class="grid grid-cols-2 gap-2 mb-6 border-t border-white/5 pt-4">
+                            <div class="text-xs text-gray-400"><i class="fas fa-cogs mr-1"></i> CVT</div>
+                            <div class="text-xs text-gray-400"><i class="fas fa-leaf mr-1"></i> Híbrido</div>
+                            <div class="text-xs text-gray-400"><i class="fas fa-palette mr-1"></i> Plata Metalizado</div>
+                            <div class="text-xs text-gray-400"><i class="fas fa-car-side mr-1"></i> Crossover</div>
+                        </div>
+                        
+                        <button onclick="openVehicleDetail('yaris-cross')" class="w-full bg-[#E60000] border border-[#E60000] hover:bg-red-700 text-white font-bold py-3 rounded-xl transition-colors shadow-[0_0_15px_rgba(230,0,0,0.3)]">Ver Detalles</button>
+                    </div>
+                </div>
+
+                <!-- Vehículo 3 -->
+                <div class="glass-card rounded-2xl overflow-hidden group cursor-pointer border border-white/5 hover:border-[#E60000]/50 transition-colors">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1617469167446-8043b44674ad?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="4Runner">
+                        <span class="absolute top-4 left-4 bg-gray-600 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-lg">Usado Certificado</span>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-[10px] uppercase font-bold text-gray-500 tracking-widest block mb-1">Toyota · 2023</span>
+                        <h3 class="text-2xl font-bold mb-2">4Runner TRD Pro</h3>
+                        <p class="text-white font-bold text-xl mb-4">$55,000</p>
+                        
+                        <div class="grid grid-cols-2 gap-2 mb-6 border-t border-white/5 pt-4">
+                            <div class="text-xs text-gray-400"><i class="fas fa-tachometer-alt mr-1"></i> 24,500 km</div>
+                            <div class="text-xs text-gray-400"><i class="fas fa-gas-pump mr-1"></i> Gasolina</div>
+                            <div class="text-xs text-gray-400"><i class="fas fa-palette mr-1"></i> Gris Magnético</div>
+                            <div class="text-xs text-gray-400"><i class="fas fa-shield-alt mr-1"></i> Garantía Ext.</div>
+                        </div>
+                        
+                        <button onclick="openVehicleDetail('4runner')" class="w-full bg-white/5 hover:bg-[#E60000] border border-white/10 text-white font-bold py-3 rounded-xl transition-colors">Ver Detalles</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div> <!-- Fin View Inventory -->
+
+
+    <!-- ========================================== -->
+    <!-- VISTA 3: SERVICIOS (TALLER)                -->
+    <!-- ========================================== -->
+    <div id="view-services" class="view-section hidden flex-col pt-16 md:pt-[104px] min-h-screen bg-[#050505]">
+        <!-- Hero Servicios -->
+        <div class="relative w-full h-[40vh] md:h-[50vh] flex items-center px-6">
+            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1625211910604-ee9eeaf5b0b2?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-[center_top_40%]"></div>
+            <div class="absolute inset-0 bg-black/70"></div>
+            <div class="relative z-10 max-w-7xl mx-auto w-full text-center">
+                <h1 class="text-5xl md:text-7xl font-bold font-heading text-white mb-4 tracking-widest drop-shadow-lg">SERVICIO TÉCNICO</h1>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto font-light">Precisión japonesa para mantener tu Toyota como el primer día.</p>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto w-full px-6 py-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass-card p-8 rounded-3xl text-center border-t-4 border-[#E60000] hover:-translate-y-2 transition-transform">
+                <div class="w-16 h-16 rounded-full bg-[#E60000]/10 text-[#E60000] text-2xl flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-3">Mantenimiento</h3>
+                <p class="text-gray-400 text-sm mb-6">Servicios preventivos estandarizados cada 5,000 km con inspección multipunto.</p>
+                <button class="text-[#E60000] font-bold text-sm uppercase tracking-wider hover:text-white transition-colors">Saber más <i class="fas fa-arrow-right ml-1"></i></button>
+            </div>
+            
+            <div class="glass-card p-8 rounded-3xl text-center border-t-4 border-gray-600 hover:-translate-y-2 transition-transform">
+                <div class="w-16 h-16 rounded-full bg-white/5 text-white text-2xl flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-spray-can"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-3">Latonería y Pintura</h3>
+                <p class="text-gray-400 text-sm mb-6">Cabina de pintura computarizada y herramientas de enderezado de chasis de alta tecnología.</p>
+                <button class="text-white font-bold text-sm uppercase tracking-wider hover:text-[#E60000] transition-colors">Saber más <i class="fas fa-arrow-right ml-1"></i></button>
+            </div>
+
+            <div class="bg-[#E60000] p-8 rounded-3xl text-center shadow-[0_10px_30px_rgba(230,0,0,0.3)] flex flex-col justify-center">
+                <h3 class="text-2xl font-bold mb-3 text-white">Agenda tu Cita Hoy</h3>
+                <p class="text-white/80 text-sm mb-8">Nuestros asesores de servicio te esperan para brindarte atención VIP.</p>
+                <button class="bg-black text-white w-full py-4 rounded-xl font-bold hover:bg-gray-900 transition-colors shadow-lg">CITA ONLINE</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- VISTA 4: REPUESTOS                         -->
+    <!-- ========================================== -->
+    <div id="view-parts" class="view-section hidden flex-col pt-16 md:pt-[104px] min-h-screen bg-[#050505]">
+        <!-- Hero Repuestos -->
+        <div class="relative w-full h-[35vh] flex items-center px-6">
+            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486006920555-c77dce18193b?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent"></div>
+            <div class="relative z-10 max-w-7xl mx-auto w-full">
+                <h1 class="text-4xl md:text-6xl font-bold font-heading text-white mb-2 tracking-tight">REPUESTOS <span class="text-[#E60000]">GENUINOS</span></h1>
+                <p class="text-gray-400 max-w-lg">Garantiza el rendimiento, seguridad y durabilidad de tu vehículo usando solo piezas fabricadas bajo los estándares Toyota.</p>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto w-full px-6 py-16">
+            <h2 class="text-2xl font-bold mb-8 font-heading">Categorías Principales</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Tarjetas de categorías basadas en el menú -->
+                <button type="button" onclick="openPartsCategory('baterias')" class="glass-card p-6 rounded-2xl flex flex-col items-center justify-center text-center cursor-pointer hover:border-[#E60000]/50 transition-colors group">
+                    <i class="fas fa-car-battery text-3xl text-gray-500 group-hover:text-[#E60000] mb-4 transition-colors"></i>
+                    <h4 class="font-bold text-sm">Baterías</h4>
+                </button>
+                <button type="button" onclick="openPartsCategory('frenos')" class="glass-card p-6 rounded-2xl flex flex-col items-center justify-center text-center cursor-pointer hover:border-[#E60000]/50 transition-colors group">
+                    <i class="fas fa-compact-disc text-3xl text-gray-500 group-hover:text-[#E60000] mb-4 transition-colors"></i>
+                    <h4 class="font-bold text-sm">Frenos</h4>
+                </button>
+                <button type="button" onclick="openPartsCategory('fluidos')" class="glass-card p-6 rounded-2xl flex flex-col items-center justify-center text-center cursor-pointer hover:border-[#E60000]/50 transition-colors group">
+                    <i class="fas fa-oil-can text-3xl text-gray-500 group-hover:text-[#E60000] mb-4 transition-colors"></i>
+                    <h4 class="font-bold text-sm">Fluidos y Aceites</h4>
+                </button>
+                <button type="button" onclick="openPartsCategory('filtros')" class="glass-card p-6 rounded-2xl flex flex-col items-center justify-center text-center cursor-pointer hover:border-[#E60000]/50 transition-colors group">
+                    <i class="fas fa-wind text-3xl text-gray-500 group-hover:text-[#E60000] mb-4 transition-colors"></i>
+                    <h4 class="font-bold text-sm">Filtros de Aire</h4>
+                </button>
+                <button type="button" onclick="openPartsCategory('accesorios')" class="glass-card p-6 rounded-2xl flex flex-col items-center justify-center text-center cursor-pointer hover:border-[#E60000]/50 transition-colors group">
+                    <i class="fas fa-cog text-3xl text-gray-500 group-hover:text-[#E60000] mb-4 transition-colors"></i>
+                    <h4 class="font-bold text-sm">Accesorios Generales</h4>
+                </button>
+                <button type="button" onclick="openPartsCategory('revision')" class="glass-card p-6 rounded-2xl flex flex-col items-center justify-center text-center cursor-pointer hover:border-[#E60000]/50 transition-colors group">
+                    <i class="fas fa-shield-alt text-3xl text-gray-500 group-hover:text-[#E60000] mb-4 transition-colors"></i>
+                    <h4 class="font-bold text-sm">Llamados a Revisión</h4>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- VISTA 5: DETALLE DE CATEGORÍA DE REPUESTOS -->
+    <div id="view-parts-category" class="view-section hidden flex-col pt-16 md:pt-[104px] min-h-screen bg-[#050505]">
+        <div class="w-full border-b border-white/5 bg-black/50 py-8 px-6">
+            <div class="max-w-7xl mx-auto">
+                <button type="button" onclick="switchView('parts')" class="text-gray-400 hover:text-white text-sm font-bold mb-6 transition-colors">
+                    <i class="fas fa-arrow-left mr-2 text-[#E60000]"></i> Volver a categorías
+                </button>
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div>
+                        <span class="text-[#E60000] text-xs font-bold tracking-[0.2em] uppercase">Toyota Genuine Parts</span>
+                        <h1 id="parts-category-title" class="text-4xl md:text-5xl font-bold font-heading mt-2">Categoría</h1>
+                        <p id="parts-category-description" class="text-gray-400 text-sm mt-3 max-w-2xl"></p>
+                    </div>
+                    <span class="text-xs text-gray-500 border border-white/10 rounded-full px-4 py-2">Compatibilidad final según modelo y VIN</span>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto w-full px-6 py-12">
+            <div id="parts-products-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- VISTA 6: DETALLE DE VEHÍCULO              -->
+    <!-- ========================================== -->
+    <div id="view-vehicle-detail" class="view-section hidden flex-col pt-16 md:pt-[104px] min-h-screen bg-white text-[#111]">
+        <!-- Subnavegación contextual -->
+        <div class="sticky top-16 md:top-[104px] z-40 bg-white/95 backdrop-blur-xl border-b border-black/10">
+            <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
+                <div class="flex items-center gap-4 min-w-0">
+                    <button type="button" onclick="returnFromVehicleDetail()" aria-label="Volver al listado" class="w-9 h-9 shrink-0 rounded-full border border-black/10 hover:bg-black hover:text-white transition-colors"><i class="fas fa-arrow-left"></i></button>
+                    <strong id="detail-nav-name" class="truncate text-sm md:text-base">Toyota</strong>
+                </div>
+                <div class="hidden md:flex items-center gap-7 text-xs font-bold text-gray-500">
+                    <button onclick="scrollVehicleSection('vehicle-overview')" class="hover:text-[#E60000]">Descripción</button>
+                    <button onclick="scrollVehicleSection('vehicle-highlights')" class="hover:text-[#E60000]">Características</button>
+                    <button onclick="scrollVehicleSection('vehicle-specs')" class="hover:text-[#E60000]">Especificaciones</button>
+                    <button onclick="scrollVehicleSection('vehicle-gallery')" class="hover:text-[#E60000]">Galería</button>
+                </div>
+                <button onclick="openVehicleLead('cotización')" class="bg-[#E60000] hover:bg-red-700 text-white text-xs font-bold px-5 py-3 rounded-full whitespace-nowrap">Cotizar</button>
+            </div>
+        </div>
+
+        <!-- Hero de producto -->
+        <section id="vehicle-overview" class="bg-[#070707] text-white min-h-[72vh] grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr]">
+            <div class="relative min-h-[48vh] lg:min-h-[72vh] overflow-hidden order-2 lg:order-1">
+                <img id="detail-hero-image" src="" alt="" class="absolute inset-0 w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/70 hidden lg:block"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent lg:hidden"></div>
+                <span id="detail-hero-badge" class="absolute top-6 left-6 bg-[#E60000] text-white text-[10px] font-bold uppercase tracking-[0.18em] px-4 py-2 rounded-full">Toyota</span>
+            </div>
+            <div class="px-7 py-10 md:p-14 lg:py-16 lg:pr-16 flex flex-col justify-center order-1 lg:order-2">
+                <span id="detail-kicker" class="text-[#E60000] text-xs font-bold uppercase tracking-[0.22em]">Toyota · 2026</span>
+                <h1 id="detail-name" class="text-5xl md:text-6xl xl:text-7xl font-bold font-heading mt-3 leading-[0.95]">Toyota</h1>
+                <p id="detail-tagline" class="text-gray-300 text-base md:text-lg leading-relaxed mt-6 max-w-xl"></p>
+                <div id="detail-quick-specs" class="grid grid-cols-2 gap-px bg-white/10 border border-white/10 rounded-2xl overflow-hidden mt-8"></div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-7">
+                    <button onclick="openVehicleLead('cotización')" class="bg-[#E60000] hover:bg-red-700 text-white font-bold py-4 rounded-xl transition-colors">Solicitar cotización</button>
+                    <button onclick="openVehicleLead('prueba de manejo')" class="border border-white/20 hover:bg-white hover:text-black font-bold py-4 rounded-xl transition-colors"><i class="far fa-calendar-check mr-2"></i>Prueba de manejo</button>
+                </div>
+                <p class="text-[10px] text-gray-500 mt-4">Imágenes referenciales. Disponibilidad y configuración sujetas a confirmación comercial.</p>
+            </div>
+        </section>
+
+        <!-- Acciones rápidas -->
+        <div class="bg-white border-b border-black/10">
+            <div class="max-w-7xl mx-auto px-6 py-5 grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <button onclick="openVehicleLead('WhatsApp')" class="rounded-xl border border-black/10 px-4 py-4 text-sm font-bold hover:border-[#25D366] hover:text-[#159447] transition-colors"><i class="fab fa-whatsapp mr-2"></i>WhatsApp</button>
+                <button onclick="toggleFavoriteVehicle(this)" class="rounded-xl border border-black/10 px-4 py-4 text-sm font-bold hover:border-[#E60000] hover:text-[#E60000] transition-colors"><i class="far fa-heart mr-2"></i>Guardar</button>
+                <button onclick="openVehicleLead('financiamiento')" class="rounded-xl border border-black/10 px-4 py-4 text-sm font-bold hover:border-[#E60000] hover:text-[#E60000] transition-colors"><i class="fas fa-calculator mr-2"></i>Financiamiento</button>
+                <button onclick="shareVehicleDetail()" class="rounded-xl border border-black/10 px-4 py-4 text-sm font-bold hover:border-[#E60000] hover:text-[#E60000] transition-colors"><i class="fas fa-share-alt mr-2"></i>Compartir</button>
+            </div>
+        </div>
+
+        <!-- Introducción y atributos -->
+        <section id="vehicle-highlights" class="max-w-7xl mx-auto w-full px-6 py-16 md:py-24">
+            <div class="grid grid-cols-1 lg:grid-cols-[0.75fr_1.25fr] gap-10 lg:gap-16 items-start">
+                <div class="lg:sticky lg:top-48">
+                    <span class="text-[#E60000] text-xs font-bold tracking-[0.2em] uppercase">Diseñado para avanzar</span>
+                    <h2 id="detail-section-title" class="text-4xl md:text-5xl font-bold font-heading mt-3">Conoce cada detalle</h2>
+                    <p id="detail-description" class="text-gray-600 leading-relaxed mt-5"></p>
+                    <div class="mt-8">
+                        <span class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-3">Colores referenciales</span>
+                        <div class="flex gap-3">
+                            <button aria-label="Blanco Perla" class="w-9 h-9 rounded-full bg-[#f4f4ef] border-4 border-white shadow ring-1 ring-black/20"></button>
+                            <button aria-label="Negro Mica" class="w-9 h-9 rounded-full bg-[#111] border-4 border-white shadow ring-1 ring-black/20"></button>
+                            <button aria-label="Plata Metalizado" class="w-9 h-9 rounded-full bg-[#92969a] border-4 border-white shadow ring-1 ring-black/20"></button>
+                            <button aria-label="Rojo Emoción" class="w-9 h-9 rounded-full bg-[#a80016] border-4 border-white shadow ring-1 ring-black/20"></button>
+                        </div>
+                    </div>
+                </div>
+                <div id="detail-highlights-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+            </div>
+        </section>
+
+        <!-- Ficha técnica -->
+        <section id="vehicle-specs" class="bg-[#f3f3f3] px-6 py-16 md:py-24">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-10 lg:gap-16">
+                <div>
+                    <span class="text-[#E60000] text-xs font-bold tracking-[0.2em] uppercase">Ficha técnica</span>
+                    <h2 class="text-4xl md:text-5xl font-bold font-heading mt-3">Especificaciones principales</h2>
+                    <p class="text-gray-600 mt-5">Consulta una síntesis clara de la configuración. La versión comercial definitiva se confirma con el asesor.</p>
+                    <button onclick="downloadVehicleSpec()" class="mt-8 bg-black hover:bg-[#E60000] text-white text-sm font-bold px-6 py-4 rounded-xl transition-colors"><i class="fas fa-file-download mr-2"></i>Descargar ficha técnica</button>
+                </div>
+                <div id="detail-specs-list" class="bg-white rounded-3xl overflow-hidden border border-black/5 shadow-sm"></div>
+            </div>
+        </section>
+
+        <!-- Galería -->
+        <section id="vehicle-gallery" class="bg-white px-6 py-16 md:py-24">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+                    <div><span class="text-[#E60000] text-xs font-bold tracking-[0.2em] uppercase">Explora el diseño</span><h2 class="text-4xl md:text-5xl font-bold font-heading mt-3">Galería</h2></div>
+                    <p class="text-gray-500 text-sm max-w-md">Exterior, presencia y detalles del vehículo desde distintas composiciones visuales.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="md:row-span-2 h-[340px] md:h-[700px] rounded-3xl overflow-hidden bg-gray-100"><img id="detail-gallery-main" src="" alt="Vista principal" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"></div>
+                    <div class="h-[340px] rounded-3xl overflow-hidden bg-gray-100"><img id="detail-gallery-secondary" src="" alt="Detalle exterior" class="w-full h-full object-cover object-left hover:scale-105 transition-transform duration-700"></div>
+                    <div class="h-[340px] rounded-3xl overflow-hidden bg-[#090909] relative flex items-center justify-center text-white p-10">
+                        <div class="absolute inset-0 opacity-35"><img id="detail-gallery-tertiary" src="" alt="Vista de diseño" class="w-full h-full object-cover object-right"></div>
+                        <div class="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent"></div>
+                        <div class="relative z-10"><span class="text-[#E60000] text-xs font-bold tracking-widest uppercase">Toyota</span><h3 id="detail-gallery-copy" class="text-3xl font-bold mt-2">Diseño que inspira confianza.</h3></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cierre comercial -->
+        <section class="bg-[#E60000] text-white px-6 py-14 md:py-20">
+            <div class="max-w-5xl mx-auto text-center">
+                <h2 id="detail-cta-title" class="text-4xl md:text-5xl font-bold font-heading">¿Listo para conocer tu Toyota?</h2>
+                <p class="text-white/80 mt-4 max-w-2xl mx-auto">Habla con un asesor Exiauto para confirmar disponibilidad, versión, precio y opciones de financiamiento.</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-3 mt-8">
+                    <button onclick="openVehicleLead('cotización')" class="bg-black hover:bg-[#171717] px-8 py-4 rounded-xl font-bold">Solicitar cotización</button>
+                    <button onclick="openVehicleLead('WhatsApp')" class="bg-white text-black hover:bg-gray-100 px-8 py-4 rounded-xl font-bold"><i class="fab fa-whatsapp mr-2 text-[#25D366]"></i>Hablar por WhatsApp</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- 2. VISTA: MOBILE VEHICLE (CANVAS INTEGRADO)-->
+    <!-- ========================================== -->
+    <div id="view-mobile" class="view-section min-h-screen hidden pt-[120px] pb-20 flex justify-center items-center bg-black">
+        <!-- Contenedor Dispositivo Falso -->
+        <div class="w-full max-w-[390px] h-[800px] bg-[#050505] rounded-[3rem] border-[10px] border-neutral-800 shadow-[0_0_80px_rgba(230,0,0,0.15)] overflow-hidden relative flex flex-col">
+            
+            <!-- Barra superior del Sistema Operativo ficticio -->
+            <div class="px-6 pt-3 pb-2 flex justify-between text-[11px] font-semibold text-gray-400 select-none z-30">
+                <span>9:41</span>
+                <div class="flex gap-1.5 items-center">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-full"></i>
+                </div>
+            </div>
+
+            <!-- Header Interno de la App -->
+            <div class="flex justify-between items-center px-5 py-3 z-30">
+                <button onclick="switchView('inventory')" class="w-9 h-9 rounded-full bg-white/5 border border-white/5 flex items-center justify-center text-white text-xs hover:bg-white/10">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <span class="text-xs font-bold tracking-widest text-white">EXIAUTO APP</span>
+                <button class="w-9 h-9 rounded-full bg-white/5 border border-white/5 flex items-center justify-center text-white text-xs">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+
+            <!-- Contenido Mobile con Scroll -->
+            <div class="flex-1 overflow-y-auto px-5 pb-32">
+                <!-- Imagen del Vehículo Slider -->
+                <div class="relative w-full h-52 my-2 overflow-hidden rounded-2xl">
+                    <img src="https://global.toyota/pages/news/images/2020/08/31/0001/001.jpg" class="w-full h-full object-cover" alt="Toyota Yaris Cross HEV">
+                    <!-- Dots Indicadores -->
+                    <div class="absolute bottom-3 left-0 w-full flex justify-center gap-1.5">
+                        <span class="w-5 h-1 bg-[#E60000] rounded-full"></span>
+                        <span class="w-1.5 h-1 bg-white/30 rounded-full"></span>
+                        <span class="w-1.5 h-1 bg-white/30 rounded-full"></span>
+                    </div>
+                </div>
+
+                <!-- Detalles principales -->
+                <div class="mt-4">
+                    <span class="text-[10px] uppercase font-bold text-[#E60000] tracking-widest block mb-0.5">TOYOTA · 2026</span>
+                    <h2 class="text-2xl font-bold tracking-tight text-white mb-1">Yaris Cross HEV</h2>
+                    <p class="text-xs text-gray-400 font-light leading-relaxed mb-6">SUV Compacto Híbrido · Tren motriz eléctrico autorrecargable.</p>
+                </div>
+
+                <!-- Grid Fichas Técnicas -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-[#111] border border-white/5 p-4 rounded-xl">
+                        <div class="w-7 h-7 rounded-lg bg-[#E60000]/10 text-[#E60000] flex items-center justify-center mb-3 text-sm">
+                            <i class="fas fa-toggle-on"></i>
+                        </div>
+                        <span class="block text-[9px] uppercase font-bold text-gray-500 tracking-wide mb-0.5">TRANSMISIÓN</span>
+                        <span class="font-semibold text-xs text-white">Automática</span>
+                    </div>
+                    
+                    <div class="bg-[#111] border border-white/5 p-4 rounded-xl">
+                        <div class="w-7 h-7 rounded-lg bg-[#E60000]/10 text-[#E60000] flex items-center justify-center mb-3 text-sm">
+                            <i class="fas fa-charging-station"></i>
+                        </div>
+                        <span class="block text-[9px] uppercase font-bold text-gray-500 tracking-wide mb-0.5">COMBUSTIBLE</span>
+                        <span class="font-semibold text-xs text-white">Híbrido (HEV)</span>
+                    </div>
+
+                    <div class="bg-[#111] border border-white/5 p-4 rounded-xl">
+                        <div class="w-7 h-7 rounded-lg bg-[#E60000]/10 text-[#E60000] flex items-center justify-center mb-3 text-sm">
+                            <i class="far fa-calendar-alt"></i>
+                        </div>
+                        <span class="block text-[9px] uppercase font-bold text-gray-500 tracking-wide mb-0.5">AÑO</span>
+                        <span class="font-semibold text-xs text-white">2026</span>
+                    </div>
+
+                    <div class="bg-[#111] border border-white/5 p-4 rounded-xl">
+                        <div class="w-7 h-7 rounded-lg bg-[#E60000]/10 text-[#E60000] flex items-center justify-center mb-3 text-sm">
+                            <i class="fas fa-vector-square"></i>
+                        </div>
+                        <span class="block text-[9px] uppercase font-bold text-gray-500 tracking-wide mb-0.5">TRACCIÓN</span>
+                        <span class="font-semibold text-xs text-white">4x2</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones de Acción Fijos Inferiores -->
+            <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-[#050505] via-[#050505] to-transparent pt-8 flex gap-2.5 z-20">
+                <!-- Botón CRM WhatsApp Directo -->
+                <button onclick="triggerCRMAlert('WhatsApp')" class="flex-1 bg-[#25D366] hover:bg-[#20ba5a] text-black font-bold text-xs py-3.5 rounded-xl flex flex-col items-center justify-center shadow-[0_4px_20px_rgba(37,211,102,0.25)] transition-all">
+                    <span class="opacity-90">Cotizar por</span>
+                    <span class="text-sm font-extrabold flex items-center gap-1"><i class="fab fa-whatsapp"></i> WhatsApp</span>
+                </button>
+                
+                <!-- Botón Solicitud de Test Drive -->
+                <button onclick="triggerCRMAlert('Test Drive')" class="flex-1 bg-[#161616] hover:bg-[#222] border border-white/10 text-white font-bold text-xs py-3.5 rounded-xl flex items-center justify-center gap-2 transition-all">
+                    <i class="far fa-calendar-check text-[#E60000]"></i> Test Drive
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT: LÓGICA DE INTERACCIÓN          -->
+    <!-- ========================================== -->
+    <script>
+        // --- TEMA GLOBAL CLARO / OSCURO ---
+        function applyTheme(theme) {
+            document.documentElement.dataset.theme = theme;
+            const toggle = document.getElementById('theme-toggle');
+            const icon = document.getElementById('theme-toggle-icon');
+            if (!toggle || !icon) return;
+
+            const isLight = theme === 'light';
+            icon.className = isLight ? 'fas fa-moon' : 'fas fa-sun';
+            const nextThemeLabel = isLight ? 'Activar modo oscuro' : 'Activar modo claro';
+            toggle.setAttribute('aria-label', nextThemeLabel);
+            toggle.setAttribute('title', nextThemeLabel);
+        }
+
+        function toggleTheme() {
+            const nextTheme = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+            try { localStorage.setItem('exiauto-theme', nextTheme); } catch (error) {}
+            applyTheme(nextTheme);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            applyTheme(document.documentElement.dataset.theme || 'dark');
+        });
+
+        // --- 0. LÓGICA DEL MENÚ MÓVIL ---
+        let isMobileMenuOpen = false;
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            isMobileMenuOpen = !isMobileMenuOpen;
+            
+            if (isMobileMenuOpen) {
+                menu.classList.remove('translate-x-full');
+                menu.classList.add('translate-x-0');
+                document.body.style.overflow = 'hidden'; // Evita scroll de fondo
+            } else {
+                menu.classList.remove('translate-x-0');
+                menu.classList.add('translate-x-full');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // --- 1. ENRUTADOR DE VISTAS GLOBAL ---
+        function switchView(viewName) {
+            // Ocultar todas las secciones principales
+            document.querySelectorAll('.view-section').forEach(section => {
+                section.classList.add('hidden');
+                section.classList.remove('flex'); // Removemos flex para evitar layouts rotos
+            });
+            
+            // Lógica para botones de la pastilla inferior flotante
+            const btnDesktop = document.getElementById('btn-desktop');
+            const btnMobile = document.getElementById('btn-mobile');
+            
+            // Reset botones pastilla
+            btnDesktop.className = "px-5 py-2 rounded-full text-xs font-bold transition-all duration-300 text-gray-400 hover:text-white";
+            btnMobile.className = "px-5 py-2 rounded-full text-xs font-bold transition-all duration-300 text-gray-400 hover:text-white";
+
+            // Mostrar vista específica
+            const targetView = document.getElementById(`view-${viewName}`);
+            if(targetView) {
+                targetView.classList.remove('hidden');
+                targetView.classList.add('flex'); // Restauramos display flex a las vistas
+            }
+
+            // Actualizar pastilla según si estamos en modo "app" o web
+            if(viewName === 'mobile') {
+                btnMobile.className = "px-5 py-2 rounded-full text-xs font-bold transition-all duration-300 bg-[#E60000] text-white shadow-[0_0_15px_rgba(230,0,0,0.4)]";
+            } else {
+                // Si es cualquier vista de escritorio, marcamos el botón desktop
+                btnDesktop.className = "px-5 py-2 rounded-full text-xs font-bold transition-all duration-300 bg-[#E60000] text-white shadow-[0_0_15px_rgba(230,0,0,0.4)]";
+            }
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- 2. INTERACTIVIDAD DEL PANEL DÚPLEX (ESCRITORIO) ---
+        let isServiceExpanded = false;
+
+        function toggleServicePanel(e) {
+            // Prevenir que el clic se propague si fuera necesario, aunque aquí es el contenedor principal
+            if(e) e.stopPropagation(); 
+
+            // Solo aplicar en pantallas grandes (lg y superiores)
+            if (window.innerWidth < 1024) return;
+
+            const panelInv = document.getElementById('panel-inventory');
+            const panelSrv = document.getElementById('panel-service');
+            const icon = document.getElementById('service-toggle-icon');
+            const info = document.getElementById('service-extra-info');
+            const title = document.getElementById('service-title');
+
+            if(!isServiceExpanded) {
+                // EXPANSIÓN: El servicio cubre la pantalla
+                panelInv.classList.replace('lg:w-[65%]', 'lg:w-[35%]');
+                panelSrv.classList.replace('lg:w-[45%]', 'lg:w-[75%]');
+                
+                // Animación icono a "X"
+                icon.classList.remove('fa-plus');
+                icon.classList.add('fa-times');
+                icon.style.transform = "rotate(90deg)";
+                
+                // Mostrar info extra
+                info.classList.remove('hidden');
+                setTimeout(() => info.classList.replace('opacity-0', 'opacity-100'), 50);
+                
+                // Mover título un poco
+                title.classList.add('lg:text-6xl');
+                
+                isServiceExpanded = true;
+            } else {
+                // CONTRACCIÓN: Volver al estado normal
+                panelInv.classList.replace('lg:w-[35%]', 'lg:w-[65%]');
+                panelSrv.classList.replace('lg:w-[75%]', 'lg:w-[45%]');
+                
+                // Animación icono a "+"
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-plus');
+                icon.style.transform = "rotate(0deg)";
+                
+                // Ocultar info extra
+                info.classList.replace('opacity-100', 'opacity-0');
+                setTimeout(() => info.classList.add('hidden'), 500); // Esperar la transición
+
+                // Restaurar título
+                title.classList.remove('lg:text-6xl');
+
+                isServiceExpanded = false;
+            }
+        }
+
+        // --- 3. LÓGICA DE PESTAÑAS DEL BUSCADOR ---
+        function switchSearchTab(tabName) {
+            document.querySelectorAll('.search-tab-content').forEach(content => {
+                content.classList.add('hidden');
+                content.classList.remove('block');
+            });
+            
+            const tabs = ['vehicle', 'keyword', 'budget'];
+            tabs.forEach(tab => {
+                const btn = document.getElementById(`tab-${tab}`);
+                btn.className = "flex-1 py-4 px-2 text-[10px] md:text-xs font-bold tracking-widest text-gray-500 border-b-2 border-transparent transition-colors hover:text-white hover:bg-white/5";
+            });
+
+            document.getElementById(`content-${tabName}`).classList.remove('hidden');
+            document.getElementById(`content-${tabName}`).classList.add('block');
+            
+            const activeBtn = document.getElementById(`tab-${tabName}`);
+            activeBtn.className = "flex-1 py-4 px-2 text-[10px] md:text-xs font-bold tracking-widest text-[#E60000] border-b-2 border-[#E60000] transition-colors hover:bg-white/5";
+        }
+
+        // --- 4. SIMULACIÓN CRM ---
+        function triggerCRMAlert(channel) {
+            alert(`⚡ [Simulación CRM Exiauto]\n\nEvento: Intención de contacto por "${channel}" para Yaris Cross HEV.\nAcción: Registro del lead e inicio de trazabilidad del embudo comercial.`);
+        }
+
+        // --- 5. CATÁLOGO DEMOSTRATIVO DE REPUESTOS GENUINOS ---
+        const partsCatalog = {
+            baterias: {
+                title: 'Baterías',
+                description: 'Opciones Toyota TrueStart y componentes del sistema eléctrico para un arranque confiable.',
+                icon: 'fa-car-battery',
+                products: [
+                    ['Batería Toyota TrueStart', 'Batería de reemplazo genuina con especificación Toyota.', 'Corolla, RAV4 y otros modelos compatibles'],
+                    ['Batería Toyota True-2', 'Alternativa genuina Toyota para mantenimiento y reemplazo.', 'Aplicación definida por modelo y año'],
+                    ['Terminal positivo de batería', 'Conjunto de terminal genuino para conexión segura.', 'Compatibilidad confirmada mediante VIN']
+                ]
+            },
+            frenos: {
+                title: 'Frenos',
+                description: 'Componentes diseñados para conservar la respuesta, seguridad y balance del sistema de frenado Toyota.',
+                icon: 'fa-compact-disc',
+                products: [
+                    ['Juego de pastillas de freno delanteras', 'Pastillas Toyota Genuine Parts para el eje delantero.', 'Corolla, Yaris, RAV4 y otras aplicaciones'],
+                    ['Disco de freno delantero', 'Rotor genuino fabricado según tolerancias Toyota.', 'Selección según modelo, año y versión'],
+                    ['Kit de zapatas de freno traseras', 'Juego de zapatas genuinas para sistemas de tambor.', 'Hilux, Yaris y modelos compatibles']
+                ]
+            },
+            fluidos: {
+                title: 'Fluidos y Aceites',
+                description: 'Lubricantes y fluidos formulados para proteger los sistemas mecánicos de los vehículos Toyota.',
+                icon: 'fa-oil-can',
+                products: [
+                    ['Toyota Genuine Motor Oil 0W-20', 'Aceite sintético para motores Toyota que requieren viscosidad 0W-20.', 'Verificar viscosidad en el manual del vehículo'],
+                    ['Toyota Super Long Life Coolant', 'Refrigerante genuino premezclado para el sistema de enfriamiento.', 'Aplicación Toyota según manual de mantenimiento'],
+                    ['Toyota ATF WS', 'Fluido genuino para transmisiones automáticas con especificación WS.', 'Solo transmisiones que indiquen Toyota WS']
+                ]
+            },
+            filtros: {
+                title: 'Filtros de Aire',
+                description: 'Filtración genuina para proteger el motor y mantener la calidad del aire dentro de la cabina.',
+                icon: 'fa-wind',
+                products: [
+                    ['Filtro de aire del motor', 'Elemento filtrante genuino para proteger la admisión del motor.', 'Corolla, Yaris Cross, Hilux y otros'],
+                    ['Filtro de aire de cabina', 'Filtro Toyota para polvo, polen y partículas del habitáculo.', 'Aplicación según modelo y año'],
+                    ['Filtro de aire TRD Performance', 'Filtro de alto flujo de la línea Toyota Racing Development.', 'Solo modelos con aplicación TRD disponible']
+                ]
+            },
+            accesorios: {
+                title: 'Accesorios Generales',
+                description: 'Accesorios Toyota diseñados para integrarse correctamente al vehículo y mantener su estética original.',
+                icon: 'fa-cog',
+                products: [
+                    ['Alfombras todo clima Toyota', 'Juego de alfombras moldeadas para protección interior.', 'Diseño específico para cada modelo'],
+                    ['Bandeja protectora de maletero', 'Protector de carga Toyota resistente y fácil de limpiar.', 'RAV4, Yaris Cross y modelos compatibles'],
+                    ['Tuercas de seguridad para ruedas', 'Kit Toyota con llave codificada para mayor protección.', 'Aplicación según tipo de rin']
+                ]
+            },
+            revision: {
+                title: 'Llamados a Revisión',
+                description: 'Ejemplos de componentes que pueden formar parte de campañas Toyota. La validación real se realiza exclusivamente con el VIN.',
+                icon: 'fa-shield-alt',
+                products: [
+                    ['Conjunto inflador de airbag', 'Componente de seguridad sujeto a verificación por campaña y VIN.', 'Instalación exclusiva en servicio autorizado'],
+                    ['Conjunto de bomba de combustible', 'Módulo genuino para campañas que involucren el sistema de combustible.', 'Aplicación definida por campaña oficial'],
+                    ['Interruptor maestro de elevalunas', 'Conjunto eléctrico genuino para campañas aplicables.', 'Verificación obligatoria mediante VIN']
+                ]
+            }
+        };
+
+        function openPartsCategory(categoryKey) {
+            const category = partsCatalog[categoryKey];
+            if (!category) return;
+
+            document.getElementById('parts-category-title').textContent = category.title;
+            document.getElementById('parts-category-description').textContent = category.description;
+            document.getElementById('parts-products-grid').innerHTML = category.products.map((product, index) => `
+                <article class="glass-card rounded-2xl overflow-hidden border border-white/5 hover:border-[#E60000]/50 transition-colors group">
+                    <div class="h-44 bg-gradient-to-br from-[#181818] to-[#090909] flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute w-36 h-36 rounded-full bg-[#E60000]/10 blur-2xl group-hover:bg-[#E60000]/20 transition-colors"></div>
+                        <i class="fas ${category.icon} text-6xl text-gray-600 group-hover:text-[#E60000] group-hover:scale-110 transition-all relative z-10"></i>
+                        <span class="absolute top-4 left-4 bg-[#E60000] text-[9px] font-bold tracking-widest uppercase px-3 py-1 rounded-full">Genuino Toyota</span>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-[10px] uppercase font-bold text-gray-500 tracking-widest">Ejemplo ${index + 1}</span>
+                        <h3 class="text-xl font-bold mt-1 mb-3">${product[0]}</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed min-h-[60px]">${product[1]}</p>
+                        <div class="border-t border-white/5 mt-5 pt-4 text-xs text-gray-500"><i class="fas fa-car mr-2 text-[#E60000]"></i>${product[2]}</div>
+                        <button onclick="requestPart('${product[0].replace(/'/g, "\\'")}')" class="w-full mt-5 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-[#E60000] hover:border-[#E60000] font-bold text-sm transition-colors">Consultar disponibilidad</button>
+                    </div>
+                </article>
+            `).join('');
+
+            switchView('parts-category');
+        }
+
+        function requestPart(partName) {
+            toggleExiaChat(true);
+            askExia(`Quiero consultar disponibilidad de: ${partName}`);
+        }
+
+        // --- 6. ASISTENTE IA EXIA Y CONTACTO WHATSAPP ---
+        function toggleExiaChat(forceOpen = false) {
+            const panel = document.getElementById('exia-chat-panel');
+            if (forceOpen) panel.classList.remove('hidden');
+            else panel.classList.toggle('hidden');
+            if (!panel.classList.contains('hidden')) setTimeout(() => document.getElementById('exia-chat-input').focus(), 100);
+        }
+
+        function appendChatMessage(text, sender) {
+            const messages = document.getElementById('exia-chat-messages');
+            const bubble = document.createElement('div');
+            bubble.className = sender === 'user'
+                ? 'ml-auto max-w-[88%] bg-[#E60000] rounded-2xl rounded-tr-sm px-4 py-3 text-xs leading-relaxed text-white'
+                : 'max-w-[88%] bg-[#181818] border border-white/5 rounded-2xl rounded-tl-sm px-4 py-3 text-xs leading-relaxed text-gray-200';
+            bubble.textContent = text;
+            messages.appendChild(bubble);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function getExiaResponse(message) {
+            const query = message.toLowerCase();
+            if (query.includes('cotización') || query.includes('cotizar') || query.includes('precio')) {
+                return '¡Excelente elección! Para preparar la cotización necesito tu nombre, un número de contacto y confirmar si deseas compra directa o financiamiento. Un asesor Exiauto continuará contigo.';
+            }
+            if (query.includes('repuesto') || query.includes('batería') || query.includes('freno') || query.includes('filtro')) {
+                return 'Con gusto. Para confirmar el repuesto exacto necesito el modelo, año y, de ser posible, el VIN de tu Toyota. También puedes abrir Repuestos Genuinos y elegir una categoría.';
+            }
+            if (query.includes('servicio') || query.includes('cita') || query.includes('mantenimiento')) {
+                return 'Puedo ayudarte a coordinar una cita de servicio. Indícame el modelo de tu Toyota, kilometraje aproximado y el día que prefieres.';
+            }
+            if (query.includes('vehículo') || query.includes('carro') || query.includes('yaris') || query.includes('inventario')) {
+                return 'Tenemos una vista de inventario con opciones como Yaris Cross HEV, Fortuner y 4Runner. ¿Buscas un Toyota nuevo, usado o híbrido?';
+            }
+            if (query.includes('financ')) {
+                return 'Te orientaré con gusto. Dime qué vehículo te interesa y si deseas financiarlo como persona natural o empresa.';
+            }
+            return '¡Gracias por contarme! Para orientarte mejor, indícame si tu consulta es sobre vehículos, repuestos genuinos, servicio técnico o financiamiento.';
+        }
+
+        function askExia(message) {
+            appendChatMessage(message, 'user');
+            setTimeout(() => appendChatMessage(getExiaResponse(message), 'bot'), 450);
+        }
+
+        function sendExiaMessage(event) {
+            event.preventDefault();
+            const input = document.getElementById('exia-chat-input');
+            const message = input.value.trim();
+            if (!message) return;
+            input.value = '';
+            askExia(message);
+        }
+
+        function openWhatsAppDemo() {
+            alert('WhatsApp Exiauto\n\nBotón listo para enlazar con el número comercial oficial. En esta demostración se registraría el contacto y se abriría la conversación con un mensaje precargado.');
+        }
+
+        // --- 7. EXPERIENCIA DE DETALLE DE VEHÍCULO ---
+        const vehicleCatalog = {
+            'yaris-cross': {
+                name: 'Yaris Cross', year: '2026', badge: 'Crossover urbano', kicker: 'Toyota · SUV compacto',
+                image: 'https://global.toyota/pages/news/images/2020/08/31/0001/001.jpg',
+                tagline: 'Versatilidad urbana, diseño robusto y eficiencia para acompañarte con confianza dentro y fuera de la ciudad.',
+                description: 'Yaris Cross combina la facilidad de manejo de un vehículo compacto con la presencia, funcionalidad y posición de conducción de un SUV. Su propuesta está pensada para la movilidad diaria y los planes de fin de semana.',
+                quick: [['Motor', '1.5 L'], ['Transmisión', 'CVT'], ['Tracción', 'Delantera'], ['Capacidad', '5 pasajeros']],
+                specs: [['Motor', '1.5 L gasolina'], ['Transmisión', 'Automática CVT'], ['Tracción', 'Delantera 4x2'], ['Carrocería', 'SUV compacto, 5 puertas'], ['Combustible', 'Gasolina'], ['Seguridad', 'Asistencias Toyota según versión']],
+                highlights: [['fa-city', 'Agilidad urbana', 'Dimensiones compactas y una posición de manejo elevada para desenvolverse cómodamente en la ciudad.'], ['fa-suitcase-rolling', 'Espacio versátil', 'Área de carga práctica y configuración interior diseñada para el uso cotidiano.'], ['fa-shield-alt', 'Seguridad integral', 'Tecnologías de asistencia y sistemas activos orientados a una conducción segura.'], ['fa-leaf', 'Eficiencia Toyota', 'Desempeño equilibrado para optimizar consumo, respuesta y confort.']],
+                galleryCopy: 'Compacto por fuera. Grande en posibilidades.'
+            },
+            'corolla-sport': {
+                name: 'Corolla Sport', year: '2026', badge: 'Hatchback deportivo', kicker: 'Toyota · Corolla', image: 'https://global.toyota/pages/news/images/2018/06/26/1600_corolla/001.jpg',
+                tagline: 'Diseño dinámico, conectividad y una conducción precisa inspirada en el ADN global del Corolla.',
+                description: 'Corolla Sport ofrece una silueta atlética y una cabina enfocada en el conductor, combinando calidad de marcha, eficiencia y tecnología para el uso diario.',
+                quick: [['Motor', '1.8 L'], ['Transmisión', 'CVT'], ['Tracción', 'Delantera'], ['Capacidad', '5 pasajeros']],
+                specs: [['Motor', '1.8 L'], ['Transmisión', 'Automática CVT'], ['Tracción', 'Delantera'], ['Carrocería', 'Hatchback, 5 puertas'], ['Combustible', 'Gasolina / híbrido según versión'], ['Seguridad', 'Toyota Safety Sense según mercado']],
+                highlights: [['fa-tachometer-alt', 'Respuesta dinámica', 'Puesta a punto equilibrada para una conducción ágil y confortable.'], ['fa-wifi', 'Conectividad', 'Tecnología integrada para mantener información y entretenimiento al alcance.'], ['fa-chair', 'Cabina envolvente', 'Ergonomía y controles orientados al conductor.'], ['fa-shield-alt', 'Confianza Corolla', 'Sistemas de seguridad activa y pasiva de la familia Corolla.']],
+                galleryCopy: 'Una nueva expresión del espíritu Corolla.'
+            },
+            'hilux': {
+                name: 'Hilux Adventure', year: '2026', badge: 'Pickup 4x4', kicker: 'Toyota · Hilux', image: 'https://global.toyota/pages/news/images/2026/05/28/1330_hilux/001.jpg',
+                tagline: 'Fuerza, capacidad y durabilidad para el trabajo, la aventura y los caminos más exigentes.',
+                description: 'Hilux mantiene su arquitectura robusta y su vocación multipropósito, incorporando una presencia renovada, confort de marcha y recursos para el uso profesional y recreativo.',
+                quick: [['Motor', '2.8 L diésel'], ['Transmisión', '6AT'], ['Tracción', '4WD parcial'], ['Capacidad', '5 pasajeros']],
+                specs: [['Motor', '2.8 L turbodiésel'], ['Transmisión', 'Automática de 6 velocidades'], ['Tracción', '4WD de tiempo parcial'], ['Carrocería', 'Pickup doble cabina'], ['Capacidad de carga', 'Hasta 500 kg, según configuración'], ['Asistencia', 'Multi-Terrain Select según versión']],
+                highlights: [['fa-mountain', 'Capacidad 4x4', 'Sistema de tracción preparado para distintos tipos de terreno.'], ['fa-weight-hanging', 'Lista para cargar', 'Plataforma de carga funcional para trabajo y actividades al aire libre.'], ['fa-tools', 'Construcción robusta', 'Chasis concebido para durabilidad y desempeño bajo exigencia.'], ['fa-road', 'Confort en carretera', 'Mejoras orientadas a estabilidad, maniobrabilidad y calidad de marcha.']],
+                galleryCopy: 'Nacida para superar desafíos.'
+            },
+            'rav4': {
+                name: 'RAV4', year: '2026', badge: 'SUV electrificado', kicker: 'Toyota · RAV4', image: 'https://global.toyota/pages/news/images/2025/05/21/1000/001.jpg',
+                tagline: 'Tecnología, versatilidad y espíritu aventurero en un SUV preparado para diferentes estilos de vida.',
+                description: 'RAV4 integra funcionalidad, confort y opciones electrificadas en una propuesta SUV con personalidad fuerte y tecnología enfocada en el conductor.',
+                quick: [['Sistema', 'HEV / PHEV'], ['Transmisión', 'eCVT'], ['Tracción', 'AWD disponible'], ['Capacidad', '5 pasajeros']],
+                specs: [['Motorización', 'Híbrida o híbrida enchufable'], ['Transmisión', 'Automática eCVT'], ['Tracción', 'FWD / AWD según versión'], ['Carrocería', 'SUV, 5 puertas'], ['Capacidad', '5 pasajeros'], ['Tecnología', 'Sistemas conectados y asistencia avanzada']],
+                highlights: [['fa-bolt', 'Opciones electrificadas', 'Tecnología híbrida para combinar eficiencia y respuesta.'], ['fa-campground', 'Vocación aventurera', 'Espacio y capacidad para acompañar distintos estilos de vida.'], ['fa-laptop-code', 'Tecnología inteligente', 'Experiencia digital y ayudas de conducción integradas.'], ['fa-shield-alt', 'Seguridad Toyota', 'Sistemas de asistencia diseñados para brindar mayor confianza.']],
+                galleryCopy: 'La aventura evoluciona.'
+            },
+            'corolla-cross': {
+                name: 'Corolla Cross', year: '2026', badge: 'Crossover híbrido', kicker: 'Toyota · Corolla', image: 'https://global.toyota/pages/news/images/2021/09/14/1330/001.jpg',
+                tagline: 'La confianza Corolla con el espacio, la altura y la funcionalidad de un crossover moderno.',
+                description: 'Corolla Cross amplía la reconocida propuesta Corolla con una cabina espaciosa, acceso cómodo y una configuración versátil para ciudad, familia y viajes.',
+                quick: [['Motor', '1.8 L híbrido'], ['Transmisión', 'eCVT'], ['Tracción', 'FWD'], ['Capacidad', '5 pasajeros']],
+                specs: [['Motor', '1.8 L híbrido'], ['Transmisión', 'Automática eCVT'], ['Tracción', 'Delantera / E-Four según mercado'], ['Carrocería', 'Crossover, 5 puertas'], ['Capacidad', '5 pasajeros'], ['Seguridad', 'Toyota Safety Sense según versión']],
+                highlights: [['fa-users', 'Espacio familiar', 'Cabina cómoda y accesible para pasajeros y actividades diarias.'], ['fa-box-open', 'Carga versátil', 'Maletero funcional y asientos adaptables para distintos planes.'], ['fa-leaf', 'Eficiencia híbrida', 'Respuesta suave y consumo optimizado en recorridos urbanos.'], ['fa-eye', 'Visibilidad SUV', 'Posición elevada para una conducción segura y confiada.']],
+                galleryCopy: 'Todo lo que esperas de Corolla, elevado.'
+            },
+            'gr-corolla': {
+                name: 'GR Corolla', year: '2026', badge: 'Gazoo Racing', kicker: 'Toyota · GR', image: 'https://global.toyota/pages/news/images/2022/04/01/1030/001.jpg',
+                tagline: 'Prestaciones nacidas en competición, control GR-FOUR y una experiencia enfocada en el conductor.',
+                description: 'GR Corolla lleva la practicidad de un hatchback a un territorio de alto desempeño, con ingeniería desarrollada a partir de la experiencia de Toyota Gazoo Racing.',
+                quick: [['Motor', '1.6 L turbo'], ['Transmisión', '6MT'], ['Tracción', 'GR-FOUR'], ['Capacidad', '5 pasajeros']],
+                specs: [['Motor', '1.6 L turbo, 3 cilindros'], ['Transmisión', 'Manual de 6 velocidades'], ['Tracción', 'GR-FOUR 4WD'], ['Carrocería', 'Hatchback, 5 puertas'], ['Potencia objetivo', '304 PS, especificación de desarrollo'], ['Seguridad', 'Toyota Safety Sense']],
+                highlights: [['fa-flag-checkered', 'ADN de competición', 'Desarrollo inspirado en aprendizaje real de motorsport.'], ['fa-cogs', 'GR-FOUR', 'Distribución de tracción seleccionable para distintas condiciones.'], ['fa-wind', 'Aerodinámica funcional', 'Elementos diseñados para refrigeración, estabilidad y desempeño.'], ['fa-hand-rock', 'Control directo', 'Ergonomía y respuesta enfocadas en la conexión conductor-vehículo.']],
+                galleryCopy: 'Motorsport convertido en emoción diaria.'
+            },
+            'fortuner': {
+                name: 'Fortuner SRV 4x4', year: '2026', badge: 'SUV 4x4', kicker: 'Toyota · Fortuner', image: 'https://images.unsplash.com/photo-1626668893632-6f3a4466d22f?q=80&w=2072&auto=format&fit=crop',
+                tagline: 'Presencia, espacio y capacidad 4x4 para afrontar trayectos urbanos y escapadas en familia.',
+                description: 'Fortuner combina una arquitectura resistente con confort para pasajeros, una cabina amplia y recursos pensados para viajes y terrenos variados.',
+                quick: [['Motor', 'Gasolina'], ['Transmisión', 'Automática'], ['Tracción', '4x4'], ['Capacidad', '7 pasajeros']],
+                specs: [['Motor', 'Gasolina, según versión'], ['Transmisión', 'Automática'], ['Tracción', '4x4'], ['Carrocería', 'SUV, 5 puertas'], ['Capacidad', 'Hasta 7 pasajeros'], ['Seguridad', 'Sistemas activos Toyota según versión']],
+                highlights: [['fa-users', 'Espacio para siete', 'Configuración flexible para familia y equipaje.'], ['fa-mountain', 'Capacidad 4x4', 'Tracción preparada para diferentes superficies.'], ['fa-road', 'Confort de viaje', 'Cabina pensada para recorridos largos y uso diario.'], ['fa-shield-alt', 'Construcción confiable', 'Ingeniería Toyota para durabilidad y seguridad.']],
+                galleryCopy: 'Capacidad para llevarte más lejos.'
+            },
+            '4runner': {
+                name: '4Runner TRD Pro', year: '2023', badge: 'Usado certificado', kicker: 'Toyota · 4Runner', image: 'https://images.unsplash.com/photo-1617469167446-8043b44674ad?q=80&w=2070&auto=format&fit=crop',
+                tagline: 'Un SUV robusto con vocación todoterreno, presencia inconfundible y capacidad para la aventura.',
+                description: '4Runner TRD Pro está orientado a quienes buscan un vehículo fuerte, funcional y preparado para conducir más allá del asfalto.',
+                quick: [['Motor', 'Gasolina'], ['Transmisión', 'Automática'], ['Tracción', '4WD'], ['Condición', 'Certificado']],
+                specs: [['Motor', 'Gasolina'], ['Transmisión', 'Automática'], ['Tracción', '4WD'], ['Carrocería', 'SUV, 5 puertas'], ['Kilometraje demo', '24.500 km'], ['Garantía', 'Extendida, según condiciones']],
+                highlights: [['fa-mountain', 'TRD Pro', 'Configuración orientada al uso todoterreno.'], ['fa-compass', 'Aventura real', 'Capacidad para rutas exigentes y actividades al aire libre.'], ['fa-shield-alt', 'Usado certificado', 'Proceso de revisión y respaldo comercial.'], ['fa-box-open', 'Espacio funcional', 'Cabina y carga preparadas para viajes y equipo.']],
+                galleryCopy: 'Hecho para explorar sin límites.'
+            }
+        };
+
+        let activeVehicleKey = 'yaris-cross';
+        let vehicleReturnView = 'desktop';
+
+        function openVehicleDetail(vehicleKey) {
+            const vehicle = vehicleCatalog[vehicleKey];
+            if (!vehicle) return;
+            const currentView = [...document.querySelectorAll('.view-section')].find(view => !view.classList.contains('hidden'));
+            if (currentView && currentView.id !== 'view-vehicle-detail') vehicleReturnView = currentView.id.replace('view-', '');
+            activeVehicleKey = vehicleKey;
+
+            document.getElementById('detail-nav-name').textContent = vehicle.name;
+            document.getElementById('detail-name').textContent = vehicle.name;
+            document.getElementById('detail-kicker').textContent = vehicle.kicker + ' · ' + vehicle.year;
+            document.getElementById('detail-hero-badge').textContent = vehicle.badge;
+            document.getElementById('detail-tagline').textContent = vehicle.tagline;
+            document.getElementById('detail-description').textContent = vehicle.description;
+            document.getElementById('detail-section-title').textContent = 'Conoce ' + vehicle.name;
+            document.getElementById('detail-cta-title').textContent = '¿Listo para conocer tu ' + vehicle.name + '?';
+            document.getElementById('detail-gallery-copy').textContent = vehicle.galleryCopy;
+
+            ['detail-hero-image', 'detail-gallery-main', 'detail-gallery-secondary', 'detail-gallery-tertiary'].forEach(id => {
+                const image = document.getElementById(id);
+                image.src = vehicle.image;
+                image.alt = 'Toyota ' + vehicle.name;
+            });
+
+            document.getElementById('detail-quick-specs').innerHTML = vehicle.quick.map(item => `
+                <div class="bg-[#101010] p-4 md:p-5"><span class="block text-[9px] font-bold uppercase tracking-widest text-gray-500">${item[0]}</span><strong class="block text-sm mt-1">${item[1]}</strong></div>
+            `).join('');
+
+            document.getElementById('detail-highlights-grid').innerHTML = vehicle.highlights.map(item => `
+                <article class="rounded-3xl bg-[#f4f4f4] border border-black/5 p-7 min-h-[220px] hover:-translate-y-1 hover:shadow-lg transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-black text-white flex items-center justify-center text-lg"><i class="fas ${item[0]}"></i></div>
+                    <h3 class="text-xl font-bold mt-6">${item[1]}</h3><p class="text-gray-600 text-sm leading-relaxed mt-3">${item[2]}</p>
+                </article>
+            `).join('');
+
+            document.getElementById('detail-specs-list').innerHTML = vehicle.specs.map((item, index) => `
+                <div class="flex items-center justify-between gap-6 px-6 py-5 ${index ? 'border-t border-black/10' : ''}"><span class="text-sm text-gray-500">${item[0]}</span><strong class="text-sm text-right">${item[1]}</strong></div>
+            `).join('');
+
+            switchView('vehicle-detail');
+        }
+
+        function returnFromVehicleDetail() { switchView(vehicleReturnView || 'desktop'); }
+        function scrollVehicleSection(sectionId) { document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+        function openVehicleLead(intent) {
+            const vehicle = vehicleCatalog[activeVehicleKey];
+            toggleExiaChat(true);
+            askExia(`Quiero solicitar ${intent} para el Toyota ${vehicle.name}`);
+        }
+        function toggleFavoriteVehicle(button) {
+            const icon = button.querySelector('i');
+            icon.classList.toggle('far'); icon.classList.toggle('fas');
+            button.classList.toggle('text-[#E60000]');
+            button.lastChild.textContent = icon.classList.contains('fas') ? ' Guardado' : ' Guardar';
+        }
+        function shareVehicleDetail() {
+            const vehicle = vehicleCatalog[activeVehicleKey];
+            alert(`Compartir Toyota ${vehicle.name}\n\nEn la versión operativa, este botón copiará el enlace único del vehículo o abrirá las opciones de compartir.`);
+        }
+        function downloadVehicleSpec() {
+            const vehicle = vehicleCatalog[activeVehicleKey];
+            alert(`Ficha técnica: Toyota ${vehicle.name}\n\nLa descarga del PDF oficial quedará conectada al documento correspondiente de cada versión comercial.`);
+        }
+
+        // --- 8. FILTROS DE DISCOVER OUR LINEUP ---
+        function filterLineup(category, clickedTab) {
+            document.querySelectorAll('.lineup-tab').forEach(tab => {
+                tab.classList.remove('bg-black', 'text-white');
+            });
+            clickedTab.classList.add('bg-black', 'text-white');
+
+            document.querySelectorAll('.lineup-card').forEach(card => {
+                const categories = card.dataset.lineup.split(' ');
+                const shouldShow = categories.includes(category);
+                card.classList.toggle('hidden', !shouldShow);
+            });
+        }
+    </script>
+</body>
+</html>
