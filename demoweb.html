@@ -1,0 +1,2304 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exiauto Toyota | Concesionario y Taller Oficial - Los Ruices, Caracas</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome 6 CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        toyota: {
+                            red: '#EB0A1E',
+                            redhover: '#C80819',
+                            dark: '#1E232A',
+                            darker: '#13171C',
+                            microcement: '#F4F5F7',
+                            warm: '#FDFBF7',
+                            graytext: '#5B6574',
+                            hevblue: '#0059C1'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FFFFFF;
+            color: #1E232A;
+            overflow-x: hidden;
+        }
+
+        .bg-microcement {
+            background-color: #F4F5F7;
+            background-image: radial-gradient(#E2E5EC 0.75px, transparent 0.75px);
+            background-size: 16px 16px;
+        }
+
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F4F5F7;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="antialiased text-toyota-dark selection:bg-toyota-red selection:text-white">
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- PREHEADER BAR -->
+    <div class="bg-toyota-darker text-white text-xs py-2 border-b border-gray-800 relative z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap justify-between items-center gap-2">
+            <div class="flex items-center gap-6">
+                <span class="flex items-center gap-2 text-gray-300">
+                    <i class="fa-solid fa-location-dot text-toyota-red"></i>
+                    <span>Av. Principal de Los Ruices, Edif. Exiauto, Caracas</span>
+                </span>
+                <span class="hidden md:inline-flex items-center gap-2 text-gray-300">
+                    <i class="fa-solid fa-clock text-gray-400"></i>
+                    <span>Taller: Lun - Vie 7:30 AM - 4:30 PM</span>
+                </span>
+            </div>
+            <div class="flex items-center gap-5 text-gray-300">
+                <a href="tel:02122130911" class="hover:text-white transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-phone text-toyota-red"></i>
+                    <span class="font-semibold">(0212) 213-0911</span>
+                </a>
+                <span class="hidden sm:inline-block text-gray-600">|</span>
+                <span class="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold bg-white/10 px-2.5 py-0.5 rounded text-gray-200">
+                    <i class="fa-solid fa-vector-square text-toyota-red"></i> 4.000 m² de Instalaciones
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <nav class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="flex justify-between items-center h-20">
+                <!-- Brand Logo (Official Exiauto Badge Style) -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="flex flex-col">
+                        <div class="text-2xl font-black tracking-tighter leading-none text-toyota-red flex items-center gap-1 font-sans">
+                            EXIAUTO
+                        </div>
+                        <div class="text-[10px] font-bold tracking-widest text-toyota-dark uppercase mt-0.5 flex items-center gap-1">
+                            <span>Su</span>
+                            <svg class="w-3.5 h-3.5 inline-block fill-toyota-dark" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 4.69 2 8c0 1.5 0.9 2.87 2.41 3.87C3.5 13.08 3 14.5 3 16c0 3.31 4.03 6 9 6s9-2.69 9-6c0-1.5-0.5-2.92-1.41-4.13C21.1 10.87 22 9.5 22 8c0-3.31-4.48-6-10-6zm0 2c4.41 0 8 2.02 8 4c0 .88-0.72 1.68-1.92 2.32C16.32 8.79 14.28 8 12 8s-4.32.79-6.08 2.32C4.72 9.68 4 8.88 4 8c0-1.98 3.59-4 8-4zm0 6c3.31 0 6 1.34 6 3 0 .73-.62 1.38-1.65 1.88C14.88 13.62 13.48 13 12 13s-2.88.62-4.35 1.88C6.62 14.38 6 13.73 6 13c0-1.66 2.69-3 6-3z"/></svg>
+                            <span class="font-extrabold">TOYOTA</span>
+                            <span class="text-toyota-red">del Este</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <div class="hidden lg:flex items-center gap-7 font-medium text-sm">
+                    
+                    <!-- 1. VEHÍCULOS (MEGA MENU) -->
+                    <div class="group py-6">
+                        <button class="flex items-center gap-1.5 font-semibold text-sm hover:text-toyota-red transition text-toyota-dark focus:outline-none">
+                            <span>Vehículos</span>
+                            <i class="fa-solid fa-chevron-down text-[10px] text-gray-400 group-hover:rotate-180 transition-transform duration-200"></i>
+                        </button>
+
+                        <div class="absolute top-full left-4 right-4 bg-white border border-gray-200 rounded-b-2xl shadow-2xl p-8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                            <div class="grid grid-cols-4 gap-6 divide-x divide-gray-200 text-left">
+                                <div class="pr-4">
+                                    <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">Pasajero</span>
+                                    <ul class="space-y-2.5 text-sm font-medium text-toyota-dark">
+                                        <li><button data-action="open-vdp" data-vehicle-id="agya" class="hover:text-toyota-red transition block text-left w-full">Agya</button></li>
+                                        <li><button data-action="open-vdp" data-vehicle-id="yaris" class="hover:text-toyota-red transition block text-left w-full">Yaris</button></li>
+                                        <li><button data-action="open-vdp" data-vehicle-id="corolla" class="hover:text-toyota-red transition block text-left w-full">Corolla</button></li>
+                                    </ul>
+                                </div>
+
+                                <div class="px-6">
+                                    <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">Camioneta</span>
+                                    <ul class="space-y-2.5 text-sm font-medium text-toyota-dark">
+                                        <li><button data-action="open-vdp" data-vehicle-id="yariscross" class="hover:text-toyota-red transition block text-left w-full">Yaris Cross</button></li>
+                                        <li><button data-action="open-vdp" data-vehicle-id="corollacross" class="hover:text-toyota-red transition block text-left w-full">Corolla Cross</button></li>
+                                        <li><button data-action="open-vdp" data-vehicle-id="lc70" class="hover:text-toyota-red transition block text-left w-full">Land Cruiser 70</button></li>
+                                        <li><button data-action="open-vdp" data-vehicle-id="fortuner" class="hover:text-toyota-red transition block text-left w-full">Fortuner SW4</button></li>
+                                        <li><button data-action="open-vdp" data-vehicle-id="prado250" class="hover:text-toyota-red transition block text-left w-full">Land Cruiser Prado</button></li>
+                                        <li><button data-action="open-vdp" data-vehicle-id="lc300" class="hover:text-toyota-red transition block text-left w-full">Land Cruiser 300</button></li>
+                                        <li><button data-action="open-vdp" data-vehicle-id="lcfj" class="hover:text-toyota-red transition block text-left w-full">Land Cruiser FJ</button></li>
+                                    </ul>
+                                </div>
+
+                                <div class="px-6 space-y-6">
+                                    <div>
+                                        <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Pick Up's</span>
+                                        <ul class="space-y-2 text-sm font-medium text-toyota-dark">
+                                            <li><button data-action="open-vdp" data-vehicle-id="hilux" class="hover:text-toyota-red transition block text-left w-full">Hilux</button></li>
+                                        </ul>
+                                    </div>
+                                    <div class="pt-2">
+                                        <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Comercial</span>
+                                        <ul class="space-y-2 text-sm font-medium text-toyota-dark">
+                                            <li><button data-action="open-vdp" data-vehicle-id="hiace" class="hover:text-toyota-red transition block text-left w-full">Hiace</button></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="pl-6 space-y-4">
+                                    <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">Ver más</span>
+                                    <ul class="space-y-3.5 text-sm font-semibold">
+                                        <li>
+                                            <a href="#lineup" class="text-toyota-dark hover:text-toyota-red transition block">Ver todos los modelos</a>
+                                        </li>
+                                        <li class="pt-2">
+                                            <a href="https://wa.me/584142130911?text=Hola%20Exiauto%20Toyota,%20quisiera%20solicitar%20una%20cotizaci%C3%B3n" target="_blank" rel="noopener noreferrer" class="text-emerald-600 hover:text-emerald-700 font-bold transition flex items-center gap-2">
+                                                <span>Solicitar cotización</span>
+                                                <i class="fa-brands fa-whatsapp text-lg"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. USADOS -->
+                    <a href="#lineup" data-action="toast" data-msg="Mostrando inventario de vehículos Seminuevos & Usados..." class="font-semibold text-sm text-toyota-dark hover:text-toyota-red transition py-6">Usados</a>
+
+                    <!-- 3. MI TOYOTA -->
+                    <div class="relative group py-6">
+                        <button class="flex items-center gap-1.5 font-semibold text-sm hover:text-toyota-red transition text-toyota-dark focus:outline-none">
+                            <span>Mi Toyota</span>
+                            <i class="fa-solid fa-chevron-down text-[10px] text-gray-400 group-hover:rotate-180 transition-transform duration-200"></i>
+                        </button>
+                        <div class="absolute top-full left-0 w-52 bg-white border border-gray-200 rounded-xl shadow-xl p-2.5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 text-left">
+                            <button data-action="open-modal" data-target="modal-servicio-tecnico" class="w-full text-left block px-3 py-2 text-xs font-medium text-toyota-dark hover:bg-toyota-microcement hover:text-toyota-red rounded-lg transition">Servicio técnico</button>
+                            <button data-action="open-modal" data-target="modal-latoneria" class="w-full text-left block px-3 py-2 text-xs font-medium text-toyota-dark hover:bg-toyota-microcement hover:text-toyota-red rounded-lg transition">Latonería y pintura</button>
+                        </div>
+                    </div>
+
+                    <!-- 4. ACCESORIOS -->
+                    <div class="relative group py-6">
+                        <button class="flex items-center gap-1.5 font-semibold text-sm hover:text-toyota-red transition text-toyota-dark focus:outline-none">
+                            <span>Accesorios</span>
+                            <i class="fa-solid fa-chevron-down text-[10px] text-gray-400 group-hover:rotate-180 transition-transform duration-200"></i>
+                        </button>
+                        <div class="absolute top-full left-0 w-52 bg-white border border-gray-200 rounded-xl shadow-xl p-2.5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 text-left">
+                            <button data-action="open-modal" data-target="modal-repuestos-view" class="w-full text-left block px-3 py-2 text-xs font-medium text-toyota-dark hover:bg-toyota-microcement hover:text-toyota-red rounded-lg transition">Repuestos genuinos</button>
+                            <button data-action="open-modal" data-target="modal-repuestos-view" class="w-full text-left block px-3 py-2 text-xs font-medium text-toyota-dark hover:bg-toyota-microcement hover:text-toyota-red rounded-lg transition">Accesorios originales</button>
+                        </div>
+                    </div>
+
+                    <!-- 5. CONTÁCTANOS -->
+                    <div class="relative group py-6">
+                        <button class="flex items-center gap-1.5 font-semibold text-sm hover:text-toyota-red transition text-toyota-dark focus:outline-none">
+                            <span>Contáctanos</span>
+                            <i class="fa-solid fa-chevron-down text-[10px] text-gray-400 group-hover:rotate-180 transition-transform duration-200"></i>
+                        </button>
+                        <div class="absolute top-full right-0 w-56 bg-white border border-gray-200 rounded-xl shadow-xl p-2.5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 text-left">
+                            <a href="#contacto" class="block px-3 py-2 text-xs font-medium text-toyota-dark hover:bg-toyota-microcement hover:text-toyota-red rounded-lg transition">Atención al cliente</a>
+                            <button data-action="open-modal" data-target="modal-financiamiento-quick" class="w-full text-left block px-3 py-2 text-xs font-medium text-toyota-dark hover:bg-toyota-microcement hover:text-toyota-red rounded-lg transition">Pide tu presupuesto</button>
+                            <a href="https://wa.me/584142130911" target="_blank" rel="noopener noreferrer" class="block px-3 py-2 text-xs font-semibold text-emerald-600 hover:bg-emerald-50 rounded-lg transition flex items-center justify-between">
+                                <span>Contacto Whatsapp</span>
+                                <i class="fa-brands fa-whatsapp text-sm"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- CTA Button -->
+                <div class="hidden sm:flex items-center gap-3">
+                    <button data-action="open-modal" data-target="modal-cita" class="bg-toyota-red hover:bg-toyota-redhover text-white text-xs font-bold uppercase tracking-wider px-5 py-3 rounded-md transition shadow-md hover:shadow-lg flex items-center gap-2">
+                        <i class="fa-solid fa-calendar-check text-sm"></i>
+                        <span>Agendar Cita</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Hamburger Button -->
+                <button data-action="toggle-mobile-menu" class="lg:hidden p-2 rounded-md text-toyota-dark hover:bg-gray-100 focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-gray-200 px-4 pt-2 pb-6 space-y-3 font-medium text-sm text-left">
+            <div class="border-b border-gray-100 pb-2">
+                <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">Vehículos</span>
+                <div class="pl-2 space-y-1 text-xs">
+                    <a href="#lineup" data-action="close-mobile-menu" class="block py-1 text-gray-800 hover:text-toyota-red">Ver todos los modelos</a>
+                    <a href="https://wa.me/584142130911" target="_blank" class="block py-1 text-emerald-600 font-bold">Solicitar cotización (WhatsApp)</a>
+                </div>
+            </div>
+
+            <a href="#lineup" data-action="toast" data-msg="Mostrando inventario Usados..." class="block py-2 text-gray-800 hover:text-toyota-red border-b border-gray-100">Usados</a>
+
+            <div class="border-b border-gray-100 pb-2">
+                <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">Mi Toyota</span>
+                <div class="pl-2 space-y-1 text-xs">
+                    <button data-action="open-modal" data-target="modal-servicio-tecnico" class="block w-full text-left py-1 text-gray-800 hover:text-toyota-red">Servicio técnico</button>
+                    <button data-action="open-modal" data-target="modal-latoneria" class="block w-full text-left py-1 text-gray-800 hover:text-toyota-red">Latonería y pintura</button>
+                </div>
+            </div>
+
+            <div class="border-b border-gray-100 pb-2">
+                <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">Accesorios</span>
+                <div class="pl-2 space-y-1 text-xs">
+                    <button data-action="open-modal" data-target="modal-repuestos-view" class="block w-full text-left py-1 text-gray-800 hover:text-toyota-red">Repuestos genuinos</button>
+                    <button data-action="open-modal" data-target="modal-repuestos-view" class="block w-full text-left py-1 text-gray-800 hover:text-toyota-red">Accesorios originales</button>
+                </div>
+            </div>
+
+            <div class="pb-2">
+                <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">Contáctanos</span>
+                <div class="pl-2 space-y-1 text-xs">
+                    <a href="#contacto" data-action="close-mobile-menu" class="block py-1 text-gray-800 hover:text-toyota-red">Atención al cliente</a>
+                    <button data-action="open-modal" data-target="modal-financiamiento-quick" class="block w-full text-left py-1 text-gray-800 hover:text-toyota-red">Pide tu presupuesto</button>
+                    <a href="https://wa.me/584142130911" target="_blank" class="block py-1 text-emerald-600 font-bold">Contacto Whatsapp</a>
+                </div>
+            </div>
+
+            <div class="pt-2">
+                <button data-action="open-modal" data-target="modal-cita" class="w-full bg-toyota-red text-white font-bold uppercase text-xs tracking-wider py-3 rounded text-center">
+                    Agendar Cita
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO BANNER -->
+    <section class="relative bg-toyota-darker text-white overflow-hidden py-16 lg:py-24 border-b border-gray-800 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-toyota-red/20 via-toyota-darker to-toyota-darker">
+        <div class="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px]"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-toyota-darker via-transparent to-black/60 pointer-events-none"></div>
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            
+            <!-- Badge Header -->
+            <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full text-xs font-semibold text-gray-200 mb-6">
+                <span class="w-2 h-2 rounded-full bg-toyota-red animate-ping"></span>
+                <span class="uppercase tracking-widest text-[11px]">Exiauto Los Ruices • Caracas</span>
+            </div>
+
+            <!-- Big Headline -->
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white uppercase leading-tight">
+                ¿CUÁL QUIERES QUE SEA TU <span class="text-toyota-red">PRÓXIMO TOYOTA?</span>
+            </h1>
+            <p class="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto mt-3 font-medium">
+                Elige tu vehículo Toyota 0km con Exiauto
+            </p>
+
+            <!-- Search Mode Tabs -->
+            <div class="flex justify-center items-center gap-6 sm:gap-10 mt-10 border-b border-gray-700/60 pb-3 max-w-2xl mx-auto text-xs font-bold uppercase tracking-wider">
+                <button data-action="switch-hero-mode" data-mode="vehicle" class="hero-mode-btn text-white border-b-2 border-toyota-red pb-3 flex items-center gap-2 transition">
+                    <i class="fa-solid fa-sliders text-toyota-red"></i>
+                    <span>VEHÍCULO</span>
+                </button>
+                <button data-action="switch-hero-mode" data-mode="keyword" class="hero-mode-btn text-gray-400 hover:text-white border-b-2 border-transparent pb-3 flex items-center gap-2 transition">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span>PALABRA CLAVE</span>
+                </button>
+                <button data-action="switch-hero-mode" data-mode="service" class="hero-mode-btn text-gray-400 hover:text-white border-b-2 border-transparent pb-3 flex items-center gap-2 transition">
+                    <i class="fa-solid fa-wrench"></i>
+                    <span>CITAS & TALLER</span>
+                </button>
+            </div>
+
+            <!-- SEARCH BAR BOX CONTAINER -->
+            <div class="mt-8 bg-white text-toyota-dark rounded-2xl shadow-2xl p-4 sm:p-6 text-left max-w-5xl mx-auto border border-gray-200">
+                
+                <!-- MODE 1: VEHICLE SEARCH FORM -->
+                <form id="hero-search-vehicle" data-action="execute-hero-search-vehicle" class="grid sm:grid-cols-12 gap-3 items-end">
+                    <div class="sm:col-span-4">
+                        <label class="block text-[10px] font-black uppercase tracking-wider text-gray-500 mb-1">Tipo de Vehículo</label>
+                        <select id="hero-select-cat" class="w-full bg-toyota-microcement border border-gray-300 rounded-lg px-3.5 py-3 text-xs sm:text-sm font-semibold text-toyota-dark focus:outline-none focus:border-toyota-red">
+                            <option value="all">Todos los Tipos</option>
+                            <option value="pasajero">Pasajero</option>
+                            <option value="camioneta">Camioneta</option>
+                            <option value="pickup">Pick Up's</option>
+                            <option value="comercial">Comercial</option>
+                        </select>
+                    </div>
+
+                    <div class="sm:col-span-4">
+                        <label class="block text-[10px] font-black uppercase tracking-wider text-gray-500 mb-1">Modelo Toyota</label>
+                        <select id="hero-select-model" class="w-full bg-toyota-microcement border border-gray-300 rounded-lg px-3.5 py-3 text-xs sm:text-sm font-semibold text-toyota-dark focus:outline-none focus:border-toyota-red">
+                            <option value="all">Cualquier Modelo</option>
+                        </select>
+                    </div>
+
+                    <div class="sm:col-span-4 flex items-center gap-2">
+                        <div class="w-full">
+                            <label class="block text-[10px] font-black uppercase tracking-wider text-gray-500 mb-1">Tecnología / Motor</label>
+                            <select id="hero-select-tech" class="w-full bg-toyota-microcement border border-gray-300 rounded-lg px-3.5 py-3 text-xs sm:text-sm font-semibold text-toyota-dark focus:outline-none focus:border-toyota-red">
+                                <option value="all">Todas las Tecnologías</option>
+                                <option value="hev">Híbridos HEV</option>
+                                <option value="gas">Gasolina / Diésel</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="bg-toyota-red hover:bg-toyota-redhover text-white text-xs font-extrabold uppercase tracking-wider px-6 py-3.5 rounded-xl transition shadow-md flex items-center justify-center gap-2 mt-5 shrink-0">
+                            <span>BUSCAR</span>
+                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- MODE 2: KEYWORD SEARCH FORM -->
+                <form id="hero-search-keyword" data-action="execute-hero-search-keyword" class="hidden grid sm:grid-cols-12 gap-3 items-end">
+                    <div class="sm:col-span-9">
+                        <label class="block text-[10px] font-black uppercase tracking-wider text-gray-500 mb-1">Palabra Clave o Modelo</label>
+                        <div class="relative">
+                            <input id="hero-keyword-input" type="text" placeholder="Ej: Prado, Hilux, HEV, 4x4, Yaris, Corolla..." class="w-full bg-toyota-microcement border border-gray-300 rounded-lg pl-10 pr-4 py-3 text-xs sm:text-sm font-medium text-toyota-dark focus:outline-none focus:border-toyota-red">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-gray-400 text-sm"></i>
+                        </div>
+                    </div>
+
+                    <div class="sm:col-span-3">
+                        <button type="submit" class="w-full bg-toyota-red hover:bg-toyota-redhover text-white text-xs font-extrabold uppercase tracking-wider px-6 py-3.5 rounded-xl transition shadow-md flex items-center justify-center gap-2">
+                            <span>BUSCAR</span>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- MODE 3: SERVICE & APPOINTMENT FORM -->
+                <form id="hero-search-service" data-action="execute-hero-search-service" class="hidden grid sm:grid-cols-12 gap-3 items-end">
+                    <div class="sm:col-span-4">
+                        <label class="block text-[10px] font-black uppercase tracking-wider text-gray-500 mb-1">Servicio de Taller</label>
+                        <select required class="w-full bg-toyota-microcement border border-gray-300 rounded-lg px-3.5 py-3 text-xs sm:text-sm font-semibold text-toyota-dark focus:outline-none focus:border-toyota-red">
+                            <option value="Mantenimiento Express 60 Min">Mantenimiento Express 60 Min</option>
+                            <option value="Latonería y Pintura Sikkens">Latonería y Pintura Sikkens</option>
+                            <option value="Diagnóstico Escáner GTS+">Diagnóstico Escáner GTS+</option>
+                            <option value="Revisión de Frenos">Revisión de Frenos & Suspensión</option>
+                        </select>
+                    </div>
+                    <div class="sm:col-span-3">
+                        <label class="block text-[10px] font-black uppercase tracking-wider text-gray-500 mb-1">Teléfono</label>
+                        <input type="tel" required placeholder="0414-0000000" class="w-full bg-toyota-microcement border border-gray-300 rounded-lg px-3.5 py-3 text-xs sm:text-sm font-medium focus:outline-none focus:border-toyota-red">
+                    </div>
+                    <div class="sm:col-span-3">
+                        <label class="block text-[10px] font-black uppercase tracking-wider text-gray-500 mb-1">Fecha Sugerida</label>
+                        <input type="date" required class="w-full bg-toyota-microcement border border-gray-300 rounded-lg px-3.5 py-3 text-xs sm:text-sm font-medium focus:outline-none focus:border-toyota-red">
+                    </div>
+                    <div class="sm:col-span-2 pt-2 sm:pt-0">
+                        <button type="submit" class="w-full bg-toyota-dark hover:bg-black text-white text-xs font-extrabold uppercase tracking-wider py-3.5 rounded-full transition shadow-md">
+                            PRE-AGENDAR
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+
+            <!-- Quick Metrics Below Search -->
+            <div class="flex flex-wrap justify-center items-center gap-8 sm:gap-12 mt-10 text-xs font-medium text-gray-400">
+                <span class="flex items-center gap-2">
+                    <i class="fa-solid fa-shield-halved text-toyota-red"></i> Garantía Exiauto (3 Años / 100.000 Km)
+                </span>
+                <span class="flex items-center gap-2">
+                    <i class="fa-solid fa-gears text-toyota-red"></i> Servicios y Repuestos
+                </span>
+                <span class="flex items-center gap-2">
+                    <i class="fa-solid fa-location-dot text-toyota-red"></i> Sede Los Ruices (4.000 m²)
+                </span>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- LINE UP SECTION -->
+    <section id="lineup" class="py-20 bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="text-toyota-red font-bold text-xs uppercase tracking-widest block mb-2">Catálogo Oficial 2026</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-toyota-dark tracking-tight">
+                    Encuentra tu próximo Toyota
+                </h2>
+            </div>
+
+            <!-- Category Filter Tabs -->
+            <div class="border-b border-gray-200 mb-12 overflow-x-auto no-scrollbar">
+                <div class="flex justify-center space-x-8 min-w-max pb-3 font-semibold text-xs uppercase tracking-wider" id="lineup-tabs-container">
+                    <button data-action="filter-lineup" data-cat="all" class="lineup-tab text-toyota-red border-b-2 border-toyota-red pb-3 transition flex items-center gap-2">
+                        <span>Todos los Modelos</span>
+                    </button>
+                    <button data-action="filter-lineup" data-cat="camioneta" class="lineup-tab text-gray-500 hover:text-toyota-dark border-b-2 border-transparent pb-3 transition flex items-center gap-2">
+                        <span>Camioneta</span>
+                    </button>
+                    <button data-action="filter-lineup" data-cat="pasajero" class="lineup-tab text-gray-500 hover:text-toyota-dark border-b-2 border-transparent pb-3 transition flex items-center gap-2">
+                        <span>Pasajero</span>
+                    </button>
+                    <button data-action="filter-lineup" data-cat="pickup" class="lineup-tab text-gray-500 hover:text-toyota-dark border-b-2 border-transparent pb-3 transition flex items-center gap-2">
+                        <span>Pick Up's</span>
+                    </button>
+                    <button data-action="filter-lineup" data-cat="comercial" class="lineup-tab text-gray-500 hover:text-toyota-dark border-b-2 border-transparent pb-3 transition flex items-center gap-2">
+                        <span>Comercial</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Scroll Controls -->
+            <div id="lineup-scroll-controls" class="hidden flex justify-end items-center gap-2 mb-4">
+                <button data-action="scroll-lineup" data-dir="left" aria-label="Anterior" class="w-9 h-9 rounded-full bg-white border border-gray-300 text-toyota-dark hover:bg-toyota-red hover:text-white hover:border-toyota-red transition flex items-center justify-center shadow-sm">
+                    <i class="fa-solid fa-chevron-left text-xs pointer-events-none"></i>
+                </button>
+                <button data-action="scroll-lineup" data-dir="right" aria-label="Siguiente" class="w-9 h-9 rounded-full bg-white border border-gray-300 text-toyota-dark hover:bg-toyota-red hover:text-white hover:border-toyota-red transition flex items-center justify-center shadow-sm">
+                    <i class="fa-solid fa-chevron-right text-xs pointer-events-none"></i>
+                </button>
+            </div>
+
+            <!-- Dynamic Vehicle Cards Grid / Slider -->
+            <div class="relative">
+                <div id="lineup-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Dynamic vehicle cards rendered by JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICIOS TALLER AUTORIZADO EXIAUTO -->
+    <section id="taller" class="py-20 bg-white border-y border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="border-b border-gray-100 pb-8 mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div>
+                    <span class="text-toyota-red font-bold text-xs uppercase tracking-widest block mb-2">Servicios Exiauto</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-toyota-dark tracking-tight">
+                        Excelencia Operativa & Postventa
+                    </h2>
+                </div>
+                <p class="text-toyota-graytext text-xs sm:text-sm max-w-md leading-relaxed">
+                    Instalación física de 4.000 m² equipada con sistemas de precisión milimétrica y personal certificado por Toyota Motor Corporation.
+                </p>
+            </div>
+
+            <!-- Top Services 3 Cards Layout -->
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                
+                <!-- Card 1: Servicio Técnico Mantenimiento -->
+                <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-gray-100 text-toyota-dark rounded-2xl flex items-center justify-center text-xl mb-6 group-hover:bg-toyota-dark group-hover:text-white transition">
+                            <i class="fa-solid fa-wrench"></i>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-extrabold text-toyota-dark mb-3">
+                            Servicio Técnico Mantenimiento
+                        </h3>
+                        <p class="text-toyota-graytext text-xs leading-relaxed mb-6">
+                            Mantenimiento preventivo y correctivo especializado. Servicio Mantenimiento Express de 60 minutos con diagnóstico de 21 puntos sin costo.
+                        </p>
+                        
+                        <ul class="space-y-2.5 text-xs text-toyota-graytext font-medium mb-8">
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-check text-emerald-500 font-bold"></i>
+                                <span>Repuestos 100% Genuinos Toyota</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-check text-emerald-500 font-bold"></i>
+                                <span>Escáner de Diagnóstico Oficial Techstream</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-check text-emerald-500 font-bold"></i>
+                                <span>Garantía escrita en mano de obra</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <button data-action="open-modal" data-target="modal-servicio-tecnico" class="text-xs font-black uppercase text-toyota-red hover:text-toyota-dark flex items-center gap-2 transition pt-4 border-t border-gray-100">
+                        <span>VER SERVICIO TÉCNICO</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </button>
+                </div>
+
+                <!-- Card 2: Latonería y Pintura Sikkens -->
+                <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-gray-100 text-toyota-dark rounded-2xl flex items-center justify-center text-xl mb-6 group-hover:bg-toyota-dark group-hover:text-white transition">
+                            <i class="fa-solid fa-spray-can"></i>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-extrabold text-toyota-dark mb-3">
+                            Latonería y Pintura Sikkens
+                        </h3>
+                        <p class="text-toyota-graytext text-xs leading-relaxed mb-6">
+                            Restauración estética completa en área dedicada de 4.000 m². Cabinas de horneado ecológico y medición por ultrasonido de chasis.
+                        </p>
+                        
+                        <ul class="space-y-2.5 text-xs text-toyota-graytext font-medium mb-8">
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-check text-emerald-500 font-bold"></i>
+                                <span>Laboratorio de colorimetría Sikkens</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-check text-emerald-500 font-bold"></i>
+                                <span>Banco de enderezado estructural Korek</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-check text-emerald-500 font-bold"></i>
+                                <span>Soldadura MIG electro punto de fábrica</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <button data-action="open-modal" data-target="modal-latoneria" class="text-xs font-black uppercase text-toyota-red hover:text-toyota-dark flex items-center gap-2 transition pt-4 border-t border-gray-100">
+                        <span>VER PINTURA & LATONERÍA</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </button>
+                </div>
+
+                <!-- Card 3: Repuestos Originales Toyota -->
+                <div class="bg-white p-8 rounded-2xl border-2 border-toyota-red shadow-md hover:shadow-lg transition group flex flex-col justify-between relative overflow-hidden">
+                    <div>
+                        <div class="w-12 h-12 bg-toyota-red text-white rounded-2xl flex items-center justify-center text-xl mb-6 shadow-sm">
+                            <i class="fa-solid fa-gears"></i>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-extrabold text-toyota-dark mb-3">
+                            Repuestos Originales Toyota
+                        </h3>
+                        <p class="text-toyota-graytext text-xs leading-relaxed mb-6">
+                            Inventario autenticado directamente de fábrica. Garantizamos la durabilidad, seguridad y valor de reventa de tu vehículo.
+                        </p>
+                        
+                        <ul class="space-y-2.5 text-xs text-toyota-graytext font-medium mb-8">
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-check text-emerald-500 font-bold"></i>
+                                <span>Filtros, pastillas de freno y suspensiones</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-check text-emerald-500 font-bold"></i>
+                                <span>Lubricantes y fluidos Toyota Genuine</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-check text-emerald-500 font-bold"></i>
+                                <span>Envíos y reserva inmediata por WhatsApp</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <button data-action="open-modal" data-target="modal-repuestos-view" class="w-full text-left text-xs font-black uppercase text-toyota-red hover:text-toyota-dark flex items-center gap-2 transition pt-4 border-t border-gray-100">
+                        <span>CONSULTAR CATÁLOGO DE PIEZAS</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SIMULADOR DE FINANCIAMIENTO EXIPLAN -->
+    <section id="financiamiento" class="py-20 bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-5 space-y-6">
+                    <div>
+                        <span class="text-toyota-red font-bold text-xs uppercase tracking-widest block mb-2">Canalización Crediticia</span>
+                        <h2 class="text-3xl sm:text-4xl font-black text-toyota-dark tracking-tight uppercase">
+                            Optar por Financiamiento con Banca Aliada
+                        </h2>
+                        <p class="text-toyota-graytext text-sm mt-3 leading-relaxed">
+                            En Exiauto Toyota facilitamos la gestión de tu expediente para pre-evaluación con las principales instituciones bancarias del país.
+                        </p>
+                    </div>
+
+                    <div class="space-y-4 text-xs font-medium text-gray-600">
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 font-bold mt-0.5"><i class="fa-solid fa-check text-[10px]"></i></div>
+                            <div>
+                                <strong class="text-toyota-dark block font-bold text-sm">Pre-evaluación Directa de Expediente:</strong>
+                                Te asesoramos en los recaudos necesarios para ser canalizado de forma prioritaria.
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 font-bold mt-0.5"><i class="fa-solid fa-check text-[10px]"></i></div>
+                            <div>
+                                <strong class="text-toyota-dark block font-bold text-sm">Plazos Flexibles de 12 a 24 Meses:</strong>
+                                Adaptados a la capacidad de pago y políticas vigentes de la banca nacional.
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 font-bold mt-0.5"><i class="fa-solid fa-check text-[10px]"></i></div>
+                            <div>
+                                <strong class="text-toyota-dark block font-bold text-sm">Condiciones Sujetas a Evaluación Bancaria:</strong>
+                                Porcentajes finales e iniciales son determinados en función del perfil de riesgo por la entidad financiera.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2">
+                        <button data-action="open-modal" data-target="modal-financiamiento-quick" class="bg-toyota-red hover:bg-toyota-redhover text-white text-xs font-extrabold uppercase tracking-wider px-6 py-4 rounded-xl shadow-md transition flex items-center gap-2">
+                            <i class="fa-solid fa-file-signature text-sm"></i>
+                            <span>Solicitar Pre-evaluación Crediticia</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7">
+                    <div class="bg-toyota-microcement rounded-2xl p-6 sm:p-8 border border-gray-200 shadow-sm space-y-6">
+                        <div class="flex justify-between items-center border-b border-gray-200 pb-4">
+                            <h3 class="text-lg font-black text-toyota-dark uppercase tracking-tight">Estimador Referencial ExiPlan</h3>
+                            <span class="text-[10px] font-bold text-gray-400 bg-white px-3 py-1 rounded border border-gray-200">Uso Informativo</span>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-500 mb-2">Selecciona Plazo en Meses (12 - 24 Meses)</label>
+                                <div class="flex items-center gap-4">
+                                    <input type="range" id="finance-months" min="12" max="24" step="6" value="18" data-action="update-calculator" class="w-full accent-toyota-red cursor-pointer">
+                                    <span class="text-sm font-black text-toyota-dark bg-white px-3 py-1.5 rounded border border-gray-200 min-w-[70px] text-center">
+                                        <span id="finance-months-val">18</span> Meses
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="grid sm:grid-cols-2 gap-4 pt-4">
+                                <div class="bg-white p-4 rounded-xl border border-gray-200">
+                                    <span class="text-[10px] font-bold uppercase text-gray-400 block mb-1">Porcentaje Inicial Sugerido</span>
+                                    <span class="text-xl font-black text-toyota-dark">Desde 30% - 50%</span>
+                                    <span class="text-[10px] text-gray-400 block mt-1">Sujeto a política del banco evaluador</span>
+                                </div>
+
+                                <div class="bg-white p-4 rounded-xl border border-gray-200">
+                                    <span class="text-[10px] font-bold uppercase text-gray-400 block mb-1">Estatus del Trámite</span>
+                                    <span class="text-xl font-black text-toyota-red">Canalización Activa</span>
+                                    <span class="text-[10px] text-gray-400 block mt-1">Sede Los Ruices, Caracas</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white/70 p-4 rounded-xl border border-gray-200 text-xs text-toyota-graytext leading-relaxed">
+                            <i class="fa-solid fa-circle-info text-toyota-red mr-1"></i>
+                            Los valores resultantes son de carácter estimativo para la pre-evaluación del expediente. La tasa de interés, comisiones de apertura e inicial requerida dependerán de la resolución emitida por la institución bancaria correspondiente.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- BANNER PROMOCIONAL ACCESORIOS Y REPUESTOS EN HOME -->
+    <section id="repuestos" class="py-16 bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-r from-toyota-darker via-toyota-dark to-slate-900 text-white rounded-2xl p-8 sm:p-12 relative overflow-hidden shadow-xl border border-gray-800">
+                <div class="absolute right-0 top-0 bottom-0 w-1/3 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+                
+                <div class="relative z-10 max-w-3xl">
+                    <div class="inline-flex items-center gap-2 bg-toyota-red text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full mb-4 shadow-sm">
+                        <i class="fa-solid fa-shield-halved text-xs"></i>
+                        <span>ACCESORIOS ORIGINALES TOYOTA</span>
+                    </div>
+
+                    <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase mb-3">
+                        Accesorios & Repuestos Toyota
+                    </h2>
+
+                    <p class="text-gray-300 text-xs sm:text-sm leading-relaxed max-w-2xl font-medium mb-6">
+                        Equipa tu Toyota con accesorios originales: confort, seguridad, estilo y tecnología. Selecciona tu modelo y descubre todo lo que tenemos para ti con la garantía directa de Sede Los Ruices.
+                    </p>
+
+                    <button data-action="open-modal" data-target="modal-repuestos-view" class="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-toyota-dark bg-white hover:bg-gray-100 px-6 py-3.5 rounded-lg shadow-md transition hover:scale-105">
+                        <span>BUSCAR REPUESTOS</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO Y UBICACIÓN SEDE LOS RUICES -->
+    <section id="contacto" class="py-20 bg-toyota-dark text-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12">
+                <div class="lg:col-span-5 space-y-6">
+                    <div>
+                        <span class="text-toyota-red font-bold text-xs uppercase tracking-widest block mb-1">Atención Personalizada</span>
+                        <h2 class="text-3xl font-extrabold">Ubicación & Contacto</h2>
+                        <p class="text-gray-400 text-sm mt-2">Visítanos en nuestras instalaciones de 4.000 m² en Los Ruices, Caracas.</p>
+                    </div>
+
+                    <div class="space-y-4 pt-2">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded bg-toyota-red/20 text-toyota-red flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm">Dirección Sede Principal:</h4>
+                                <p class="text-xs text-gray-300">Av. Principal de Los Ruices, Edif. Exiauto, Municipio Sucre, Caracas - Venezuela.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded bg-toyota-red/20 text-toyota-red flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm">Central Telefónica:</h4>
+                                <p class="text-xs text-gray-300">(0212) 213-0911 / (0212) 239-1222</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded bg-toyota-red/20 text-toyota-red flex items-center justify-center shrink-0">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm">WhatsApp Ventas & Taller:</h4>
+                                <a href="https://wa.me/584142130911" target="_blank" class="text-xs text-green-400 hover:underline">+58 (414) 213-0911</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded bg-toyota-red/20 text-toyota-red flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm">Horario de Atención:</h4>
+                                <p class="text-xs text-gray-300">Concesionario: Lun - Vie 8:00 AM - 5:00 PM | Sáb 9:00 AM - 1:00 PM</p>
+                                <p class="text-xs text-gray-300">Taller: Lun - Vie 7:30 AM - 4:30 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7">
+                    <div class="bg-toyota-darker p-8 rounded-2xl border border-gray-800 shadow-xl">
+                        <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+                            <i class="fa-solid fa-paper-plane text-toyota-red text-base"></i>
+                            <span>Enviar Mensaje Directo</span>
+                        </h3>
+
+                        <form data-action="submit-contact" class="space-y-4">
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-400 mb-1">Nombre Completo</label>
+                                    <input type="text" required placeholder="Ej: Carlos Mendoza" class="w-full bg-white/5 border border-white/10 rounded px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-toyota-red">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-400 mb-1">Teléfono</label>
+                                    <input type="tel" required placeholder="0412-0000000" class="w-full bg-white/5 border border-white/10 rounded px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-toyota-red">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 mb-1">Correo Electrónico</label>
+                                <input type="email" required placeholder="correo@ejemplo.com" class="w-full bg-white/5 border border-white/10 rounded px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-toyota-red">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 mb-1">Asunto / Consulta</label>
+                                <input type="text" placeholder="Ej: Información sobre Land Cruiser Prado / Asesoría de Taller" class="w-full bg-white/5 border border-white/10 rounded px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-toyota-red">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 mb-1">Mensaje</label>
+                                <textarea rows="3" required placeholder="Escriba aquí sus requerimientos o inquietudes..." class="w-full bg-white/5 border border-white/10 rounded px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-toyota-red"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full bg-toyota-red hover:bg-toyota-redhover text-white font-bold text-xs uppercase tracking-wider py-3.5 rounded-lg transition shadow-md">
+                                ENVIAR MENSAJE A EXIAUTO
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUBFOOTER -->
+        <div class="mt-16 border-t border-gray-800 pt-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-xs text-gray-500 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+                © 2026 Exiauto Toyota. Todos los derechos reservados. Sede Principal Los Ruices, Caracas.
+            </div>
+            <div class="flex items-center gap-6">
+                <button data-action="open-modal" data-target="modal-novedades" class="hover:text-white transition">Novedades</button>
+                <span>|</span>
+                <a href="#lineup" class="hover:text-white transition">Aviso de Privacidad</a>
+                <span>|</span>
+                <a href="#lineup" class="hover:text-white transition">Términos del Servicio</a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- MODAL 1: RECEPCIÓN DIGITAL DE SERVICIO (BOOKING APPOINTMENT) -->
+    <div id="modal-cita" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-slate-950 text-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative border border-slate-800">
+            <button data-action="close-modal" data-target="modal-cita" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl w-8 h-8 flex items-center justify-center rounded-full bg-white/10 transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Header Red Badge -->
+            <div class="text-center mb-6">
+                <div class="w-14 h-14 bg-toyota-red text-white rounded-2xl flex items-center justify-center text-2xl mx-auto mb-3 shadow-lg shadow-toyota-red/30">
+                    <i class="fa-solid fa-car"></i>
+                </div>
+                <h3 class="text-xl font-black uppercase tracking-tight text-white">EXIAUTO TOYOTA</h3>
+                <p class="text-xs text-gray-400 font-medium mt-0.5">Recepción Digital de Servicio</p>
+            </div>
+
+            <form data-action="submit-modal-cita" class="space-y-4 text-left">
+                <div>
+                    <label class="block text-xs font-bold text-gray-300 mb-1">Placa de su Vehículo</label>
+                    <input type="text" required placeholder="LAB-427" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm font-bold tracking-widest text-white uppercase focus:outline-none focus:border-toyota-red">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-300 mb-1">Su Nombre Completo</label>
+                    <input type="text" required placeholder="Ingresa tu nombre" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-xs font-semibold text-white focus:outline-none focus:border-toyota-red">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-300 mb-1">¿Qué relación tiene con el vehículo?</label>
+                    <select required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-xs font-semibold text-white focus:outline-none focus:border-toyota-red">
+                        <option value="Propietario">Soy el Propietario</option>
+                        <option value="Chofer">Soy Chofer de la empresa</option>
+                        <option value="Familiar">Soy Familiar / Amigo</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-300 mb-1">Kilometraje Aprox.</label>
+                        <input type="number" required placeholder="Ej: 48200" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-xs font-medium text-white focus:outline-none focus:border-toyota-red">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-300 mb-1">Fecha Sugerida</label>
+                        <input type="date" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-3 text-xs font-medium text-white focus:outline-none focus:border-toyota-red">
+                    </div>
+                </div>
+
+                <!-- Warranty Notice Box -->
+                <div class="bg-amber-950/40 border border-amber-500/40 rounded-xl p-3.5 text-xs text-amber-200/90 leading-relaxed space-y-1">
+                    <div class="font-bold flex items-center gap-2 text-amber-400">
+                        <i class="fa-solid fa-book-bookmark text-sm"></i>
+                        <span>Recuerde su Manual de Garantía</span>
+                    </div>
+                    <p class="text-[11px] text-gray-300">
+                        Por favor baje el manual de la guantera antes de entrar a la sala de espera.
+                    </p>
+                </div>
+
+                <button type="submit" class="w-full bg-toyota-red hover:bg-toyota-redhover text-white font-black text-xs uppercase tracking-wider py-4 rounded-xl transition shadow-lg shadow-toyota-red/20 mt-2">
+                    CONFIRMAR Y OBTENER TURNO
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 2: VEHICLE DETAIL VIEW (VDP & 360 EXPERIENCIA) -->
+    <div id="modal-spec" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl max-w-5xl w-full max-h-[92vh] overflow-y-auto shadow-2xl relative border border-gray-200 text-toyota-dark">
+            <div class="sticky top-0 bg-white/95 backdrop-blur z-20 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-toyota-red"></span>
+                    <span id="vdp-header-name" class="font-black text-base uppercase tracking-tight text-toyota-dark">Vehículo Toyota</span>
+                </div>
+                <button data-action="close-modal" data-target="modal-spec" class="text-gray-400 hover:text-toyota-dark text-xl w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div id="modal-spec-content" class="p-6 sm:p-8 space-y-8">
+                <!-- Javascript populated content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: PRESUPUESTO & COTIZACIÓN RÁPIDA (LEAD TO SALES) -->
+    <div id="modal-financiamiento-quick" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-gray-200 text-toyota-dark">
+            <button data-action="close-modal" data-target="modal-financiamiento-quick" class="absolute top-4 right-4 text-gray-400 hover:text-toyota-dark text-xl w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-toyota-red/10 text-toyota-red rounded-2xl flex items-center justify-center text-xl mx-auto mb-3">
+                    <i class="fa-solid fa-file-signature"></i>
+                </div>
+                <h3 class="text-xl font-black uppercase text-toyota-dark">SOLICITAR COTIZACIÓN</h3>
+                <p class="text-xs text-toyota-graytext mt-1">Ingresa tus datos y un ejecutivo de ventas Exiauto te contactará a la brevedad.</p>
+            </div>
+
+            <form data-action="submit-modal-finance" class="space-y-4 text-left">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Nombre y Apellido</label>
+                    <input type="text" required placeholder="Ej: Carlos Mendoza" class="w-full bg-toyota-microcement border border-gray-300 rounded-xl px-4 py-3 text-xs font-semibold focus:outline-none focus:border-toyota-red">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Teléfono WhatsApp</label>
+                        <input type="tel" required placeholder="0414-0000000" class="w-full bg-toyota-microcement border border-gray-300 rounded-xl px-4 py-3 text-xs font-semibold focus:outline-none focus:border-toyota-red">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Correo Electrónico</label>
+                        <input type="email" required placeholder="correo@ejemplo.com" class="w-full bg-toyota-microcement border border-gray-300 rounded-xl px-4 py-3 text-xs font-semibold focus:outline-none focus:border-toyota-red">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Modelo de Interés</label>
+                    <input id="finance-modal-vehicle" type="text" placeholder="Ej: Land Cruiser Prado 250, Hilux..." class="w-full bg-toyota-microcement border border-gray-300 rounded-xl px-4 py-3 text-xs font-semibold focus:outline-none focus:border-toyota-red">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Comentario o Consulta Adicional</label>
+                    <textarea rows="2" placeholder="Tengo un vehículo usado a consignación / Quisiera información sobre opciones con banca aliada..." class="w-full bg-toyota-microcement border border-gray-300 rounded-xl px-4 py-3 text-xs font-medium focus:outline-none focus:border-toyota-red"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-toyota-red hover:bg-toyota-redhover text-white font-black text-xs uppercase tracking-wider py-3.5 rounded-xl transition shadow">
+                    ENVIAR SOLICITUD A VENTAS
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 4: CATÁLOGO DE REPUESTOS Y ACCESORIOS GENUINOS 2.0 -->
+    <div id="modal-repuestos-view" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl max-w-6xl w-full max-h-[92vh] overflow-y-auto shadow-2xl relative border border-gray-200 text-toyota-dark">
+            
+            <div class="sticky top-0 bg-white/95 backdrop-blur z-20 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-toyota-red"></span>
+                    <span class="font-black text-base uppercase tracking-tight text-toyota-dark">Catálogo de Accesorios & Repuestos Genuinos</span>
+                </div>
+                <button data-action="close-modal" data-target="modal-repuestos-view" class="text-gray-400 hover:text-toyota-dark text-xl w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-6 sm:p-8 space-y-8">
+                <!-- Short Dark Banner 2.0 -->
+                <div class="bg-gradient-to-r from-toyota-darker via-toyota-dark to-slate-900 text-white rounded-2xl p-8 sm:p-10 relative overflow-hidden shadow-xl border border-gray-800">
+                    <div class="relative z-10 max-w-3xl">
+                        <span class="bg-toyota-red text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full mb-3 inline-block">ACCESORIOS ORIGINALES</span>
+                        <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight uppercase mb-2">Accesorios Toyota</h2>
+                        <p class="text-gray-300 text-xs sm:text-sm leading-relaxed font-medium">Equipa tu Toyota con accesorios originales: confort, seguridad, estilo y tecnología. Selecciona tu modelo y descubre todo lo que tenemos para ti.</p>
+                    </div>
+                </div>
+
+                <div class="text-center max-w-2xl mx-auto">
+                    <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tight text-toyota-dark">SELECCIONA EL MODELO Y DESCUBRE TODOS LOS ACCESORIOS DISPONIBLES</h3>
+                    <p class="text-xs text-toyota-graytext mt-1">Accesorios originales Toyota para tu vehículo</p>
+                </div>
+
+                <!-- 3 Dropdown Filters Panel -->
+                <div class="bg-toyota-microcement rounded-2xl p-5 border border-gray-200 space-y-4">
+                    <div class="grid sm:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-[10px] font-black uppercase text-gray-500 mb-1">Tipo de accesorio</label>
+                            <select id="filter-parts-type" class="w-full bg-white border border-gray-300 rounded-xl px-3.5 py-2.5 text-xs font-semibold text-toyota-dark focus:outline-none focus:border-toyota-red">
+                                <option value="all">Todos los Tipos</option>
+                                <option value="Externo">Externo (68)</option>
+                                <option value="Interno">Interno (15)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-[10px] font-black uppercase text-gray-500 mb-1">Accesorios por modelo</label>
+                            <select id="filter-parts-model" class="w-full bg-white border border-gray-300 rounded-xl px-3.5 py-2.5 text-xs font-semibold text-toyota-dark focus:outline-none focus:border-toyota-red">
+                                <option value="all">Todos los Modelos</option>
+                                <option value="COROLLA">COROLLA (19)</option>
+                                <option value="COROLLA CROSS">COROLLA CROSS (15)</option>
+                                <option value="HILUX">HILUX (49)</option>
+                                <option value="LAND CRUISER">LAND CRUISER (20)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-[10px] font-black uppercase text-gray-500 mb-1">Categoría del accesorio</label>
+                            <select id="filter-parts-cat" class="w-full bg-white border border-gray-300 rounded-xl px-3.5 py-2.5 text-xs font-semibold text-toyota-dark focus:outline-none focus:border-toyota-red">
+                                <option value="all">Todas las Categorías</option>
+                                <option value="Design">Design (33)</option>
+                                <option value="External">External (9)</option>
+                                <option value="Safety">Safety (4)</option>
+                                <option value="Lubricantes">Lubricantes (12)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap justify-between items-center gap-4 border-t border-gray-200 pt-3">
+                        <button id="btn-clear-parts-filter" class="text-xs font-bold text-gray-500 hover:text-toyota-red transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-rotate-left text-[11px]"></i>
+                            <span>Limpiar todo</span>
+                        </button>
+
+                        <div class="flex items-center gap-3">
+                            <div class="relative">
+                                <input id="parts-search" type="text" placeholder="Inserte palabra clave" class="bg-white border border-gray-300 rounded-xl pl-3.5 pr-8 py-2 text-xs font-medium focus:outline-none focus:border-toyota-red w-48 sm:w-64">
+                                <i class="fa-solid fa-magnifying-glass absolute right-3 top-2.5 text-gray-400 text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Grid Header -->
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                    <div class="text-base font-black uppercase tracking-tight text-toyota-dark">
+                        <span id="parts-count-title">12</span> RESULTADOS
+                    </div>
+                    <div class="flex items-center gap-3 text-xs">
+                        <label class="font-bold text-gray-500">Ordenar por:</label>
+                        <select id="sort-parts-select" class="bg-white border border-gray-300 rounded-lg px-3 py-1.5 font-semibold text-toyota-dark focus:outline-none focus:border-toyota-red">
+                            <option value="recent">Fecha más reciente</option>
+                            <option value="price-low">Precio: Menor a Mayor</option>
+                            <option value="price-high">Precio: Mayor a Menor</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Product Grid -->
+                <div id="parts-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Javascript rendered parts -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 5: SERVICIO TÉCNICO VISTA DEDICADA RENOVADA EXIAUTO 2.0 -->
+    <div id="modal-servicio-tecnico" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl max-w-6xl w-full max-h-[92vh] overflow-y-auto shadow-2xl relative border border-gray-200 text-toyota-dark">
+            
+            <div class="sticky top-0 bg-white/95 backdrop-blur z-20 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-toyota-red"></span>
+                    <span class="font-black text-base uppercase tracking-tight text-toyota-dark">Exiauto Toyota • Taller Oficial</span>
+                </div>
+                <button data-action="close-modal" data-target="modal-servicio-tecnico" class="text-gray-400 hover:text-toyota-dark text-xl w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Red Hero Header Banner -->
+            <div class="bg-gradient-to-r from-toyota-red via-red-600 to-toyota-redhover text-white p-8 sm:p-12 relative overflow-hidden">
+                <div class="max-w-3xl relative z-10">
+                    <span class="bg-white/20 text-white text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full mb-3 inline-block">MANTENIMIENTO ESPECIALIZADO</span>
+                    <h2 class="text-3xl sm:text-5xl font-black uppercase tracking-tight mb-3">SERVICIO TÉCNICO</h2>
+                    <p class="text-white/90 text-xs sm:text-sm leading-relaxed font-medium">
+                        ¡Mantenimiento y reparación especializada para tu Toyota! Nuestro servicio técnico ofrece soluciones confiables y eficientes para mantener tu vehículo en óptimas condiciones. Confía en nuestros técnicos expertos certificados por fábrica.
+                    </p>
+                </div>
+            </div>
+
+            <div class="p-6 sm:p-10 space-y-10">
+                <div class="grid md:grid-cols-12 gap-8 items-center">
+                    <div class="md:col-span-7 space-y-4">
+                        <h3 class="text-2xl font-black text-toyota-dark uppercase">Asistencia Profesional Certificada</h3>
+                        <p class="text-xs sm:text-sm text-toyota-graytext leading-relaxed">
+                            En <strong>Exiauto Toyota</strong> contarás con la asistencia profesional que necesita tu vehículo. Un personal técnico altamente capacitado y certificado, además tendrá el asesoramiento profesional de acuerdo a las exigencias que presentan los diversos modelos de la marca.
+                        </p>
+                        <p class="text-xs text-toyota-graytext leading-relaxed">
+                            Recuerda, es importante realizar el diagnóstico de tu vehículo a tiempo y evitar daños graves en tu Toyota.
+                        </p>
+
+                        <div class="pt-2">
+                            <button data-action="open-modal" data-target="modal-cita" class="bg-toyota-red hover:bg-toyota-redhover text-white text-xs font-black uppercase tracking-wider px-6 py-3.5 rounded-xl transition shadow flex items-center gap-2">
+                                <i class="fa-solid fa-calendar-check text-sm"></i>
+                                <span>Agendar Cita de Servicio</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-5">
+                        <div class="bg-toyota-microcement p-6 rounded-2xl border border-gray-200 text-center space-y-3">
+                            <div class="w-16 h-16 bg-toyota-red/10 text-toyota-red rounded-2xl flex items-center justify-center text-3xl mx-auto mb-2">
+                                <i class="fa-solid fa-clock-rotate-left"></i>
+                            </div>
+                            <h4 class="font-extrabold text-sm text-toyota-dark uppercase">Mantenimiento Express 60 Min</h4>
+                            <p class="text-xs text-toyota-graytext">Servicio prioritario con 2 técnicos simultáneos en tu vehículo para chequeo rápido de rutina.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4 Pillars Red Banner Box -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-toyota-red text-white p-6 rounded-2xl text-center space-y-2 shadow">
+                        <i class="fa-solid fa-users text-3xl mb-1"></i>
+                        <h4 class="font-black text-xs uppercase">Técnicos Especializados</h4>
+                    </div>
+
+                    <div class="bg-toyota-darker text-white p-6 rounded-2xl text-center space-y-2 shadow">
+                        <i class="fa-solid fa-toolbox text-3xl mb-1 text-toyota-red"></i>
+                        <h4 class="font-black text-xs uppercase">Equipos y Herramientas Adecuados</h4>
+                    </div>
+
+                    <div class="bg-toyota-red text-white p-6 rounded-2xl text-center space-y-2 shadow">
+                        <i class="fa-solid fa-stopwatch text-3xl mb-1"></i>
+                        <h4 class="font-black text-xs uppercase">Mantenimiento Express</h4>
+                    </div>
+
+                    <div class="bg-toyota-darker text-white p-6 rounded-2xl text-center space-y-2 shadow">
+                        <i class="fa-solid fa-laptop-code text-3xl mb-1 text-toyota-red"></i>
+                        <h4 class="font-black text-xs uppercase">Cita Online Directa</h4>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-toyota-red to-red-700 text-white rounded-2xl p-8 text-center space-y-3 shadow-lg">
+                    <h3 class="text-2xl sm:text-3xl font-black uppercase">¿En qué consiste nuestro servicio técnico?</h3>
+                    <p class="text-xs sm:text-sm max-w-2xl mx-auto text-white/90">
+                        Evaluación integral de 21 puntos vitales: motor, suspensión, frenos, escáner GTS+ oficial, alineación milimétrica y reemplazo de fluidos genuinos Toyota.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 6: LATONERÍA Y PINTURA VISTA DEDICADA RENOVADA EXIAUTO 2.0 -->
+    <div id="modal-latoneria" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl max-w-6xl w-full max-h-[92vh] overflow-y-auto shadow-2xl relative border border-gray-200 text-toyota-dark">
+            
+            <div class="sticky top-0 bg-white/95 backdrop-blur z-20 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-toyota-red"></span>
+                    <span class="font-black text-base uppercase tracking-tight text-toyota-dark">Exiauto Toyota • Taller Oficial</span>
+                </div>
+                <button data-action="close-modal" data-target="modal-latoneria" class="text-gray-400 hover:text-toyota-dark text-xl w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Red Hero Header Banner -->
+            <div class="bg-gradient-to-r from-toyota-red via-red-600 to-toyota-redhover text-white p-8 sm:p-12 relative overflow-hidden">
+                <div class="max-w-3xl relative z-10">
+                    <span class="bg-white/20 text-white text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full mb-3 inline-block">RESTAURACIÓN ESTÉTICA DE FÁBRICA</span>
+                    <h2 class="text-3xl sm:text-5xl font-black uppercase tracking-tight mb-3">SERVICIOS DE ENDEREZADO, LATONERÍA Y PINTURA</h2>
+                    <p class="text-white/90 text-xs sm:text-sm leading-relaxed font-medium">
+                        ¡Restauramos la belleza de tu vehículo! Servicios de enderezado, latonería y pintura de alta calidad para dejar tu auto como nuevo. Confía en nuestros expertos en reparaciones automotrices.
+                    </p>
+                </div>
+            </div>
+
+            <div class="p-6 sm:p-10 space-y-10">
+                <div class="grid md:grid-cols-12 gap-8 items-center">
+                    <div class="md:col-span-7 space-y-4">
+                        <h3 class="text-2xl font-black text-toyota-dark uppercase">Enderezado, latonería y pintura</h3>
+                        <p class="text-xs sm:text-sm text-toyota-graytext leading-relaxed">
+                            Un área de 4.000 m² conforma el equipo de <strong>enderezado, latonería y pintura</strong> constituido por maquinarias, cuartos de pintura, sala de espera entre otros son espacios dedicados para atenderte, ofrecer el mejor servicio en restaurar y reparar piezas afectadas y mejorar la estética del vehículo.
+                        </p>
+                        <p class="text-xs text-toyota-graytext leading-relaxed">
+                            Nuestro equipo está entrenado y certificado por <strong>Toyota, Sikkens</strong>. También contamos con equipos de avanzada para garantizarle una alta calidad en la reparación.
+                        </p>
+
+                        <div class="pt-2">
+                            <button data-action="open-modal" data-target="modal-cita" class="bg-toyota-red hover:bg-toyota-redhover text-white text-xs font-black uppercase tracking-wider px-6 py-3.5 rounded-xl transition shadow flex items-center gap-2">
+                                <i class="fa-solid fa-calendar-check text-sm"></i>
+                                <span>Agendar Cita de Latonería</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-5">
+                        <div class="bg-toyota-darker text-white p-6 rounded-2xl border border-gray-800 text-center space-y-3 shadow-xl">
+                            <div class="w-16 h-16 bg-toyota-red text-white rounded-2xl flex items-center justify-center text-3xl mx-auto mb-2 shadow">
+                                <i class="fa-solid fa-spray-can"></i>
+                            </div>
+                            <h4 class="font-extrabold text-sm uppercase text-white">Laboratorio Sikkens Oficial</h4>
+                            <p class="text-xs text-gray-300">Pinturas ecológicas al agua con igualación por espectrofotómetro digital para tono de fábrica exacto.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+                    <div class="bg-toyota-red text-white p-5 rounded-2xl text-center space-y-2 shadow">
+                        <i class="fa-solid fa-desktop text-2xl mb-1"></i>
+                        <h4 class="font-black text-[11px] uppercase leading-tight">Sistema de medición por ultrasonido</h4>
+                    </div>
+
+                    <div class="bg-toyota-darker text-white p-5 rounded-2xl text-center space-y-2 shadow">
+                        <i class="fa-solid fa-arrows-up-down-left-right text-2xl mb-1 text-toyota-red"></i>
+                        <h4 class="font-black text-[11px] uppercase leading-tight">Banco de enderezado</h4>
+                    </div>
+
+                    <div class="bg-toyota-red text-white p-5 rounded-2xl text-center space-y-2 shadow">
+                        <i class="fa-solid fa-gears text-2xl mb-1"></i>
+                        <h4 class="font-black text-[11px] uppercase leading-tight">Sistema de enderezado Korek</h4>
+                    </div>
+
+                    <div class="bg-toyota-darker text-white p-5 rounded-2xl text-center space-y-2 shadow">
+                        <i class="fa-solid fa-fire text-2xl mb-1 text-toyota-red"></i>
+                        <h4 class="font-black text-[11px] uppercase leading-tight">Soldadura Mig y electro punto</h4>
+                    </div>
+
+                    <div class="bg-toyota-red text-white p-5 rounded-2xl text-center space-y-2 shadow col-span-2 md:col-span-1">
+                        <i class="fa-solid fa-warehouse text-2xl mb-1"></i>
+                        <h4 class="font-black text-[11px] uppercase leading-tight">Dos cabinas - horno Sikkens</h4>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-toyota-red to-red-700 text-white rounded-2xl p-8 text-center space-y-3 shadow-lg">
+                    <h3 class="text-2xl sm:text-3xl font-black uppercase">¿En qué consiste nuestro servicio de latonería?</h3>
+                    <p class="text-xs sm:text-sm max-w-2xl mx-auto text-white/90">
+                        Desarmado técnico, alineación milimétrica de estructura, aplicación de primers anticorrosivos, horneado termostático a 60°C y pulido final de brillo espejo.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 7: NOVEDADES & BLOGS VIEW -->
+    <div id="modal-novedades" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl max-w-5xl w-full max-h-[92vh] overflow-y-auto shadow-2xl relative border border-gray-200 text-toyota-dark">
+            
+            <div class="sticky top-0 bg-white/95 backdrop-blur z-20 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-toyota-red"></span>
+                    <span class="font-black text-base uppercase tracking-tight text-toyota-dark">Novedades & Publicaciones</span>
+                </div>
+                <button data-action="close-modal" data-target="modal-novedades" class="text-gray-400 hover:text-toyota-dark text-xl w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-6 sm:p-8 space-y-8">
+                <div class="text-center max-w-2xl mx-auto">
+                    <span class="text-toyota-red font-bold text-xs uppercase tracking-widest block mb-1">Blog Exiauto</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-toyota-dark uppercase">Novedades Toyota Venezuela</h2>
+                    <p class="text-toyota-graytext text-xs sm:text-sm mt-2">
+                        Actualizaciones exclusivas sobre nuevos lanzamientos, consejos de taller y comunicados de Sede Los Ruices.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <article class="bg-toyota-microcement rounded-xl overflow-hidden border border-gray-200 group hover:shadow-md transition">
+                        <div class="h-44 bg-toyota-darker relative overflow-hidden flex items-center justify-center text-white">
+                            <i class="fa-solid fa-newspaper text-5xl opacity-30 group-hover:scale-110 transition duration-500"></i>
+                            <span class="absolute top-3 left-3 bg-toyota-red text-white text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded">Lanzamiento</span>
+                        </div>
+                        <div class="p-5">
+                            <div class="text-[11px] text-toyota-graytext mb-1">15 Septiembre, 2026</div>
+                            <h3 class="font-bold text-sm text-toyota-dark group-hover:text-toyota-red transition mb-2">
+                                Llegada Oficial del Nuevo Toyota Land Cruiser Prado 250 HEV
+                            </h3>
+                            <p class="text-toyota-graytext text-xs leading-relaxed mb-4">
+                                Sede Los Ruices ya cuenta con las primeras unidades del renovado ícono todoterreno con motorización i-FORCE MAX.
+                            </p>
+                            <button data-action="toast" data-msg="Cargando artículo completo..." class="text-xs font-bold text-toyota-dark uppercase flex items-center gap-1.5 hover:text-toyota-red">
+                                <span>Leer artículo</span>
+                                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="bg-toyota-microcement rounded-xl overflow-hidden border border-gray-200 group hover:shadow-md transition">
+                        <div class="h-44 bg-toyota-darker relative overflow-hidden flex items-center justify-center text-white">
+                            <i class="fa-solid fa-wrench text-5xl opacity-30 group-hover:scale-110 transition duration-500"></i>
+                            <span class="absolute top-3 left-3 bg-toyota-dark text-white text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded">Taller Oficial</span>
+                        </div>
+                        <div class="p-5">
+                            <div class="text-[11px] text-toyota-graytext mb-1">02 Septiembre, 2026</div>
+                            <h3 class="font-bold text-sm text-toyota-dark group-hover:text-toyota-red transition mb-2">
+                                Importancia del Mantenimiento de Baterías en Híbridos HEV
+                            </h3>
+                            <p class="text-toyota-graytext text-xs leading-relaxed mb-4">
+                                Nuestros especialistas explican cómo prolongar la vida útil de la batería híbrida con los chequeos GTS+.
+                            </p>
+                            <button data-action="toast" data-msg="Cargando artículo completo..." class="text-xs font-bold text-toyota-dark uppercase flex items-center gap-1.5 hover:text-toyota-red">
+                                <span>Leer artículo</span>
+                                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="bg-toyota-microcement rounded-xl overflow-hidden border border-gray-200 group hover:shadow-md transition">
+                        <div class="h-44 bg-toyota-darker relative overflow-hidden flex items-center justify-center text-white">
+                            <i class="fa-solid fa-flag-checkered text-5xl opacity-30 group-hover:scale-110 transition duration-500"></i>
+                            <span class="absolute top-3 left-3 bg-black text-white text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded">Gazoo Racing</span>
+                        </div>
+                        <div class="p-5">
+                            <div class="text-[11px] text-toyota-graytext mb-1">20 Agosto, 2026</div>
+                            <h3 class="font-bold text-sm text-toyota-dark group-hover:text-toyota-red transition mb-2">
+                                Exiauto Presenta la Línea de Accesorios Oficiales GR Sport
+                            </h3>
+                            <p class="text-toyota-graytext text-xs leading-relaxed mb-4">
+                                Personaliza tu Hilux o Corolla con componentes aerodinámicos desarrollados por Gazoo Racing.
+                            </p>
+                            <button data-action="toast" data-msg="Cargando artículo completo..." class="text-xs font-bold text-toyota-dark uppercase flex items-center gap-1.5 hover:text-toyota-red">
+                                <span>Leer artículo</span>
+                                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC - CENTRALIZED EVENT DELEGATION -->
+    <script>
+        // 1. DATASETS
+        const VEHICLES = [
+            // PASAJERO
+            {
+                id: 'agya',
+                name: 'Toyota Agya',
+                cat: 'pasajero',
+                isHev: false,
+                seats: '5 Puestos',
+                engine: '1.2L 3-Cilindros VVT-i',
+                hp: '87 HP @ 6.000 RPM',
+                trans: 'Automática CVT / Manual 5-Vel',
+                icon: 'fa-car-side',
+                description: 'Compacto eficiente, moderno y perfecto para el día a día en la ciudad. Ofrece un equilibrio ideal entre economía de combustible y maniobrabilidad.',
+                drive: 'Delantera 4x2',
+                fuel: 'Gasolina',
+                cylinders: '3 Cilindros en Línea',
+                doors: '5 Puertas',
+                features: ['Pantalla Táctil 8" con Apple CarPlay / Android Auto', 'Excelente economía de combustible', 'Doble Airbag Frontal & ABS + EBD', 'Anclajes ISOFIX para sillas de bebés'],
+                hotspots: [
+                    { title: 'Motor VVT-i Económico', desc: 'Consumo ultra eficiente optimizado para tráfico urbano.' },
+                    { title: 'Sistema Multimedia 8"', desc: 'Conexión sin cables e interfaz intuitiva.' }
+                ]
+            },
+            {
+                id: 'yaris',
+                name: 'Toyota Yaris',
+                cat: 'pasajero',
+                isHev: false,
+                seats: '5 Puestos',
+                engine: '1.5L Dual VVT-i 4-Cil',
+                hp: '106 HP @ 6.000 RPM',
+                trans: 'Automática CVT 7-Vel Step',
+                icon: 'fa-car',
+                description: 'Ágil, moderno y con tecnología conectada para el confort urbano. El sedán confiable con sello distintivo de calidad de ensamble.',
+                drive: 'Delantera 4x2',
+                fuel: 'Gasolina',
+                cylinders: '4 Cilindros',
+                doors: '4 Puertas / Sedan',
+                features: ['7 Airbags de serie para máxima seguridad', 'Cámara de Reversa con guías activas', 'Luces Diurnas LED DRL', 'Control de Estabilidad VSC & TRC'],
+                hotspots: [
+                    { title: 'Seguridad 7 Airbags', desc: 'Protección integral para todos los ocupantes.' },
+                    { title: 'Transmisión CVT 7-Vel', desc: 'Respuesta suave e instantánea en aceleración.' }
+                ]
+            },
+            {
+                id: 'corolla',
+                name: 'Toyota Corolla',
+                cat: 'pasajero',
+                isHev: false,
+                seats: '5 Puestos',
+                engine: '2.0L Dynamic Force 4-Cil',
+                hp: '170 HP @ 6.600 RPM',
+                trans: 'Direct Shift-CVT 10-Vel',
+                icon: 'fa-car-rear',
+                description: 'El sedán más vendido del mundo. Elegancia, desempeño superior y refinamiento. Diseñado sobre la arquitectura global TNGA.',
+                drive: 'Delantera 4x2 con Control Electrónico',
+                fuel: 'Gasolina',
+                cylinders: '4 Cilindros Dynamic Force',
+                doors: '4 Puertas',
+                features: ['Toyota Safety Sense 3.0 (Frenado Autónomo)', 'Tablero Digital Configurable 12.3"', 'Faros LED Full Bi-Beam', 'Cargador Inalámbrico para Smartphone'],
+                hotspots: [
+                    { title: 'Chasis TNGA', desc: 'Centro de gravedad bajo para una estabilidad en curvas impecable.' },
+                    { title: 'Toyota Safety Sense', desc: 'Control de crucero adaptativo y mantenimiento de carril.' }
+                ]
+            },
+
+            // CAMIONETA
+            {
+                id: 'yariscross',
+                name: 'Toyota Yaris Cross',
+                cat: 'camioneta',
+                isHev: true,
+                seats: '5 Puestos',
+                engine: '1.5L Dual VVT-i + Motor Eléctrico',
+                hp: '111 HP Combinados',
+                trans: 'e-CVT Automática',
+                icon: 'fa-car-side',
+                description: 'SUV compacta de estética crossover y eficiencia híbrida autorrecargable superior. Diseñada para dominar la ciudad y escapadas de fin de semana.',
+                drive: 'Delantera 4x2 / AWD Inteligente',
+                fuel: 'Híbrido HEV Autorrecargable',
+                cylinders: '3 Cilindros + Motor Eléctrico Sync',
+                doors: '5 Puertas / SUV Compacta',
+                features: ['Modos de Manejo EV / ECO / POWER', 'Faros LED Full con función auto', 'Freno de Mano Electrónico con Auto Hold', 'Maletero con Doble Fondo Ajustable'],
+                hotspots: [
+                    { title: 'Propulsión Híbrida HEV', desc: 'No requiere enchufes; se recarga al frenar y desacelerar.' },
+                    { title: 'Modo 100% Eléctrico EV', desc: 'Silencio absoluto en trayectos cortos a baja velocidad.' }
+                ]
+            },
+            {
+                id: 'corollacross',
+                name: 'Toyota Corolla Cross',
+                cat: 'camioneta',
+                isHev: true,
+                seats: '5 Puestos',
+                engine: '1.8L 4-Cil + Motor Eléctrico',
+                hp: '122 HP Combinados',
+                trans: 'e-CVT Automática',
+                icon: 'fa-car-side',
+                description: 'Espacio familiar, diseño robusto y tecnología híbrida de quinta generación. Confort de marcha elevado y la mayor eficiencia del segmento.',
+                drive: 'Delantera 4x2 VSC',
+                fuel: 'Híbrido HEV',
+                cylinders: '4 Cilindros 1.8L + Eléctrico',
+                doors: '5 Puertas',
+                features: ['Consumo promedio sobresaliente (+22 km/L)', 'Techo Solar Panorámico', 'Toyota Safety Sense Completo', 'Climatizador Automático Bi-Zona'],
+                hotspots: [
+                    { title: 'Cabina Insonorizada', desc: 'Aislamiento acústico de nivel superior para viajes familiares.' },
+                    { title: 'Seguridad TSS Active', desc: 'Detección de peatones y ciclistas de día y noche.' }
+                ]
+            },
+            {
+                id: 'lc70',
+                name: 'Toyota Land Cruiser 70',
+                cat: 'camioneta',
+                isHev: false,
+                seats: '5 - 9 Puestos',
+                engine: '4.5L V8 Turbo Diésel / 2.8L TD',
+                hp: '202 HP / 430 Nm Torque',
+                trans: 'Manual 5-Vel / Auto 6-Vel Heavy Duty',
+                icon: 'fa-truck-monster',
+                description: 'El legendario 4x4 puro e indestructible para las condiciones más exigentes de Venezuela. Leyenda off-road con chasis de escalera ultra reinforced.',
+                drive: '4WD Part-Time con Tránsfer Alta/Baja',
+                fuel: 'Diésel / Gasolina',
+                cylinders: 'V8 Turbo / 4 Cilindros HD',
+                doors: '3 / 5 Puertas / Trooper',
+                features: ['Doble Tanque de Combustible (180 Litros)', 'Snorkel Original Toyota de fábrica', 'Bloqueo Electrónico de Diferenciales Frontal y Trasero', 'Cabrestante / Winche de fábrica'],
+                hotspots: [
+                    { title: 'Doble Bloqueo Diferencial', desc: 'Tracción Imparable sobre lodo, rocas y terrenos complejos.' },
+                    { title: 'Snorkel de Fábrica', desc: 'Vado seguro para cruces de ríos profundos.' }
+                ]
+            },
+            {
+                id: 'fortuner',
+                name: 'Toyota Fortuner SW4',
+                cat: 'camioneta',
+                isHev: false,
+                seats: '7 Puestos (3 Filas)',
+                engine: '4.0L V6 / 2.8L Turbo Diésel',
+                hp: '235 HP / 376 Nm',
+                trans: 'Automática 6-Vel 4WD Secuencial',
+                icon: 'fa-truck-monster',
+                description: 'SUV de 3 filas de asientos que combina versatilidad todoterreno real y lujo interior refinado. La favorita de las familias aventureras.',
+                drive: '4x4 Conectable con Reductora L4',
+                fuel: 'Gasolina V6 / Diésel',
+                cylinders: 'V6 4.0L Dual VVT-i',
+                doors: '5 Puertas / 3 Filas',
+                features: ['Tracción 4x4 con caja de transferencia', 'Asientos de Cuero con ajuste eléctrico', 'Sistema de Audio Premium JBL 11 Parlantes', 'Portón Trasero Electrónico con sensor de pie'],
+                hotspots: [
+                    { title: '3 Filas de Asientos', desc: 'Espacio cómodo para 7 adultos con climatización independiente.' },
+                    { title: 'Audio JBL Premium', desc: 'Fidelidad acústica inmersiva en carretera.' }
+                ]
+            },
+            {
+                id: 'prado250',
+                name: 'Land Cruiser Prado 250',
+                cat: 'camioneta',
+                isHev: true,
+                seats: '7 Puestos',
+                engine: '2.4L Turbo i-FORCE MAX HEV',
+                hp: '326 HP / 630 Nm Torque',
+                trans: 'Automática 8-Velocidades',
+                icon: 'fa-shield-cat',
+                description: 'La totalmente nueva generación Land Cruiser Prado con estética retro-futurista e impulsión híbrida turbo i-FORCE MAX de torque masivo.',
+                drive: '4WD Full-Time con Torsen Central',
+                fuel: 'Híbrido i-FORCE MAX',
+                cylinders: '4 Cilindros Turbo 2.4L + Electric',
+                doors: '5 Puertas',
+                features: ['Desconexión de Barra Estabilizadora Delantera (SDM)', 'Pantalla Digital Multimedia 12.3"', 'Batería Híbrida Sellada para Vado Off-Road', 'Multi-Terrain Select (MTS) & CRAWL Control'],
+                hotspots: [
+                    { title: 'i-FORCE MAX 630 Nm', desc: 'Empuje instantáneo para sobrepasos y ascenso extremo.' },
+                    { title: 'Sistema SDM', desc: 'Mayor articulación de ruedas sobre rocas al presionar un botón.' }
+                ]
+            },
+            {
+                id: 'lc300',
+                name: 'Land Cruiser 300',
+                cat: 'camioneta',
+                isHev: false,
+                seats: '7 Puestos VIP',
+                engine: '3.5L V6 Twin-Turbo',
+                hp: '409 HP / 650 Nm Torque',
+                trans: 'Automática 10-Vel Direct Shift',
+                icon: 'fa-truck-monster',
+                description: 'El buque insignia absoluto de Toyota. Potencia bruta, lujo de primera clase, chasis TNGA-F e ingeniería sin límites.',
+                drive: '4WD Permanente con Bloqueos Total',
+                fuel: 'Gasolina Twin-Turbo',
+                cylinders: 'V6 Twin-Turbo 3.5L',
+                doors: '5 Puertas',
+                features: ['Suspensión Adaptativa Variable (AVS)', 'Toyota Safety Sense 3.0 Completo', 'Monitor Multi-Terreno 3D con cámaras inferiores', 'Pantallas de Entretenimiento Traseras Duales'],
+                hotspots: [
+                    { title: 'Motor Twin-Turbo 409 HP', desc: 'Aceleración deslumbrante con máximo refinamiento.' },
+                    { title: 'Cámara Subterránea 3D', desc: 'Visualiza lo que hay exactamente debajo de tus ruedas.' }
+                ]
+            },
+            {
+                id: 'lcfj',
+                name: 'Land Cruiser FJ',
+                cat: 'camioneta',
+                isHev: false,
+                seats: '5 Puestos',
+                engine: '2.7L 4-Cil Dual VVT-i 4WD',
+                hp: '164 HP / 245 Nm',
+                trans: 'Automática 6-Velocidades',
+                icon: 'fa-truck-monster',
+                description: 'Diseño icónico y aventurero listo para expediciones todoterreno. Geometría optimizada con ángulos de ataque y salida sobresalientes.',
+                drive: '4WD Activo A-TRAC',
+                fuel: 'Gasolina',
+                cylinders: '4 Cilindros 2.7L',
+                doors: '5 Puertas',
+                features: ['Control de Tracción Activo A-TRAC', 'Interior Lavable Resistente al Agua y Lodo', 'Suspensiones Reforzadas Off-Road', 'Estribos Laterales de Protección'],
+                hotspots: [
+                    { title: 'A-TRAC System', desc: 'Frena la rueda sin adherencia para pasar el torque a la con agarre.' },
+                    { title: 'Interior Heavy Duty', desc: 'Materiales lavables de alta resistencia para uso rudo.' }
+                ]
+            },
+
+            // PICK UP'S
+            {
+                id: 'hilux',
+                name: 'Toyota Hilux',
+                cat: 'pickup',
+                isHev: false,
+                seats: '5 Puestos',
+                engine: '2.8L Turbo Diésel Intercooler',
+                hp: '201 HP / 500 Nm Torque',
+                trans: 'Automática 6-Vel Secuencial 4x4',
+                icon: 'fa-truck-pickup',
+                description: 'La camioneta pickup indestructible por excelencia. Diseñada para trabajo pesado, transporte de carga y rutas complejas sin perder confort.',
+                drive: '4x4 con Cajas de Transferencia H2/H4/L4',
+                fuel: 'Diésel Intercooler',
+                cylinders: '4 Cilindros 2.8L Turbo',
+                doors: 'Doble Cabina / 4 Puertas',
+                features: ['Bloqueo Electrónico de Diferencial Trasero', 'Capacidad de Carga de 1 Tonelada + 3.5 T Arrastre', 'Suspensión Heavy Duty GR-Tune', 'Protector de Batea / Bedliner de fábrica'],
+                hotspots: [
+                    { title: 'Chasis Indestructible', desc: 'Soporta los trabajos y terrenos más duros del país.' },
+                    { title: '500 Nm de Torque', desc: 'Capacidad de arrastre y ascenso con máxima carga.' }
+                ]
+            },
+
+            // COMERCIAL
+            {
+                id: 'hiace',
+                name: 'Toyota Hiace',
+                cat: 'comercial',
+                isHev: false,
+                seats: '13 - 16 Puestos / Carga',
+                engine: '2.8L Turbo Diésel',
+                hp: '174 HP / 420 Nm',
+                trans: 'Manual 6-Vel / Automática 6-Vel',
+                icon: 'fa-van-shuttle',
+                description: 'Solución de transporte comercial de pasajeros o carga ligera líder en durabilidad, economía operativa y seguridad para flotillas.',
+                drive: 'Trasera 4x2 Heavy Duty',
+                fuel: 'Diésel Turbo',
+                cylinders: '4 Cilindros 2.8L',
+                doors: '4 Puertas / Van Ejecutiva o Carga',
+                features: ['Amplia Capacidad Volumétrica y Asientos Confortable', 'Aire Acondicionado Multizona con Salidas Individuales', 'Frenos ABS + Control de Estabilidad VSC', 'Puerta Lateral Deslizante de Amplia Apertura'],
+                hotspots: [
+                    { title: 'Configuración de Asientos', desc: 'Confort de viaje para ejecutivos o turismo.' },
+                    { title: 'Eficiencia de Flotilla', desc: 'Bajo costo por kilómetro recorrido y repuestos accesibles.' }
+                ]
+            }
+        ];
+
+        const SPARE_PARTS = [
+            { id: 'p1', name: 'ZÓCALO DE ALUMINIO HILUX', type: 'Externo', model: 'HILUX', pcat: 'Design', price: 280, desc: 'Protección de umbral de puerta en aluminio cepillado con grabado Hilux.', svgType: 'zocalo' },
+            { id: 'p2', name: 'SENSOR DE ESTACIONAMIENTO', type: 'Externo', model: 'COROLLA', pcat: 'Safety', price: 307, desc: 'Sensores ultrasónicos traseros de reversa con alerta sonora OEM.', svgType: 'sensor' },
+            { id: 'p3', name: 'RED DE CARGA MALETERO', type: 'Interno', model: 'COROLLA CROSS', pcat: 'Design', price: 381, desc: 'Red elástica de sujeción para equipaje y compras en área de carga.', svgType: 'red' },
+            { id: 'p4', name: 'PROTECTOR FRONTAL HILUX', type: 'Externo', model: 'HILUX', pcat: 'External', price: 209, desc: 'Defensa frontal aerodinámica de alta resistencia para sobre rocas.', svgType: 'protector' },
+            { id: 'p5', name: 'POMO PALANCA DE CAMBIOS GR', type: 'Interno', model: 'COROLLA', pcat: 'Design', price: 72, desc: 'Empuñadura de palanca en cuero perforado con costuras rojas Gazoo Racing.', svgType: 'pomo' },
+            { id: 'p6', name: 'OVERFENDERS ANCHOS 4X4', type: 'Externo', model: 'HILUX', pcat: 'External', price: 686, desc: 'Juego de guardabarros ensanchados mate resistentes a impactos.', svgType: 'overfenders' },
+            { id: 'p7', name: 'NUEVA BARRA DEPORTIVA GR', type: 'Externo', model: 'HILUX', pcat: 'External', price: 691, desc: 'Rollbar deportivo en tubo negro satinado para platón Hilux Conquest.', svgType: 'barra' },
+            { id: 'p8', name: 'MOLDURAS LATERALES CROMO', type: 'Externo', model: 'COROLLA', pcat: 'Design', price: 209, desc: 'Protectores de puerta con acabado cromo espejo original Toyota.', svgType: 'molduras' },
+            { id: 'p9', name: 'LONA CUBRE CAJA HILUX', type: 'Externo', model: 'HILUX', pcat: 'External', price: 324, desc: 'Cobertura marina enrollable e impermeable para tolva de carga.', svgType: 'lona' },
+            { id: 'p10', name: 'KIT ESTRIBOS HILUX (RH+LH)', type: 'Externo', model: 'HILUX', pcat: 'External', price: 454, desc: 'Estribos laterales de escalón en aluminio antideslizante con soportes.', svgType: 'estribos' },
+            { id: 'p11', name: 'KIT CAJA HERRAMIENTA CUBIERTA', type: 'Externo', model: 'HILUX', pcat: 'External', price: 319, desc: 'Baúl organizador hermético de polímero para la caja trasera.', svgType: 'caja' },
+            { id: 'p12', name: 'ACEITE SINTÉTICO GAZOO RACING', type: 'Interno', model: 'LAND CRUISER', pcat: 'Lubricantes', price: 65, desc: 'Galón de lubricante sintético 5W-30 formulación especial alta exigencia.', svgType: 'aceite' }
+        ];
+
+        // 2. HELPER RENDER FUNCTIONS
+        function renderLineupCards(cat = 'all') {
+            const grid = document.getElementById('lineup-grid');
+            const controls = document.getElementById('lineup-scroll-controls');
+            if (!grid) return;
+
+            const filtered = (cat === 'all') ? VEHICLES : VEHICLES.filter(v => v.cat === cat);
+            grid.innerHTML = '';
+
+            if (filtered.length > 3) {
+                if (controls) controls.classList.remove('hidden');
+                grid.className = 'flex overflow-x-auto gap-8 pb-4 pt-4 snap-x snap-mandatory no-scrollbar cursor-grab select-none scroll-smooth';
+                setupDragToScroll(grid);
+            } else {
+                if (controls) controls.classList.add('hidden');
+                grid.className = 'grid sm:grid-cols-2 lg:grid-cols-3 gap-8 pt-4';
+            }
+
+            filtered.forEach(v => {
+                const card = document.createElement('div');
+                card.className = (filtered.length > 3)
+                    ? 'snap-start shrink-0 w-[280px] sm:w-[320px] bg-toyota-microcement rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition group flex flex-col justify-between'
+                    : 'bg-toyota-microcement rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition group flex flex-col justify-between';
+
+                const hevBadge = v.isHev ? '<span class="text-[10px] font-extrabold text-toyota-hevblue bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full inline-flex items-center gap-1"><i class="fa-solid fa-bolt"></i> HEV</span>' : '';
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="bg-toyota-red text-white text-[9px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-xs flex items-center gap-1">
+                                <i class="fa-solid fa-star text-[8px]"></i> MODELO 2026
+                            </span>
+                            ${hevBadge}
+                        </div>
+                        <div class="h-28 flex items-center justify-center relative my-3">
+                            <i class="fa-solid ${v.icon} text-6xl text-toyota-dark/80 group-hover:scale-105 group-hover:text-toyota-red transition duration-300"></i>
+                            <div class="absolute bottom-0 w-full h-0.5 bg-gray-300"></div>
+                        </div>
+                        <h3 class="text-center font-black text-sm sm:text-base text-toyota-dark uppercase tracking-tight mt-4 group-hover:text-toyota-red transition">
+                            ${v.name}
+                        </h3>
+                    </div>
+
+                    <div class="pt-4 mt-4 border-t border-gray-200 flex items-center justify-between gap-2">
+                        <button data-action="open-vdp" data-vehicle-id="${v.id}" class="text-xs font-bold text-toyota-dark hover:text-toyota-red transition flex items-center gap-1.5 py-1.5 px-2 rounded hover:bg-gray-200/50">
+                            <i class="fa-solid fa-eye text-toyota-red animate-pulse text-[11px]"></i>
+                            <span>Ver detalles</span>
+                        </button>
+                        <button data-action="open-modal" data-target="modal-financiamiento-quick" data-model="${v.name}" class="bg-toyota-red hover:bg-toyota-redhover text-white text-xs font-extrabold uppercase px-3.5 py-1.5 rounded-lg transition shadow-sm flex items-center gap-1.5">
+                            <span>Cotizar</span>
+                            <i class="fa-solid fa-chevron-right text-[9px]"></i>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function setupDragToScroll(container) {
+            let isDown = false;
+            let startX, scrollLeft;
+            let isDragging = false;
+
+            container.addEventListener('mousedown', (e) => {
+                isDown = true;
+                isDragging = false;
+                container.classList.remove('cursor-grab', 'scroll-smooth');
+                container.classList.add('cursor-grabbing');
+                startX = e.pageX - container.offsetLeft;
+                scrollLeft = container.scrollLeft;
+            });
+
+            container.addEventListener('mouseleave', () => {
+                isDown = false;
+                container.classList.remove('cursor-grabbing');
+                container.classList.add('cursor-grab', 'scroll-smooth');
+            });
+
+            container.addEventListener('mouseup', () => {
+                isDown = false;
+                container.classList.remove('cursor-grabbing');
+                container.classList.add('cursor-grab', 'scroll-smooth');
+                setTimeout(() => { isDragging = false; }, 50);
+            });
+
+            container.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - container.offsetLeft;
+                const walk = (x - startX) * 1.5;
+                if (Math.abs(walk) > 5) isDragging = true;
+                container.scrollLeft = scrollLeft - walk;
+            });
+
+            container.addEventListener('click', (e) => {
+                if (isDragging) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            }, true);
+        }
+
+        function getPartSVG(part) {
+            if (part.svgType === 'zocalo') {
+                return `<div class="w-full h-40 bg-slate-900 rounded-t-xl relative overflow-hidden flex items-center justify-center p-4">
+                    <div class="w-full h-10 bg-gradient-to-r from-slate-700 via-slate-300 to-slate-700 rounded border-y-2 border-slate-400 flex items-center justify-center shadow-md">
+                        <span class="font-black text-slate-900 text-[10px] tracking-widest uppercase">HILUX</span>
+                    </div>
+                </div>`;
+            } else if (part.svgType === 'sensor') {
+                return `<div class="w-full h-40 bg-slate-800 rounded-t-xl relative overflow-hidden flex items-center justify-center p-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full bg-slate-900 border-2 border-red-500 flex items-center justify-center shadow-lg animate-pulse">
+                            <div class="w-3.5 h-3.5 rounded-full bg-red-600"></div>
+                        </div>
+                        <i class="fa-solid fa-wifi text-toyota-red text-lg"></i>
+                    </div>
+                </div>`;
+            } else if (part.svgType === 'red') {
+                return `<div class="w-full h-40 bg-slate-900 rounded-t-xl relative overflow-hidden flex items-center justify-center p-4">
+                    <div class="w-24 h-16 border-2 border-dashed border-toyota-red/70 rounded-lg flex items-center justify-center bg-white/5">
+                        <i class="fa-solid fa-box-open text-slate-400 text-2xl"></i>
+                    </div>
+                </div>`;
+            } else {
+                return `<div class="w-full h-40 bg-slate-800 rounded-t-xl relative overflow-hidden flex items-center justify-center p-4">
+                    <div class="w-28 h-16 bg-slate-900 rounded-lg border border-slate-700 flex items-center justify-center shadow-inner">
+                        <i class="fa-solid fa-gears text-toyota-red text-3xl"></i>
+                    </div>
+                </div>`;
+            }
+        }
+
+        function renderPartsGrid(partsList) {
+            const grid = document.getElementById('parts-grid');
+            const countTitle = document.getElementById('parts-count-title');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            if (countTitle) countTitle.innerText = partsList.length;
+
+            if (!partsList || partsList.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-gray-500 text-sm bg-white rounded-xl border border-gray-200 shadow-sm">
+                        <i class="fa-solid fa-magnifying-glass text-3xl text-gray-300 mb-3 block"></i>
+                        No se encontraron accesorios o repuestos que coincidan con la búsqueda.
+                    </div>
+                `;
+                return;
+            }
+
+            partsList.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-lg transition duration-300 flex flex-col justify-between overflow-hidden group';
+                
+                const waMsg = encodeURIComponent(`Hola Exiauto Toyota Los Ruices, quisiera consultar disponibilidad y compra del accesorio: ${p.name}.`);
+                const waUrl = `https://wa.me/584142130911?text=${waMsg}`;
+
+                card.innerHTML = `
+                    <div>
+                        ${getPartSVG(p)}
+                        <div class="p-5">
+                            <h4 class="font-extrabold text-xs sm:text-sm text-toyota-dark uppercase tracking-tight mb-2 leading-snug group-hover:text-toyota-red transition">
+                                ${p.name}
+                            </h4>
+                            <div class="text-lg font-black text-toyota-dark mb-2">
+                                $${p.price} <span class="text-[10px] font-bold text-gray-400 uppercase">USD</span>
+                            </div>
+                            <p class="text-xs text-toyota-graytext line-clamp-2 leading-relaxed">
+                                ${p.desc}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="p-5 pt-0">
+                        <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs py-2.5 rounded-lg transition flex items-center justify-center gap-2 shadow-sm">
+                            <i class="fa-brands fa-whatsapp text-sm"></i>
+                            <span>Consultar por WhatsApp</span>
+                        </a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function populateHeroModelOptions(cat = 'all') {
+            const select = document.getElementById('hero-select-model');
+            if (!select) return;
+            select.innerHTML = '<option value="all">Cualquier Modelo</option>';
+            const list = (cat === 'all') ? VEHICLES : VEHICLES.filter(v => v.cat === cat);
+            list.forEach(v => {
+                const opt = document.createElement('option');
+                opt.value = v.id;
+                opt.textContent = v.name;
+                select.appendChild(opt);
+            });
+        }
+
+        function updateFinancingCalculator() {
+            const monthsInput = document.getElementById('finance-months');
+            const monthsDisplay = document.getElementById('finance-months-val');
+            if (monthsInput && monthsDisplay) {
+                monthsDisplay.textContent = monthsInput.value;
+            }
+        }
+
+        function showToast(msg) {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            const toast = document.createElement('div');
+            toast.className = 'bg-toyota-dark text-white text-xs font-medium px-4 py-3 rounded-lg shadow-xl border border-gray-700 flex items-center gap-2 animate-bounce pointer-events-auto';
+            toast.innerHTML = `<i class="fa-solid fa-circle-info text-toyota-red text-sm"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
+        }
+
+        function showVdpModal(vehicleId) {
+            const vehicle = VEHICLES.find(v => v.id === vehicleId);
+            if (!vehicle) return;
+
+            const modal = document.getElementById('modal-spec');
+            const content = document.getElementById('modal-spec-content');
+            const headerName = document.getElementById('vdp-header-name');
+
+            if (headerName) headerName.textContent = vehicle.name + ' 2026';
+
+            if (content) {
+                const hevBadge = vehicle.isHev 
+                    ? '<span class="text-xs font-bold text-toyota-hevblue bg-blue-50 border border-blue-200 px-3 py-1 rounded-full inline-flex items-center gap-1.5"><i class="fa-solid fa-bolt"></i> Híbrido HEV Autorrecargable</span>'
+                    : '<span class="text-xs font-bold text-gray-700 bg-gray-100 border border-gray-200 px-3 py-1 rounded-full"><i class="fa-solid fa-gas-pump text-toyota-red"></i> Motorización High Efficiency</span>';
+
+                // Related vehicles in same or adjacent category
+                const relatedVehicles = VEHICLES.filter(v => v.id !== vehicle.id).slice(0, 4);
+
+                content.innerHTML = `
+                    <!-- VDP MAIN HEADER & HERO SECTION (GREENVILLE DIAGRAMATION) -->
+                    <div class="grid lg:grid-cols-12 gap-8 items-start">
+                        
+                        <!-- LEFT COLUMN: MAIN VISUAL & THUMBNAILS GALLERY (8 COLS) -->
+                        <div class="lg:col-span-8 space-y-4">
+                            
+                            <!-- Main Stage / 360 Viewer Box -->
+                            <div class="bg-toyota-microcement rounded-2xl p-6 sm:p-10 border border-gray-200 text-center relative overflow-hidden group shadow-inner">
+                                <div class="flex justify-between items-center mb-4">
+                                    <span class="inline-flex items-center gap-1.5 bg-white px-3 py-1 rounded-full text-[10px] font-extrabold uppercase text-gray-600 shadow-sm border border-gray-200">
+                                        <i class="fa-solid fa-arrows-spin text-toyota-red"></i> Experiencia Vista 360° Interactiva
+                                    </span>
+                                    <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-600 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> En Stock Sede Los Ruices
+                                    </span>
+                                </div>
+
+                                <div class="h-64 sm:h-72 flex items-center justify-center my-2 cursor-grab active:cursor-grabbing select-none transition-transform duration-300">
+                                    <i class="fa-solid ${vehicle.icon} text-9xl text-toyota-dark group-hover:scale-105 transition duration-500"></i>
+                                </div>
+
+                                <div class="text-[11px] text-gray-400 font-medium flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-hand-pointer text-toyota-red animate-bounce"></i>
+                                    <span>Haz clic y arrastra para rotar la perspectiva en 360°</span>
+                                </div>
+                            </div>
+
+                            <!-- Thumbnails Gallery Row (4 Views) -->
+                            <div class="grid grid-cols-4 gap-3">
+                                <div class="bg-toyota-microcement p-3 rounded-xl border-2 border-toyota-red flex flex-col items-center justify-center cursor-pointer hover:border-toyota-red transition">
+                                    <i class="fa-solid ${vehicle.icon} text-2xl text-toyota-dark"></i>
+                                    <span class="text-[9px] font-bold text-gray-500 uppercase mt-1">Vista 3/4 Frontal</span>
+                                </div>
+                                <div class="bg-toyota-microcement p-3 rounded-xl border border-gray-200 flex flex-col items-center justify-center cursor-pointer hover:border-toyota-red transition opacity-70 hover:opacity-100">
+                                    <i class="fa-solid fa-car-rear text-2xl text-toyota-dark"></i>
+                                    <span class="text-[9px] font-bold text-gray-500 uppercase mt-1">Vista Trasera</span>
+                                </div>
+                                <div class="bg-toyota-microcement p-3 rounded-xl border border-gray-200 flex flex-col items-center justify-center cursor-pointer hover:border-toyota-red transition opacity-70 hover:opacity-100">
+                                    <i class="fa-solid fa-car-side text-2xl text-toyota-dark"></i>
+                                    <span class="text-[9px] font-bold text-gray-500 uppercase mt-1">Perfil Lateral</span>
+                                </div>
+                                <div class="bg-toyota-microcement p-3 rounded-xl border border-gray-200 flex flex-col items-center justify-center cursor-pointer hover:border-toyota-red transition opacity-70 hover:opacity-100">
+                                    <i class="fa-solid fa-gauge-high text-2xl text-toyota-dark"></i>
+                                    <span class="text-[9px] font-bold text-gray-500 uppercase mt-1">Cockpit Interior</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- RIGHT COLUMN: SIDEBAR CTAS & ACTION CARD (4 COLS) -->
+                        <div class="lg:col-span-4 space-y-4">
+                            <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-5">
+                                <div>
+                                    ${hevBadge}
+                                    <h2 class="text-2xl font-black text-toyota-dark uppercase tracking-tight mt-3 leading-tight">${vehicle.name}</h2>
+                                    <p class="text-xs text-toyota-graytext mt-2 leading-relaxed font-medium">${vehicle.description}</p>
+                                </div>
+
+                                <div class="space-y-2.5 border-t border-b border-gray-100 py-4">
+                                    <a href="https://wa.me/584142130911?text=${encodeURIComponent('Hola Exiauto Toyota Los Ruices, quisiera solicitar información del vehículo: ' + vehicle.name)}" target="_blank" rel="noopener noreferrer" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs uppercase tracking-wider py-3.5 rounded-xl transition shadow flex items-center justify-center gap-2">
+                                        <i class="fa-brands fa-whatsapp text-base"></i>
+                                        <span>Consultar Asesor WhatsApp</span>
+                                    </a>
+
+                                    <button data-action="open-modal" data-target="modal-financiamiento-quick" data-model="${vehicle.name}" class="w-full bg-toyota-red hover:bg-toyota-redhover text-white font-extrabold text-xs uppercase tracking-wider py-3.5 rounded-xl transition shadow">
+                                        Solicitar Cotización Directa
+                                    </button>
+
+                                    <button data-action="open-modal" data-target="modal-cita" class="w-full bg-toyota-dark hover:bg-black text-white font-bold text-xs uppercase tracking-wider py-3 rounded-xl transition">
+                                        Pre-agendar Prueba de Manejo
+                                    </button>
+                                </div>
+
+                                <!-- Exiauto Warranty Box -->
+                                <div class="bg-toyota-microcement p-3.5 rounded-xl border border-gray-200 text-xs text-toyota-graytext space-y-1">
+                                    <div class="font-extrabold text-toyota-dark flex items-center gap-1.5 uppercase text-[11px]">
+                                        <i class="fa-solid fa-shield-halved text-toyota-red"></i> Respaldado por Exiauto
+                                    </div>
+                                    <p class="text-[11px] leading-tight">Garantía oficial de 3 Años o 100.000 Km. Servicio postventa de 4.000 m² en Sede Los Ruices.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- TWO-COLUMN SPECS & HIGHLIGHTED FEATURES BOX (GREENVILLE STYLE) -->
+                    <div class="grid md:grid-cols-2 gap-6 pt-4">
+                        
+                        <!-- Box 1: Vehicle Information -->
+                        <div class="bg-toyota-microcement p-6 rounded-2xl border border-gray-200 space-y-4">
+                            <h3 class="text-xs font-black uppercase tracking-wider text-toyota-dark flex items-center gap-2 border-b border-gray-300 pb-3">
+                                <i class="fa-solid fa-circle-info text-toyota-red"></i>
+                                <span>Información del Vehículo</span>
+                            </h3>
+
+                            <div class="grid grid-cols-2 gap-3 text-xs">
+                                <div>
+                                    <span class="text-gray-400 font-semibold block uppercase text-[10px]">Motorización</span>
+                                    <span class="font-bold text-toyota-dark">${vehicle.engine}</span>
+                                </div>
+                                <div>
+                                    <span class="text-gray-400 font-semibold block uppercase text-[10px]">Potencia</span>
+                                    <span class="font-bold text-toyota-dark">${vehicle.hp}</span>
+                                </div>
+                                <div>
+                                    <span class="text-gray-400 font-semibold block uppercase text-[10px]">Transmisión</span>
+                                    <span class="font-bold text-toyota-dark">${vehicle.trans}</span>
+                                </div>
+                                <div>
+                                    <span class="text-gray-400 font-semibold block uppercase text-[10px]">Tracción / Drive</span>
+                                    <span class="font-bold text-toyota-dark">${vehicle.drive}</span>
+                                </div>
+                                <div>
+                                    <span class="text-gray-400 font-semibold block uppercase text-[10px]">Combustible</span>
+                                    <span class="font-bold text-toyota-dark">${vehicle.fuel}</span>
+                                </div>
+                                <div>
+                                    <span class="text-gray-400 font-semibold block uppercase text-[10px]">Configuración</span>
+                                    <span class="font-bold text-toyota-dark">${vehicle.doors} • ${vehicle.seats}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Box 2: Highlighted Features -->
+                        <div class="bg-toyota-microcement p-6 rounded-2xl border border-gray-200 space-y-4">
+                            <h3 class="text-xs font-black uppercase tracking-wider text-toyota-dark flex items-center gap-2 border-b border-gray-300 pb-3">
+                                <i class="fa-solid fa-star text-toyota-red"></i>
+                                <span>Equipamiento Destacado</span>
+                            </h3>
+
+                            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-toyota-dark font-medium">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600 font-bold"></i> Pantalla Táctil con Apple CarPlay</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600 font-bold"></i> Sistema Keyless Entry & Start</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600 font-bold"></i> Toyota Safety Sense Active</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600 font-bold"></i> Cámara de Reversa + Sensores</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600 font-bold"></i> Faros LED DRL Automáticos</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600 font-bold"></i> Control de Estabilidad VSC & TRC</li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <!-- DETAILED CATEGORIZED FEATURES SECTION -->
+                    <div class="bg-white p-6 rounded-2xl border border-gray-200 space-y-4">
+                        <h3 class="text-xs font-black uppercase tracking-wider text-toyota-dark border-b border-gray-200 pb-3">
+                            Todas las Características & Ficha Técnica Completa
+                        </h3>
+
+                        <div class="grid sm:grid-cols-3 gap-6 text-xs text-toyota-graytext">
+                            <div class="space-y-2">
+                                <h4 class="font-extrabold text-toyota-dark uppercase text-[11px] text-toyota-red">Mecánica & Desempeño</h4>
+                                <ul class="space-y-1.5">
+                                    <li>• Bloque de Motor en Aluminio de alta presión</li>
+                                    <li>• Inyección Directa Electrónica EFI</li>
+                                    <li>• Suspensión delantera independiente McPherson</li>
+                                    <li>• Dirección asistida eléctricamente (EPS)</li>
+                                </ul>
+                            </div>
+
+                            <div class="space-y-2">
+                                <h4 class="font-extrabold text-toyota-dark uppercase text-[11px] text-toyota-red">Seguridad & Asistencias</h4>
+                                <ul class="space-y-1.5">
+                                    <li>• Control de Asistencia al Arranque en Pendientes (HAC)</li>
+                                    <li>• Sistema ABS con Distribución Electrónica (EBD)</li>
+                                    <li>• Anclajes de Seguridad Infantil ISOFIX</li>
+                                    <li>• Estructura de carrocería indeformable GOA</li>
+                                </ul>
+                            </div>
+
+                            <div class="space-y-2">
+                                <h4 class="font-extrabold text-toyota-dark uppercase text-[11px] text-toyota-red">Confort & Tecnología</h4>
+                                <ul class="space-y-1.5">
+                                    <li>• Climatizador Digital Automático Bi-Zona</li>
+                                    <li>• Volante multifunción forrado en cuero</li>
+                                    <li>• Puertos de Carga USB Tipo-C Carga Rápida</li>
+                                    <li>• Computadora de a bordo con Pantalla TFT</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ELIGIBLE BENEFITS / EXIAUTO GUARANTEE BADGES -->
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="bg-toyota-microcement p-4 rounded-xl border border-gray-200 text-center space-y-1">
+                            <i class="fa-solid fa-warehouse text-toyota-red text-xl mb-1"></i>
+                            <h4 class="font-black text-[10px] uppercase text-toyota-dark">Sede 4.000 m²</h4>
+                            <p class="text-[10px] text-gray-400">Instalaciones integrales en Los Ruices</p>
+                        </div>
+                        <div class="bg-toyota-microcement p-4 rounded-xl border border-gray-200 text-center space-y-1">
+                            <i class="fa-solid fa-gears text-toyota-red text-xl mb-1"></i>
+                            <h4 class="font-black text-[10px] uppercase text-toyota-dark">100% Genuino</h4>
+                            <p class="text-[10px] text-gray-400">Repuestos directos de fábrica Toyota</p>
+                        </div>
+                        <div class="bg-toyota-microcement p-4 rounded-xl border border-gray-200 text-center space-y-1">
+                            <i class="fa-solid fa-user-gear text-toyota-red text-xl mb-1"></i>
+                            <h4 class="font-black text-[10px] uppercase text-toyota-dark">Técnicos Certificados</h4>
+                            <p class="text-[10px] text-gray-400">Personal formado por Toyota Motor Corp</p>
+                        </div>
+                    </div>
+
+                    <!-- RELATED MODELS ("VEHÍCULOS QUE TE PODRÍAN INTERESAR") -->
+                    <div class="pt-4 border-t border-gray-200 space-y-4">
+                        <h3 class="text-xs font-black uppercase tracking-wider text-toyota-dark">
+                            Modelos que te podrían interesar
+                        </h3>
+
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                            ${relatedVehicles.map(rel => `
+                                <div class="bg-toyota-microcement p-4 rounded-xl border border-gray-200 text-center space-y-2 hover:border-toyota-red transition group">
+                                    <i class="fa-solid ${rel.icon} text-3xl text-toyota-dark group-hover:text-toyota-red transition"></i>
+                                    <h4 class="font-black text-xs text-toyota-dark uppercase tracking-tight">${rel.name}</h4>
+                                    <button data-action="open-vdp" data-vehicle-id="${rel.id}" class="w-full bg-white hover:bg-toyota-red hover:text-white text-toyota-dark font-extrabold text-[10px] uppercase py-1.5 rounded-lg border border-gray-300 transition">
+                                        Ver detalles
+                                    </button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            if (modal) {
+                modal.classList.remove('hidden');
+                setTimeout(() => modal.classList.remove('opacity-0'), 10);
+            }
+        }
+
+        // 3. GLOBAL EVENT DELEGATION INITIALIZATION
+        document.addEventListener('DOMContentLoaded', () => {
+            renderLineupCards('all');
+            renderPartsGrid(SPARE_PARTS);
+            updateFinancingCalculator();
+            populateHeroModelOptions('all');
+
+            // Parts filter logic
+            function applyPartsFilters() {
+                const typeVal = document.getElementById('filter-parts-type').value;
+                const modelVal = document.getElementById('filter-parts-model').value;
+                const catVal = document.getElementById('filter-parts-cat').value;
+                const searchVal = document.getElementById('parts-search').value.toLowerCase().trim();
+                const sortVal = document.getElementById('sort-parts-select').value;
+
+                let filtered = SPARE_PARTS.filter(p => {
+                    const matchType = typeVal === 'all' || p.type === typeVal;
+                    const matchModel = modelVal === 'all' || p.model === modelVal;
+                    const matchCat = catVal === 'all' || p.pcat === catVal;
+                    const matchSearch = !searchVal || p.name.toLowerCase().includes(searchVal) || p.desc.toLowerCase().includes(searchVal);
+                    return matchType && matchModel && matchCat && matchSearch;
+                });
+
+                if (sortVal === 'price-low') {
+                    filtered.sort((a, b) => a.price - b.price);
+                } else if (sortVal === 'price-high') {
+                    filtered.sort((a, b) => b.price - a.price);
+                }
+
+                renderPartsGrid(filtered);
+            }
+
+            ['filter-parts-type', 'filter-parts-model', 'filter-parts-cat', 'sort-parts-select'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.addEventListener('change', applyPartsFilters);
+            });
+
+            const partsSearchInput = document.getElementById('parts-search');
+            if (partsSearchInput) partsSearchInput.addEventListener('input', applyPartsFilters);
+
+            const btnClear = document.getElementById('btn-clear-parts-filter');
+            if (btnClear) {
+                btnClear.addEventListener('click', () => {
+                    document.getElementById('filter-parts-type').value = 'all';
+                    document.getElementById('filter-parts-model').value = 'all';
+                    document.getElementById('filter-parts-cat').value = 'all';
+                    document.getElementById('parts-search').value = '';
+                    document.getElementById('sort-parts-select').value = 'recent';
+                    applyPartsFilters();
+                    showToast('Filtros de repuestos limpiados');
+                });
+            }
+
+            const heroCatSel = document.getElementById('hero-select-cat');
+            if (heroCatSel) {
+                heroCatSel.addEventListener('change', (e) => {
+                    populateHeroModelOptions(e.target.value);
+                });
+            }
+
+            // Global Click Listener Delegation
+            document.addEventListener('click', (e) => {
+                const actionBtn = e.target.closest('[data-action]');
+                if (!actionBtn) return;
+
+                const action = actionBtn.dataset.action;
+
+                if (action === 'toggle-mobile-menu') {
+                    const menu = document.getElementById('mobile-menu');
+                    if (menu) menu.classList.toggle('hidden');
+                } else if (action === 'close-mobile-menu') {
+                    const menu = document.getElementById('mobile-menu');
+                    if (menu) menu.classList.add('hidden');
+                } else if (action === 'switch-hero-mode') {
+                    const mode = actionBtn.dataset.mode;
+                    document.querySelectorAll('.hero-mode-btn').forEach(b => {
+                        b.classList.remove('text-white', 'border-toyota-red');
+                        b.classList.add('text-gray-400', 'border-transparent');
+                    });
+                    actionBtn.classList.remove('text-gray-400', 'border-transparent');
+                    actionBtn.classList.add('text-white', 'border-toyota-red');
+
+                    document.getElementById('hero-search-vehicle').classList.add('hidden');
+                    document.getElementById('hero-search-keyword').classList.add('hidden');
+                    document.getElementById('hero-search-service').classList.add('hidden');
+
+                    if (mode === 'vehicle') document.getElementById('hero-search-vehicle').classList.remove('hidden');
+                    if (mode === 'keyword') document.getElementById('hero-search-keyword').classList.remove('hidden');
+                    if (mode === 'service') document.getElementById('hero-search-service').classList.remove('hidden');
+                } else if (action === 'filter-lineup') {
+                    const cat = actionBtn.dataset.cat;
+                    document.querySelectorAll('.lineup-tab').forEach(t => {
+                        t.classList.remove('text-toyota-red', 'border-toyota-red');
+                        t.classList.add('text-gray-500', 'border-transparent');
+                    });
+                    actionBtn.classList.remove('text-gray-500', 'border-transparent');
+                    actionBtn.classList.add('text-toyota-red', 'border-toyota-red');
+                    renderLineupCards(cat);
+                } else if (action === 'scroll-lineup') {
+                    const dir = actionBtn.dataset.dir;
+                    const grid = document.getElementById('lineup-grid');
+                    if (grid) {
+                        grid.scrollBy({ left: dir === 'left' ? -340 : 340, behavior: 'smooth' });
+                    }
+                } else if (action === 'open-vdp') {
+                    const vId = actionBtn.dataset.vehicleId;
+                    showVdpModal(vId);
+                } else if (action === 'open-modal') {
+                    const targetId = actionBtn.dataset.target;
+                    const modelName = actionBtn.dataset.model;
+                    if (modelName) {
+                        const inputFin = document.getElementById('finance-modal-vehicle');
+                        if (inputFin) inputFin.value = modelName;
+                    }
+                    const modal = document.getElementById(targetId);
+                    if (modal) {
+                        modal.classList.remove('hidden');
+                        setTimeout(() => modal.classList.remove('opacity-0'), 10);
+                    }
+                } else if (action === 'close-modal') {
+                    const targetId = actionBtn.dataset.target;
+                    const modal = document.getElementById(targetId);
+                    if (modal) {
+                        modal.classList.add('opacity-0');
+                        setTimeout(() => modal.classList.add('hidden'), 300);
+                    }
+                } else if (action === 'toast') {
+                    const msg = actionBtn.dataset.msg || 'Procesando solicitud...';
+                    showToast(msg);
+                }
+            });
+
+            // Form Submit Listener Delegation
+            document.addEventListener('submit', (e) => {
+                const form = e.target.closest('[data-action]');
+                if (!form) return;
+                const action = form.dataset.action;
+
+                if (action === 'execute-hero-search-vehicle') {
+                    e.preventDefault();
+                    const cat = document.getElementById('hero-select-cat').value;
+                    renderLineupCards(cat);
+                    document.getElementById('lineup').scrollIntoView({ behavior: 'smooth' });
+                    showToast('Filtro aplicado al catálogo Line Up 2026');
+                } else if (action === 'execute-hero-search-keyword') {
+                    e.preventDefault();
+                    const kw = document.getElementById('hero-keyword-input').value.toLowerCase();
+                    const grid = document.getElementById('lineup-grid');
+                    const filtered = VEHICLES.filter(v => v.name.toLowerCase().includes(kw) || v.description.toLowerCase().includes(kw));
+                    if (grid) {
+                        grid.innerHTML = '';
+                        filtered.forEach(v => {
+                            const card = document.createElement('div');
+                            card.className = 'bg-toyota-microcement rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition group flex flex-col justify-between';
+                            card.innerHTML = `
+                                <div>
+                                    <div class="h-28 flex items-center justify-center relative my-3">
+                                        <i class="fa-solid ${v.icon} text-6xl text-toyota-dark group-hover:scale-105 group-hover:text-toyota-red transition"></i>
+                                    </div>
+                                    <h3 class="text-center font-black text-sm text-toyota-dark uppercase tracking-tight mt-4">${v.name}</h3>
+                                </div>
+                                <div class="pt-4 mt-4 border-t border-gray-200 flex items-center justify-around text-xs font-bold uppercase tracking-wider">
+                                    <button data-action="open-vdp" data-vehicle-id="${v.id}" class="text-toyota-dark hover:text-toyota-red">Ver detalles</button>
+                                </div>
+                            `;
+                            grid.appendChild(card);
+                        });
+                    }
+                    document.getElementById('lineup').scrollIntoView({ behavior: 'smooth' });
+                } else if (action === 'execute-hero-search-service' || action === 'submit-modal-cita') {
+                    e.preventDefault();
+                    showToast('¡Turno de recepción digital registrado! Nos comunicaremos para confirmar tu cita.');
+                    const modal = document.getElementById('modal-cita');
+                    if (modal) {
+                        modal.classList.add('opacity-0');
+                        setTimeout(() => modal.classList.add('hidden'), 300);
+                    }
+                    form.reset();
+                } else if (action === 'submit-modal-finance') {
+                    e.preventDefault();
+                    showToast('Solicitud recibida. Un ejecutivo de Exiauto canalizará tu expediente con la banca.');
+                    const modal = document.getElementById('modal-financiamiento-quick');
+                    if (modal) {
+                        modal.classList.add('opacity-0');
+                        setTimeout(() => modal.classList.add('hidden'), 300);
+                    }
+                    form.reset();
+                } else if (action === 'submit-contact') {
+                    e.preventDefault();
+                    showToast('Mensaje enviado. Nos comunicaremos contigo a la brevedad posible.');
+                    form.reset();
+                }
+            });
+
+            // Range slider change listener
+            const finRange = document.getElementById('finance-months');
+            if (finRange) {
+                finRange.addEventListener('input', updateFinancingCalculator);
+            }
+        });
+    </script>
+</body>
+</html>
